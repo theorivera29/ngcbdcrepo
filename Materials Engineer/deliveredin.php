@@ -14,13 +14,22 @@
     <title>NGCBDC</title>
     <link rel="icon" type="image/png" href="../Images/login2.png">
     <link rel="stylesheet" type="text/css" href="../style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-     <script src="../js/jquery/jquery-3.4.1.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script src="../js/jquery/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 
 <body>
@@ -40,7 +49,8 @@
                     <?php echo $row[1]." ".$row[2]; ?>
                 </h5>
                 <div class="btn-group dropdown-account">
-                    <button type="button" class="btn dropdown-toggle dropdown-settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn dropdown-toggle dropdown-settings" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="account.php">Account Settings</a>
@@ -63,7 +73,8 @@
                         <a href="dashboard.php" id="sideNav-a">Dashboard</a>
                     </li>
                     <li class="active">
-                        <a href="#siteSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="sideNav-a">Site</a>
+                        <a href="#siteSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"
+                            id="sideNav-a">Site</a>
                         <ul class="collapse list-unstyled" id="siteSubmenu">
                             <li>
                                 <a href="projects.php" id="sideNav-a">Projects</a>
@@ -74,7 +85,8 @@
                         </ul>
                     </li>
                     <li class="active">
-                        <a href="#haulingSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="sideNav-a">Hauling</a>
+                        <a href="#haulingSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"
+                            id="sideNav-a">Hauling</a>
                         <ul class="collapse list-unstyled" id="haulingSubmenu">
                             <li>
                                 <a href="fillouthauling.php" id="sideNav-a">Fill out Hauling Receipt</a>
@@ -85,7 +97,8 @@
                         </ul>
                     </li>
                     <li class="active">
-                        <a href="#transactionSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="sideNav-a">Transactions</a>
+                        <a href="#transactionSubmenu" data-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle" id="sideNav-a">Transactions</a>
                         <ul class="collapse list-unstyled" id="transactionSubmenu">
                             <li>
                                 <a href="requisitionslip.php" id="sideNav-a">Material Requisition Slip</a>
@@ -105,7 +118,8 @@
                         <a href="addingOfNewMaterials.php" id="sideNav-a">Adding of Materials</a>
                     </li>
                     <li class="active">
-                        <a href="#reportSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="sideNav-a">Reports</a>
+                        <a href="#reportSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"
+                            id="sideNav-a">Reports</a>
                         <ul class="collapse list-unstyled" id="reportSubmenu">
                             <li>
                                 <a href="currentReport.php" id="sideNav-a">Monthly Report</a>
@@ -199,7 +213,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <table class="table deliveredin-form-table">
+                        <table class="table deliveredin-form-table" id="table1">
                             <thead>
                                 <tr>
                                     <th scope="col">Quantity</th>
@@ -210,41 +224,25 @@
                                 </tr>
                             </thead>
                             <tbody id="deliveredTable">
-                            </tbody>
-                            <tfoot>
-                                <tr id="deliveredRow">
-                                    <td><input class="form-control" name="quantity[]" type="number" min="0" id="quantity" placeholder="Quantity" required>
-                                        <div class="invalid-feedback">Invalid qunatity.</div>
-                                    </td>
-                                    <td>
-                                        <div class="form-group">
-                                            <select class="form-control" name="articles[]" id="articles" required>
-                                            </select>
-                                            <div class="invalid-feedback">Please select one.</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" type="text" id="units" disabled>
-                                        <input type="hidden" class="form-control" name="unit[]" id="unit">
-                                    </td>
-                                    <td><input class="form-control" name="suppliedBy[]" type="text" id="suppliedBy" placeholder="Supplied By" required>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </td>
+                                <tr>
                                     <td colspan="5">
-                                        <input type="button" class="btn btn-md btn-outline-secondary add-row" value="Add Row" />
+                                        <button type="button" class="btn btn-success add-row-btn"><i class="fas fa-plus"
+                                                id="plus-icon"></i> Add Row</button>
                                     </td>
                                 </tr>
-                            </tfoot>
+                            </tbody>
                         </table>
                     </div>
                     <div class="row form-group save-btn-container">
                         <div class="col-lg-12">
-                            <input type="button" class="btn btn-primary deliveredin-btn" value="Save Changes" data-toggle="modal" data-target="#save-modal">
+                            <input type="button" class="btn btn-primary deliveredin-btn" value="Save Changes"
+                                data-toggle="modal" data-target="#save-modal">
                             <input type="reset" class="btn btn-danger" value="Cancel">
                         </div>
                     </div>
                     <!-- Start of confirmation modal -->
-                    <div class="modal fade" id="save-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="save-modal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -271,63 +269,71 @@
 </body>
 <script type="text/javascript">
     var i = 1;
-    $(document).ready(function() {
-        $(".add-row").click(function() {
-            var quantity = $("#quantity").val();
-            var articles = $("#articles option:selected");
-            var unit = $("#unit").val();
-            var units = $("#units").val();
-            var suppliedBy = $("#suppliedBy").val();
-            var markup = "<tr><td><input type='number' name='quantity[]' min='0' class='form-control' value='" + quantity + "' required/><div class='invalid-feedback'>Invalid qunatity.</div></td><td><select class='form-control' name='articles[]' id='articles" + i + "' value='" + articles.val() + "' readonly><option value='" + articles.val() + "' selected readonly>" + articles.text() + "</option></select></td><td><input type='text' class='form-control' value='" + units + "' /><input type='hidden' class='form-control' name='unit[]' value='" + unit + "'></td><td><input type='text' name='suppliedBy[]' class='form-control' value='" + suppliedBy + "' /></td><td><input type='button' class='btn btn-sm btn-outline-secondary delete-row' value='Delete' /></td></tr>";
-
-            if ((quantity != '') && (articles != '') && (unit != '') && (suppliedBy != '')) {
-                $("table tbody").append(markup);
-                $("#deliveredRow input[type=number]").val('');
-                $("#deliveredRow input[type=text]").val('');
-                $("#deliveredRow select").val('');
-            }
-            i++;
-        });
-
-        $("#deliveredTable").on('click', '.delete-row', function() {
-            $(this).closest('tr').remove();
-        });
-
-        $('#sidebarCollapse').on('click', function() {
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         });
 
-        $('#articles').on('change', function() {
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this).children(
-                'option:selected').val(), function(data) {
-                var d = JSON.parse(data);
-                $('#units').val(d[0][1])
-                $('#unit').val(d[0][0])
-            })
+        $('#articles').on('change', function () {
+            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this)
+                .children(
+                    'option:selected').val(),
+                function (data) {
+                    var d = JSON.parse(data);
+                    $('#units').val(d[0][1])
+                    $('#unit').val(d[0][0])
+                })
         })
 
-        $('#projects').on('change', function() {
+        $('#projects').on('change', function () {
             console.log($(this).children('option:selected').val())
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?projects_id=' + $(this).children(
-                'option:selected').val(), function(data) {
+            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?projects_id=' + $(
+                this).children(
+                'option:selected').val(), function (data) {
                 var d = JSON.parse(data);
                 console.log(d);
                 $('#location').val(d)
             })
         })
 
-        $('#projects').on('change', function() {
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $(this).children(
-                'option:selected').val(), function(data) {
-                var d = JSON.parse(data)
-                var print_options = '';
-                print_options = print_options + `<option disabled selected>Choose your option</option>`
-                d.forEach(function(da) {
-                    print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`
+        $('#projects').on('change', function () {
+            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $(this)
+                .children(
+                    'option:selected').val(),
+                function (data) {
+                    var d = JSON.parse(data)
+                    var print_options = '';
+                    print_options = print_options +
+                        `<option disabled selected>Choose your option</option>`
+                    d.forEach(function (da) {
+                        print_options = print_options +
+                            `<option value="${da[0]}">${da[1]}</option>`
+                    })
+                    $('#articles').html(print_options)
                 })
-                $('#articles').html(print_options)
-            })
         })
+
+        $(document).on('click', '.add-row-btn', function () {
+            var html = '';
+            html += '<tr>';
+            html +=
+                '<td><input class="form-control" name="quantity[]" type="number" min="0" id="quantity" placeholder="Quantity" required><div class="invalid-feedback">Invalid qunatity.</div></td>';
+            html +=
+                '<td><div class="form-group"><select class="form-control" name="articles[]" id="articles" required></select><div class="invalid-feedback">Please select one.</div></div></td>';
+            html +=
+                '<td><input type="text" class="form-control" type="text" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>'
+            html +=
+                '<td><input class="form-control" name="suppliedBy[]" type="text" id="suppliedBy" placeholder="Supplied By" required><div class="invalid-feedback">Please fill out this field.</div></td>';
+            html +=
+                '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>'
+            html += '</tr>';
+            $('#table1 tbody').append(html);
+        });
+
+        
+        $("#deliveredTable").on('click', '.delete-row', function () {
+            $(this).closest('tr').remove();
+        });
     });
 
     function openSlideMenu() {
@@ -340,12 +346,12 @@
     }
 
 
-    (function() {
+    (function () {
         'use strict';
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
                     if (form.checkValidity() === false) {
                         event.preventDefault();
                         event.stopPropagation();
@@ -357,7 +363,6 @@
     })();
 
     var projects = $("#projects option:selected");
-
 </script>
 
 </html>

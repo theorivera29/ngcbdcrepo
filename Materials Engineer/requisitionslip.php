@@ -191,7 +191,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <table class="table requisition-form-table">
+                        <table class="table requisition-form-table" id="table1">
                             <thead>
                                 <tr>
                                     <th scope="col">Quantity</th>
@@ -202,29 +202,13 @@
                                 </tr>
                             </thead>
                             <tbody id="requisitionTable">
-                            </tbody>
-                            <tfoot>
-                                <tr id="requisitionRow">
-                                    <td><input class="form-control" name="quantity[]" min="0" type="number" id="quantity" placeholder="Quantity" required>
-                                        <div class="invalid-feedback">Invalid quantity.</div>
-                                    </td>
-                                    <td>
-                                        <div class="form-group">
-                                            <select class="form-control" name="particulars[]" id="particulars" required>
-                                            </select>
-                                            <div class="invalid-feedback">Please select one particular.</div>
-                                        </div>
-                                    </td>
-                                    <td><input type="text" class="form-control" type="text" id="units" disabled>
-                                        <input type="hidden" class="form-control" name="unit[]" id="unit"></td>
-                                    <td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" required>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </td>
+                            <tr>
                                     <td colspan="5">
-                                        <input type="button" class="btn btn-md btn-outline-secondary add-row" value="Add Row" />
+                                        <button type="button" class="btn btn-success add-row-btn"><i class="fas fa-plus"
+                                                id="plus-icon"></i> Add Row</button>
                                     </td>
                                 </tr>
-                            </tfoot>
+                            </tbody>
                         </table>
                     </div>
                     <div class="form-group row col-lg-12">
@@ -277,25 +261,6 @@
 <script type="text/javascript">
     var i = 1;
     $(document).ready(function() {
-        $(".add-row").click(function() {
-            var quantity = $("#quantity").val();
-            var particulars = $("#particulars option:selected");
-            var unit = $("#unit").val();
-            var units = $("#units").val();
-            var location1 = $("#location1").val();
-            var markup = "<tr><td><input type='number' name='quantity[]' class='form-control' min='0' value='" + quantity + "' required/><div class='invalid-feedback'>Invalid qunatity.</div></td><td><select class='form-control' name='particulars[]' id='particulars" + i + "' value='" + particulars.val() + "' readonly><option value='" + particulars.val() + "' selected readonly>" + particulars.text() + "</option></select></td><td><input type='text' class='form-control' value='" + units + "' /><input type='hidden' class='form-control' name='unit[]' value='" + unit + "' readonly></td><td><input type='text' name='location[]' class='form-control' value='" + location1 + "' /></td><td><input type='button' class='btn btn-sm btn-outline-secondary delete-row' value='Delete' /></td></tr>";
-            if ((quantity != '') && (particulars != '') && (unit != '') && (location1 != '')) {
-                $("table tbody").append(markup);
-                $("#requisitionRow input[type=number]").val('');
-                $("#requisitionRow input[type=text]").val('');
-                $("#requisitionRow select").val('');
-            }
-            i++;
-        });
-        $("#requisitionTable").on('click', '.delete-row', function() {
-            $(this).closest('tr').remove();
-        });
-
         $('#sidebarCollapse').on('click', function() {
             $('#sidebar').toggleClass('active');
         });
@@ -345,6 +310,27 @@
                     "min": 0
                 });
             })
+        });
+
+        $(document).on('click', '.add-row-btn', function () {
+            var html = '';
+            html += '<tr>';
+            html +=
+                '<td><input class="form-control" name="quantity[]" min="0" type="number" id="quantity" placeholder="Quantity" required><div class="invalid-feedback">Invalid quantity.</div></td>';
+            html +=
+                '<td><div class="form-group"><select class="form-control" name="particulars[]" id="particulars" required></select><div class="invalid-feedback">Please select one particular.</div></div></td>';
+            html +=
+                '<td><input type="text" class="form-control" type="text" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>'
+            html +=
+                '<td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" required><div class="invalid-feedback">Please fill out this field.</div></td>';
+            html +=
+                '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>'
+            html += '</tr>';
+            $('#table1 tbody').append(html);
+        });
+
+        $("#requisitionTable").on('click', '.delete-row', function() {
+            $(this).closest('tr').remove();
         });
     });
 
