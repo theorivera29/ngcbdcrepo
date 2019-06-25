@@ -388,6 +388,14 @@ textarea{
     float: right !important;
 }
 
+.add-row-btn{
+    float: right !important;
+}
+
+#plus-icon{
+    color:white !important;
+}
+
 /*Start of Materials Engineer-View All Task*/
 .view-all-task-container{
     width: 96%;
@@ -716,10 +724,6 @@ table .clickable{
     padding: 0 4px !important;
     background-color: #eeeeee;
     font-size: 13px;
-}
-
-.fa-plus:before{
-    color: #0267C1 !important;
 }
 /*End of Materials Engineer - returns*/
 

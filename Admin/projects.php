@@ -342,8 +342,8 @@
                                     </td>
                                     <td>
                                         <?php
-                                    $wew = $row[4];        
-                                    $sql1 = "SELECT CONCAT (accounts.accounts_fname, ' ', accounts.accounts_lname) FROM projmateng INNER JOIN accounts ON projmateng.projmateng_mateng = accounts.accounts_id WHERE projmateng_project = $wew AND accounts.accounts_status = 'active' AND accounts.accounts_id != 1;";
+                                    $projmateng_project = $row[4];        
+                                    $sql1 = "SELECT CONCAT (accounts.accounts_fname, ' ', accounts.accounts_lname) FROM projmateng INNER JOIN accounts ON projmateng.projmateng_mateng = accounts.accounts_id WHERE projmateng_project = $projmateng_project AND accounts.accounts_status = 'active' AND accounts.accounts_id != 1;";
                                         $result1 = mysqli_query($conn, $sql1);
                                         while ($row1 = mysqli_fetch_row($result1)) {
                                     ?>
