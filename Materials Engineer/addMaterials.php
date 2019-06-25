@@ -75,7 +75,6 @@
                     <th>Material Name</th>
                     <th>Threshold</th>
                     <th>Unit</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -120,17 +119,26 @@
                         <td>
                             <?php echo $row[2]; ?>
                         </td>
-                        <td>
-                            <input type="hidden" name="matinfo_id" value="<?php echo $row[4]?>" />
-                            <input type="hidden" name="proj_id" value="<?php echo $proj_id?>" />
-                            <input type="submit" name="edit_threshold" class="btn btn-info" value="Save">
-                        </td>
                     </form>
                 </tr>
                 <?php
                 }   
              ?>
             </tbody>
+            <tfoot>
+                    <tr>
+                        <td colspan="4">
+
+                            <div class="row form-group save-btn-container">
+                                <div class="col-lg-12">
+                                    <!-- <input type="hidden" name="proj_id" value="<?php echo $proj_id?>"> -->
+                                    <input type="submit" name="edit_threshold" class="btn btn-info" value="Save">
+                                    <input type="reset" class="btn btn-danger" value="Cancel">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
         </table>
         <h5 class=" card-header list-of-material">List of All Materials</h5>
         <form action="../server.php" method="POST">
@@ -185,7 +193,7 @@
                                 <div class="col-lg-12">
                                     <input type="hidden" name="proj_id" value="<?php echo $proj_id?>">
                                     <input type="submit" name="adding_materials" class="btn btn-primary"
-                                        value="Save Changes">
+                                        value="Save">
                                     <input type="reset" class="btn btn-danger" value="Cancel">
                                 </div>
                             </div>
