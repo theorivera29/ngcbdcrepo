@@ -405,8 +405,7 @@
                                                     ?>
                                                 </select>
                                             </td>
-                                            <td><input class="form-control" name="material[]" type="text" id="material" placeholder="Material Name" required>
-                                            </td>
+                                            
                                             <td><select name="unit[]" class="custom-select" id="unit" required>
                                                     <option value="disabled" selected disabled>Choose unit</option>
                                                     <?php 
@@ -650,7 +649,9 @@
             var html = '';
             html += '<tr>';
             html +=
-                '<td><input class="form-control" name="units[]" type="text" id="units" placeholder="Unit" required> </td>';
+                '<td><select name="categ[]" class="custom-select" id="category1" required></select></td>';
+            html += '<td><input class="form-control" name="material[]" type="text" id="material" placeholder="Material Name" required></td>';
+            html += '<td><select name="unit[]" class="custom-select" id="unit" required></select></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>'
             html += '</tr>';
