@@ -39,7 +39,7 @@
             $_SESSION['request_done'] = true;
         }
         $stmt->close();
-        header("location: http://localhost/index.php");
+        header("location: http://localhost/ngcbdcrepo/index.php");
     }
 
     if (isset($_POST['login'])) {
@@ -61,19 +61,19 @@
             $_SESSION['loggedin' ] = true;
             $_SESSION['account_type'] = $accounts_type;
             if (strcmp($accounts_type,"Admin") == 0) {
-                header("location: http://localhost/Admin/dashboard.php");
+                header("location: http://localhost/ngcbdcrepo/Admin/dashboard.php");
                 $stmt->close();                
             } else if (strcmp($accounts_type,"Materials Engineer") == 0) {
-                header("location: http://localhost/Materials%20Engineer/dashboard.php");    
+                header("location: http://localhost/ngcbdcrepo/Materials%20Engineer/dashboard.php");    
                 $stmt->close();                            
             } else {
-                header("location: http://localhost/View%20Only/projects.php");
+                header("location: http://localhost/ngcbdcrepo/View%20Only/projects.php");
                 $stmt->close();                                
             }
         } else {
             $_SESSION['login_error'] = true;
             $stmt->close();                
-            header("location: http://localhost/index.php");
+            header("location: http://localhost/ngcbdcrepo/index.php");
         } 
     }
 
@@ -136,7 +136,7 @@
             $stmt->close();
             $_SESSION['create_success'] = true;
         }
-        header("location: http://localhost/Admin/accountcreation.php");  
+        header("location: http://localhost/ngcbdcrepo/Admin/accountcreation.php");  
     }
 
 // <--Admin-->
@@ -156,7 +156,7 @@
         $stmt->bind_param("ssi", $date_today, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Admin/listofaccounts.php");     
+        header("Location:http://localhost/ngcbdcrepo/Admin/listofaccounts.php");     
     }   
 
     if (isset($_POST['enableAccount'])) {
@@ -175,7 +175,7 @@
         $stmt->bind_param("ssi", $date_today, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Admin/listofaccounts.php");     
+        header("Location:http://localhost/ngcbdcrepo/Admin/listofaccounts.php");     
     }  
 
     if (isset($_POST['requestAccept'])) {
@@ -213,7 +213,7 @@
             $headers = "Content-Type: text/html; charset=ISO-8859-1\r\nFrom: ".$from;
             mail($to,$subject,$message, $headers);
         } catch (Exception $e) {}
-        header("location: http://localhost/Admin/passwordrequest.php");  
+        header("location: http://localhost/ngcbdcrepo/Admin/passwordrequest.php");  
     }
 
     if (isset($_POST['delete_projmateng'])) {
@@ -265,7 +265,7 @@
         $stmt->execute();
         $stmt->close();
         }
-        header("Location:http://localhost/Admin/projects.php");     
+        header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");     
     }
 
 
@@ -288,7 +288,7 @@
         $stmt->bind_param("i", $request_accountID);
         $stmt->execute();
         $stmt->close();
-        header("location: http://localhost/Admin/passwordrequest.php");  
+        header("location: http://localhost/ngcbdcrepo/Admin/passwordrequest.php");  
     }
 
     if (isset($_POST['close_project'])) {
@@ -309,7 +309,7 @@
         $stmt->bind_param("ssi", $close_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Admin/projects.php");     
+        header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");     
     }
 
     if (isset($_POST['reopen_project'])) {
@@ -329,7 +329,7 @@
         $stmt->bind_param("ssi", $reopened_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-       header("Location:http://localhost/Admin/projects.php");     
+       header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");     
     }
 
     if (isset($_POST['delete_project'])) {
@@ -350,7 +350,7 @@
         $stmt->bind_param("ssi", $delete_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Admin/projects.php");     
+        header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");     
     }
 
     if (isset($_POST['create_project'])) {
@@ -392,7 +392,7 @@
         $stmt->bind_param("ssi", $create_proj_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Admin/projects.php");  
+        header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");  
         
     }
 
@@ -485,7 +485,7 @@ if (isset($_POST['edit_project'])) {
                 }
             }
         }
-        header("location: http://localhost/Admin/projects.php");        
+        header("location: http://localhost/ngcbdcrepo/Admin/projects.php");        
     }
 
 // <--Materials Engineer-->
@@ -498,7 +498,7 @@ if (isset($_POST['edit_project'])) {
         $_SESSION['preparedBy'] = $preparedBy;
         $_SESSION['checkedBy'] = $checkedBy;
         $_SESSION['notedBy'] = $notedBy;
-        header("Location:http://localhost/Materials%20Engineer/curGenerateReport.php");  
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/curGenerateReport.php");  
     }
 
     if (isset($_POST['viewStockCard'])) {
@@ -509,14 +509,14 @@ if (isset($_POST['edit_project'])) {
             $_SESSION['projects_id'] = $projects_id;
         }
         $_SESSION['matinfo_id'] = $matinfo_id;
-        header("Location:http://localhost/Materials%20Engineer/stockcard.php");  
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/stockcard.php");  
 
     }
 
     if (isset($_POST['reconciliation_edit'])) {
         session_start();
         $_SESSION['edit_clicked'] = true;
-        header("Location:http://localhost/Materials%20Engineer/reconciliation.php");  
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/reconciliation.php");  
     }
 
     if (isset($_POST['reconciliation_reconcile'])) {
@@ -705,7 +705,7 @@ if (isset($_POST['edit_project'])) {
         $logs_of = $accounts_id;
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Materials%20Engineer/reconciliation.php");  
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/reconciliation.php");  
     }
 
     if (isset($_POST['reconciliation_save'])) {
@@ -765,14 +765,14 @@ if (isset($_POST['edit_project'])) {
         $logs_of = $accounts_id;
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Materials%20Engineer/reconciliation.php");  
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/reconciliation.php");  
     }
 
     if (isset($_POST['reconciliation'])) {
         session_start();
         $projects_id = $_POST['projects_id'];
         $_SESSION['projects_id'] = $projects_id;
-        header("Location:http://localhost/Materials%20Engineer/reconciliation.php");  
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/reconciliation.php");  
     }
 
     if (isset($_POST['create_disposalSlip'])) {
@@ -814,7 +814,7 @@ if (isset($_POST['edit_project'])) {
         $stmt->bind_param("ssi", $create_disp_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Materials%20Engineer/disposalslip.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/disposalslip.php");     
     }
 
     if (isset($_POST['create_category'])) {
@@ -841,7 +841,7 @@ if (isset($_POST['edit_project'])) {
                 $stmt->close();
                 }
             
-        header("Location:http://localhost/Materials%20Engineer/addingOfNewMaterials.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
 
     if (isset($_POST['create_unit'])) {
@@ -869,7 +869,7 @@ if (isset($_POST['edit_project'])) {
                 
                 }
             
-        header("Location:http://localhost/Materials%20Engineer/addingOfNewMaterials.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
 
     if (isset($_POST['create_materials'])) {
@@ -926,7 +926,7 @@ if (isset($_POST['edit_project'])) {
             $stmt->execute();
             $stmt->close();
         }
-        header("Location:http://localhost/Materials%20Engineer/addingOfNewMaterials.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
 
     if (isset($_POST['create_requisitionSlip'])) {
@@ -988,7 +988,7 @@ if (isset($_POST['edit_project'])) {
         $stmt->bind_param("ssi", $create_requisition_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Materials%20Engineer/viewTransactions.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewTransactions.php");     
     }
 
     if (isset($_POST['create_hauling'])) {
@@ -1078,7 +1078,7 @@ if (isset($_POST['edit_project'])) {
         $stmt->execute();
         $stmt->close();
         
-        header("Location:http://localhost/Materials%20Engineer/hauleditems.php");
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/hauleditems.php");
     }
 
     if (isset($_POST['update_account'])) {
@@ -1161,7 +1161,7 @@ if (isset($_POST['edit_project'])) {
             $stmt->execute();
             $stmt->close();
         }
-        header("Location:http://localhost/Materials%20Engineer/account.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/account.php");     
     }
 
     if (isset($_POST['edit_category'])) {
@@ -1185,7 +1185,7 @@ if (isset($_POST['edit_project'])) {
         $logs_of = $account_id;
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Materials%20Engineer/addingOfNewMaterials.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
 
     if (isset($_POST['edit_unit'])) {
@@ -1209,7 +1209,7 @@ if (isset($_POST['edit_project'])) {
         $logs_of = $account_id;
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Materials%20Engineer/addingOfNewMaterials.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
 
     if (isset($_POST['edit_threshold'])) {
@@ -1235,7 +1235,7 @@ if (isset($_POST['edit_project'])) {
         $logs_of = $account_id;
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Materials%20Engineer/addMaterials.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addMaterials.php");     
     }
 
     if (isset($_POST['edit_material'])) {
@@ -1288,7 +1288,7 @@ if (isset($_POST['edit_project'])) {
             $stmt->execute();
             $stmt->close();
             }
-       header("Location:http://localhost/Materials%20Engineer/addingOfNewMaterials.php");     
+       header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
 
     if (isset($_POST['create_deliveredin'])) {
@@ -1350,7 +1350,7 @@ if (isset($_POST['edit_project'])) {
         $stmt->bind_param("ssi", $create_deliveredin_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Materials%20Engineer/viewTransactions.php");   
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewTransactions.php");   
     }
 
     if (isset($_POST['create_todo'])) {
@@ -1375,14 +1375,14 @@ if (isset($_POST['edit_project'])) {
         $stmt->bind_param("ssi", $create_todo_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Materials%20Engineer/dashboard.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/dashboard.php");     
     }
 
     if (isset($_POST['open_returns'])) {
         $hauling_no = mysqli_real_escape_string($conn, $_POST['hauling_no']);
         session_start();
         $_SESSION['hauling_no'] = $hauling_no;
-        header("Location:http://localhost/Materials%20Engineer/returnHauledMaterial.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/returnHauledMaterial.php");     
     }
 
     if (isset($_POST['view_hauling'])) {
@@ -1400,9 +1400,9 @@ if (isset($_POST['edit_project'])) {
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_row($result);
         if (strcmp($row[0], "Materials Engineer") == 0) {
-            header("Location:http://localhost/Materials%20Engineer/viewhaulingreceipt.php");     
+            header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewhaulingreceipt.php");     
         } else {
-            header("location: http://localhost/View%20Only/viewhaulingreceipt.php");  
+            header("location: http://localhost/ngcbdcrepo/View%20Only/viewhaulingreceipt.php");  
         }  
     }
 
@@ -1412,13 +1412,13 @@ if (isset($_POST['edit_project'])) {
         session_start();
         $_SESSION['delivered_id'] = $delivered_id;
         $_SESSION['receipt_no'] = $receipt_no;
-        header("Location:http://localhost/Materials%20Engineer/viewdeliveredin.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewdeliveredin.php");     
     }
 
     if (isset($_POST['open_requisition'])) {
         $req_no = mysqli_real_escape_string($conn, $_POST['req_no']);
         $req_id = mysqli_real_escape_string($conn, $_POST['req_id']);
-        header("Location:http://localhost/Materials%20Engineer/viewrequisitionslip.php?requisition_no=$req_no&requisition_id=$req_id");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewrequisitionslip.php?requisition_no=$req_no&requisition_id=$req_id");     
     }
 
 
@@ -1453,7 +1453,7 @@ if (isset($_POST['edit_project'])) {
             $stmt->close();
         }
 
-        header("Location:http://localhost/Materials%20Engineer/addMaterials.php");
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addMaterials.php");
     }
 
     if (isset($_POST['update_todo'])) {
@@ -1473,7 +1473,7 @@ if (isset($_POST['edit_project'])) {
             mysqli_query($conn, "DELETE FROM todo WHERE todo_id = $todo_id");
             mysqli_query($conn, "INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES ('$update_todo_date', 'Cleared todo task '.$todo_task, $account_id);");
         }
-        header("location: http://localhost/Materials%20Engineer/dashboard.php");    
+        header("location: http://localhost/ngcbdcrepo/Materials%20Engineer/dashboard.php");    
     }
 
     if (isset($_POST['update_todo_all'])) {
@@ -1494,7 +1494,7 @@ if (isset($_POST['edit_project'])) {
             mysqli_query($conn, "DELETE FROM todo WHERE todo_id = $todo_id");
             mysqli_query($conn, "INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES ('$update_todo_date', 'Cleared todo task '.$todo_task, $account_id);");
         }
-        header("location: http://localhost/Materials%20Engineer/viewalltasks.php");    
+        header("location: http://localhost/ngcbdcrepo/Materials%20Engineer/viewalltasks.php");    
     }
 
     if (isset($_POST['edit_account'])) {
@@ -1575,7 +1575,7 @@ if (isset($_POST['edit_project'])) {
             $stmt->execute();
             $stmt->close();
         }
-        header("location: http://localhost/Materials%20Engineer/account.php");        
+        header("location: http://localhost/ngcbdcrepo/Materials%20Engineer/account.php");        
     }
 
     if (isset($_POST['viewInventory'])) {
@@ -1593,9 +1593,9 @@ if (isset($_POST['edit_project'])) {
         $row = mysqli_fetch_row($result);
         
         if (strcmp($row[0], "Materials Engineer") == 0) {
-            header("location: http://localhost/Materials%20Engineer/viewInventory.php");    
+            header("location: http://localhost/ngcbdcrepo/Materials%20Engineer/viewInventory.php");    
         } else {
-            header("location: http://localhost/View%20Only/viewInventory.php");    
+            header("location: http://localhost/ngcbdcrepo/View%20Only/viewInventory.php");    
         }
     }
 
@@ -1614,9 +1614,9 @@ if (isset($_POST['edit_project'])) {
         $row = mysqli_fetch_row($result);
         
         if (strcmp($row[0], "Materials Engineer") == 0) {
-            header("location: http://localhost/Materials%20Engineer/addMaterials.php");    
+            header("location: http://localhost/ngcbdcrepo/Materials%20Engineer/addMaterials.php");    
         } else {
-            header("location: http://localhost/View%20Only/addMaterials.php");    
+            header("location: http://localhost/ngcbdcrepo/View%20Only/addMaterials.php");    
         }
     }
 
@@ -1624,7 +1624,7 @@ if (isset($_POST['edit_project'])) {
         $projects_id = $_POST['projects_id'];
         session_start();
         $_SESSION['projects_id'] = $projects_id;
-        header("location: http://localhost/Materials%20Engineer/previousReportsPage.php");    
+        header("location: http://localhost/ngcbdcrepo/Materials%20Engineer/previousReportsPage.php");    
     }
 
     if (isset($_POST['viewPrevReport'])) {
@@ -1634,7 +1634,7 @@ if (isset($_POST['edit_project'])) {
         session_start();
         $_SESSION['lastmatinfo_month'] = $lastmatinfo_month;
         $_SESSION['lastmatinfo_year'] = $lastmatinfo_year;
-        header("location: http://localhost/Materials%20Engineer/viewPreviousReport.php");    
+        header("location: http://localhost/ngcbdcrepo/Materials%20Engineer/viewPreviousReport.php");    
     }
     
 
@@ -1642,7 +1642,7 @@ if (isset($_POST['edit_project'])) {
         $projects_id = $_POST['projects_id'];
         session_start();
         $_SESSION['projects_id'] = $projects_id;
-        header("location: http://localhost/Materials%20Engineer/currentReportPage.php");    
+        header("location: http://localhost/ngcbdcrepo/Materials%20Engineer/currentReportPage.php");    
     }
     
     if (isset($_POST['return_hauling'])) {
@@ -1715,7 +1715,7 @@ if (isset($_POST['edit_project'])) {
         $stmt->bind_param("ssi", $create_deliveredin_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/Materials%20Engineer/returnHauledMaterial.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/returnHauledMaterial.php");     
     }
 
     if (isset($_POST['materialCategories'])) {
@@ -1735,9 +1735,9 @@ if (isset($_POST['edit_project'])) {
         $row = mysqli_fetch_row($result);
         
         if (strcmp($row[0], "Materials Engineer") == 0) {
-            header("Location:http://localhost/Materials%20Engineer/materialCategories.php");  
+            header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/materialCategories.php");  
         } else {
-            header("location: http://localhost/View%20Only/materialCategories.php");  
+            header("location: http://localhost/ngcbdcrepo/View%20Only/materialCategories.php");  
         }    
     }
 

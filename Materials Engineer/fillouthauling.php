@@ -362,7 +362,7 @@
 
         $('#articles').on('change', function() {
             console.log($(this).children('option:selected').val())
-            $.get('http://localhost/Materials%20Engineer/../server.php?mat_name=' + $(this)
+            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this)
                 .children(
                     'option:selected').val(),
                 function(data) {
@@ -373,7 +373,7 @@
         })
 
         $('#projects').on('change', function() {
-            $.get('http://localhost/Materials%20Engineer/../server.php?project_id=' + $(this).children(
+            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $(this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data)
                 var print_options = '';
@@ -387,7 +387,7 @@
 
         $('#articles').on('change', function() {
             var projects_id = $("#projects").val();
-            $.get('http://localhost/Materials%20Engineer/../server.php?matinfo_id=' + $(this).children(
+            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?matinfo_id=' + $(this).children(
                 'option:selected').val() + '&matinfo_project=' + projects_id, function(data) {
                 var d = JSON.parse(data)
                 var print_options = '';
