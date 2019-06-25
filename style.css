@@ -855,6 +855,18 @@ table .clickable{
     color: #FFF8F0;
 }
 
+.add-row-btn1{
+    float: right !important;
+}
+
+.add-row-btn2{
+    float: right !important;
+}
+
+.add-row-btn3{
+    float: right !important;
+}
+
 #checkbox-category{
     margin-left: 40%;
     margin-top: -2%;
