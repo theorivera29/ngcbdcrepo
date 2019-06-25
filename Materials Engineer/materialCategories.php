@@ -195,7 +195,7 @@
                             echo $row[5];
                         ?>
                     </td>
-                    <td><?php echo $row[3] ;?></td>
+                    <td><?php echo $row[4] ;?></td>
                 </tr>
                 <?php
                     }

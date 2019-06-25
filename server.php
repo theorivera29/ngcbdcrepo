@@ -377,6 +377,29 @@
             $stmt->bind_param("ii", $projects_id, $mateng[$x]);
             $stmt->execute();
             $stmt->close();
+
+            $stmt = $conn->prepare("SELECT CONCAT(accounts_fname, ' ', accounts_lname) FROM accounts WHERE accounts_id = ?;");
+            $stmt->bind_param("i", $mateng[$x]);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($accounts_name);
+            $stmt->fetch();
+            $stmt->close();
+            
+            $stmt = $conn->prepare("SELECT projects_name FROM projects WHERE projects_id = ?;");
+            $stmt->bind_param("i", $projects_id);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($projects_name);
+            $stmt->fetch();
+            $stmt->close();
+
+            $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
+            $stmt->bind_param("ssi", $edit_project_date, $logs_message, $logs_of);
+            $logs_message = 'Added User ID '.$accounts_name.' to Project '.$projects_name;
+            $logs_of = 2;
+            $stmt->execute();
+            $stmt->close();
         }
 
         $stmt = $conn->prepare("INSERT INTO projmateng (projmateng_project, projmateng_mateng) VALUES (?, ?);");
@@ -468,7 +491,7 @@ if (isset($_POST['edit_project'])) {
         if (isset($_POST['mateng'])) {
             $mateng = $_POST['mateng'];
     
-         for($x = 0; $x < sizeof($mateng); $x++){
+            for($x = 0; $x < sizeof($mateng); $x++){
                 $stmt = $conn->prepare("SELECT COUNT(projmateng_mateng) FROM projmateng WHERE projmateng_mateng = ? AND projmateng_project = ?;");
                 $stmt->bind_param("ii", $mateng[$x], $projects_id);
                 $stmt->execute();
@@ -480,6 +503,29 @@ if (isset($_POST['edit_project'])) {
                     $stmt = $conn->prepare("INSERT INTO projmateng (projmateng_project, projmateng_mateng)
                     VALUES (?, ?);");
                     $stmt->bind_param("ii", $projects_id, $mateng[$x]);
+                    $stmt->execute();
+                    $stmt->close();
+
+                    $stmt = $conn->prepare("SELECT CONCAT(accounts_fname, ' ', accounts_lname) FROM accounts WHERE accounts_id = ?;");
+                    $stmt->bind_param("i", $mateng[$x]);
+                    $stmt->execute();
+                    $stmt->store_result();
+                    $stmt->bind_result($accounts_name);
+                    $stmt->fetch();
+                    $stmt->close();
+                    
+                    $stmt = $conn->prepare("SELECT projects_name FROM projects WHERE projects_id = ?;");
+                    $stmt->bind_param("i", $projects_id);
+                    $stmt->execute();
+                    $stmt->store_result();
+                    $stmt->bind_result($projects_name);
+                    $stmt->fetch();
+                    $stmt->close();
+
+                    $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
+                    $stmt->bind_param("ssi", $edit_project_date, $logs_message, $logs_of);
+                    $logs_message = 'Added User ID '.$accounts_name.' to Project '.$projects_name;
+                    $logs_of = 2;
                     $stmt->execute();
                     $stmt->close();
                 }
