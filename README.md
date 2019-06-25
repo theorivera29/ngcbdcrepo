@@ -1,1 +1,2 @@
-# ngcbdcrepo commit
+# ngcbdc
+NGCBDC Inventory System Repository
