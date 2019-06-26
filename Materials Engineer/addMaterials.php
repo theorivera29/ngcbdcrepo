@@ -152,6 +152,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                <div class="checkbox">
+                <!-- <button type="button" class = "chk_boxes" class="btn btn-primary" value="Select All" label="check all"> -->
+                <!-- <button type="button" id="selectAll" class="main"> -->
+                <input type="checkbox" class="chk_boxes" label="check all" /> Select All
+                </div>
                     <?php
             $sql = "SELECT 
                 categories.categories_name, 
@@ -169,7 +174,7 @@
                     <tr>
                         <td>
                             <div class="checkbox">
-                                <label><input type="checkbox" name="matName[]" value="<?php echo $row[3]?>"></label>
+                                <label><input type="checkbox" name="matName[]" class="chk_boxes1" value="<?php echo $row[3]?>"></label>
                             </div>
                         </td>
                         <td><input name="category" type="text" class="form-control" value="<?php echo $row[0]?>"
@@ -255,6 +260,11 @@
         document.getElementById('menu').style.width = '0';
         document.getElementById('content').style.marginLeft = '0';
     }
+    $(function() {
+    $('.chk_boxes').click(function() {
+        $('.chk_boxes1').prop('checked', this.checked);
+    });
+    });
 </script>
 
 </html>
