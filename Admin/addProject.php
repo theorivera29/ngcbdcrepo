@@ -74,7 +74,7 @@
             <label class="label-styles">Materials Engineer Involved</label>
             <?php
                     $sqlmateng = "SELECT 
-                    CONCAT(accounts_fname,' ', accounts_lname), accounts_id FROM accounts WHERE accounts_type = 'Materials Engineer' AND accounts_deletable = 'yes';";
+                    CONCAT(accounts_fname,' ', accounts_lname), accounts_id FROM accounts WHERE accounts_type = 'Materials Engineer' AND accounts_deletable = 'yes' AND accounts_status = 'active';";
                     $resultmateng = mysqli_query($conn, $sqlmateng);
                     while($rowmateng = mysqli_fetch_row($resultmateng)){
                 ?>
