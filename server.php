@@ -46,8 +46,9 @@
         session_start();
         $username = mysqli_real_escape_string($conn, $_POST['inputUsername']);
         $password = mysqli_real_escape_string($conn, $_POST['inputPassword']); 
-        $stmt = $conn->prepare("SELECT accounts_id, accounts_password, accounts_type FROM accounts WHERE accounts_username = ? AND accounts_status ='active';");
-        $stmt->bind_param("s", $username);
+        $stmt = $conn->prepare("SELECT accounts_id, accounts_password, accounts_type FROM accounts WHERE accounts_username = ? AND accounts_status = ?;");
+        $stmt->bind_param("ss", $username, $status);
+        $status = "active";
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($accounts_id, $accounts_password, $accounts_type);
@@ -295,13 +296,10 @@
 
         $projectName = mysqli_real_escape_string($conn, $_POST['projectName']);
         $projects_id = mysqli_real_escape_string($conn, $_POST['projects_id']);
-        $stmt = $conn->prepare("UPDATE projects set projects_status = 'closed' WHERE projects_id = ?;");
-        $stmt->bind_param("i", $projects_id);
-        $stmt->execute();
-        $stmt->fetch();
-        if(isset($_SESSION['account_id'])) {
-            $accounts_id = $_SESSION['account_id'];
-        }
+        // $stmt = $conn->prepare("UPDATE projects set projects_status = 'closed' WHERE projects_id = ?;");
+        // $stmt->bind_param("i", $projects_id);
+        // $stmt->execute();
+        // $stmt->fetch();
         $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?,?,?);");
         $close_date = date("Y-m-d G:i:s");
         $logs_message = 'Closed Project: '.$projectName;
@@ -309,7 +307,7 @@
         $stmt->bind_param("ssi", $close_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");     
+        // header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");     
     }
 
     if (isset($_POST['reopen_project'])) {
