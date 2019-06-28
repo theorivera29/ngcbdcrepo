@@ -54,11 +54,11 @@
         <form action="../server.php" method="POST" class="needs-validation" novalidate>
             <div class="form-group">
                 <label for="projectName" class="label-styles">PROJECT NAME:</label>
-                <input name="projectName" id="projectName" type="text" class="form-control" placeholder="Enter project name" pattern="^[A-Za-z][A-Za-z0-9\s-_#&.+()@/<>`~|]*$" title="Input letters" required>
+                <input name="projectName" id="projectName" type="text" class="form-control" placeholder="Enter project name" title="Input letters" pattern="^[A-Za-z][A-Za-z0-9\s-_#&.()@/<>';:,|]*$"  required>
             </div>
             <div class="form-group">
                 <label for="address" class="label-styles">ADDRESS:</label>
-                <input name="address" id="address" type="text" class="form-control" placeholder="Enter project address" pattern="^[A-Za-z][A-Za-z0-9\s.,-!@#$%^&* ]*$" title="Input letters and numbers only" required>
+                <input name="address" id="address" type="text" class="form-control" placeholder="Enter project address" title="Input letters and numbers only" pattern="^[A-Za-z][A-Za-z0-9\s.,-@#^&*]*$" required>
             </div>
             <div class="form-group row">
                 <div class="col-lg-6">
