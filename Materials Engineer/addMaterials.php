@@ -75,7 +75,6 @@
                     <th>Material Name</th>
                     <th>Threshold</th>
                     <th>Unit</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -120,17 +119,26 @@
                         <td>
                             <?php echo $row[2]; ?>
                         </td>
-                        <td>
-                            <input type="hidden" name="matinfo_id" value="<?php echo $row[4]?>" />
-                            <input type="hidden" name="proj_id" value="<?php echo $proj_id?>" />
-                            <input type="submit" name="edit_threshold" class="btn btn-info" value="Save">
-                        </td>
                     </form>
                 </tr>
                 <?php
                 }   
              ?>
             </tbody>
+            <tfoot>
+                    <tr>
+                        <td colspan="4">
+
+                            <div class="row form-group save-btn-container">
+                                <div class="col-lg-12">
+                                    <!-- <input type="hidden" name="proj_id" value="<?php echo $proj_id?>"> -->
+                                    <input type="submit" name="edit_threshold" class="btn btn-info" value="Save">
+                                    <input type="reset" class="btn btn-danger" value="Cancel">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
         </table>
         <h5 class=" card-header list-of-material">List of All Materials</h5>
         <form action="../server.php" method="POST">
@@ -144,6 +152,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                <div class="checkbox">
+                <!-- <button type="button" class = "chk_boxes" class="btn btn-primary" value="Select All" label="check all"> -->
+                <!-- <button type="button" id="selectAll" class="main"> -->
+                <input type="checkbox" class="chk_boxes" label="check all" /> Select All
+                </div>
                     <?php
             $sql = "SELECT 
                 categories.categories_name, 
@@ -161,7 +174,7 @@
                     <tr>
                         <td>
                             <div class="checkbox">
-                                <label><input type="checkbox" name="matName[]" value="<?php echo $row[3]?>"></label>
+                                <label><input type="checkbox" name="matName[]" class="chk_boxes1" value="<?php echo $row[3]?>"></label>
                             </div>
                         </td>
                         <td><input name="category" type="text" class="form-control" value="<?php echo $row[0]?>"
@@ -185,7 +198,7 @@
                                 <div class="col-lg-12">
                                     <input type="hidden" name="proj_id" value="<?php echo $proj_id?>">
                                     <input type="submit" name="adding_materials" class="btn btn-primary"
-                                        value="Save Changes">
+                                        value="Save">
                                     <input type="reset" class="btn btn-danger" value="Cancel">
                                 </div>
                             </div>
@@ -247,6 +260,11 @@
         document.getElementById('menu').style.width = '0';
         document.getElementById('content').style.marginLeft = '0';
     }
+    $(function() {
+    $('.chk_boxes').click(function() {
+        $('.chk_boxes1').prop('checked', this.checked);
+    });
+    });
 </script>
 
 </html>

@@ -184,27 +184,25 @@
                                                     <div class="form-group">
                                                         <label for="projectName" class="label-styles">Project
                                                             Name</label>
-                                                        <input type="text" class="form-control" value="<?php echo $rowedit[0]?>" name="newProjectName" placeholder="Enter new project name">
+                                                        <input type="text" class="form-control" name="newProjectName" placeholder="Enter new project name">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="address" class="label-styles">Address:</label>
-                                                        <input type="text" class="form-control" value="<?php echo $rowedit[1]?>" name="newAddress" placeholder="Enter new project address">
+                                                        <input type="text" class="form-control" name="newAddress" placeholder="Enter new project address">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="startDate" class="label-styles">Start
                                                             Date:</label>
-                                                        <input type="date" value="<?php echo $rowedit[2]?>" name="newStartDate" class="form-control">
+                                                        <input type="date" name="newStartDate" class="form-control">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="endDate" class="label-styles">End Date:</label>
-                                                        <input type="date" value="<?php echo $rowedit[3]?>" name="newEndDate" class="form-control">
+                                                        <input type="date" name="newEndDate" class="form-control">
                                                     </div>
                                                     <?php
                                                             }   
                                                         ?>
-                                                    <!--
                                                         
--->
                                                     <label class="label-styles">Materials Engineer Involved</label>
 
                                                     <?php

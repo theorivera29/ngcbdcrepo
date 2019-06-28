@@ -142,7 +142,7 @@
                         <!-- Start of Category -->
                         <div class="tab-pane fade show active adding-of-materials-container" id="nav-category" role="tabpanel" aria-labelledby="nav-category-tab">
                             <form action="../server.php" method="POST">
-                                <table class="table new-category-table table-striped table-bordered">
+                                <table class="table new-category-table table-striped table-bordered" id="table1">
                                     <thead>
                                         <tr>
                                             <th scope="col">Category</th>
@@ -150,16 +150,14 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add-categ-table">
+                                    <tr>
+                                    <td colspan="2">
+                                        <button type="button" class="btn btn-success add-row-btn1"><i class="fas fa-plus"
+                                                id="plus-icon"></i> Add Row</button>
+                                    </td>
+                                </tr>
                                     </tbody>
-                                    <tfoot>
-                                        <tr id="add-categ-row">
-                                            <td><input class="form-control" name="category[]" type="text" id="category" placeholder="Category Name" required>
-                                            </td>
-                                            <td colspan="5">
-                                                <input type="button" name="category[]" class="btn btn-md btn-outline-secondary addCat-row" value="Add Row" />
-                                            </td>
-                                        </tr>
-                                    </tfoot>
+                                    
                                 </table>
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
@@ -254,7 +252,7 @@
                         <!-- Start of Unit-->
                         <div class="tab-pane fade show adding-of-materials-container" id="nav-unit" role="tabpanel" aria-labelledby="nav-unit-tab">
                             <form action="../server.php" method="POST">
-                                <table class="table new-category-table table-striped table-bordered">
+                                <table class="table new-category-table table-striped table-bordered" id="table2">
                                     <thead>
                                         <tr>
                                             <th scope="col">Unit</th>
@@ -262,16 +260,13 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add-unit-table">
+                                    <tr>
+                                    <td colspan="2">
+                                        <button type="button" class="btn btn-success add-row-btn2"><i class="fas fa-plus"
+                                                id="plus-icon"></i> Add Row</button>
+                                    </td>
+                                </tr>
                                     </tbody>
-                                    <tfoot>
-                                        <tr id="add-unit-row">
-                                            <td><input class="form-control" name="units[]" type="text" id="units" placeholder="Unit" required>
-                                            </td>
-                                            <td colspan="5">
-                                                <input type="button" class="btn btn-md btn-outline-secondary addUnit-row" value="Add Row" />
-                                            </td>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
@@ -372,7 +367,7 @@
                         <!-- Start of Materials -->
                         <div class="tab-pane fade" id="nav-material" role="tabpanel" aria-labelledby="nav-material-tab">
                             <form action="../server.php" method="POST">
-                                <table class="table new-category-table">
+                                <table class="table new-category-table" id="table3">
                                     <thead>
                                         <tr>
                                             <th scope="col">Category</th>
@@ -382,8 +377,14 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add-material-table">
+                                    <tr>
+                                    <td colspan="4">
+                                        <button type="button" class="btn btn-success add-row-btn3"><i class="fas fa-plus"
+                                                id="plus-icon"></i> Add Row</button>
+                                    </td>
+                                </tr>
                                     </tbody>
-                                    <tfoot>
+                                    <!-- <tfoot>
                                         <tr id="add-material-row">
                                             <td><select name="categ[]" class="custom-select" id="category1" required>
                                                     <option value="disabled" selected disabled>Choose Category</option>
@@ -404,8 +405,7 @@
                                                     ?>
                                                 </select>
                                             </td>
-                                            <td><input class="form-control" name="material[]" type="text" id="material" placeholder="Material Name" required>
-                                            </td>
+                                            
                                             <td><select name="unit[]" class="custom-select" id="unit" required>
                                                     <option value="disabled" selected disabled>Choose unit</option>
                                                     <?php 
@@ -429,7 +429,7 @@
                                                 <input type="button" class="btn btn-md btn-outline-secondary addMat-row" value="Add Row" />
                                             </td>
                                         </tr>
-                                    </tfoot>
+                                    </tfoot> -->
                                 </table>
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
@@ -615,51 +615,47 @@
     }
 
     $(document).ready(function() {
-        $(".addCat-row").click(function() {
-            var category = $("#category").val();
-            var markup = "<tr><td><input type='text' name='category[]' class='form-control' value='" +
-                category +
-                "' required/></td><td><input type='button' class='btn btn-sm btn-outline-secondary delete-row' value='Delete' /></td></tr>";
-            if ((category != '')) {
-                $("table #add-categ-table").append(markup);
-                $("#add-categ-row input[type=text]").val('');
-            }
+        $(document).on('click', '.add-row-btn1', function () {
+            var html = '';
+            html += '<tr>';
+            html +=
+                '<td><input class="form-control" name="category[]" type="text" id="category" placeholder="Category Name" required></td>';
+            html +=
+                '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>'
+            html += '</tr>';
+            $('#table1 tbody').append(html);
         });
-
+        
         $("#add-categ-table").on('click', '.delete-row', function() {
             $(this).closest('tr').remove();
         });
 
-        $(".addMat-row").click(function() {
-            var category = $("#category1").val();
-            var material = $("#material").val();
-            var unit = $("#unit").val();
-            var markup = "<tr><td><input type='text' name='categ[]' class='form-control' value='" +
-                category +
-                "' readonly/></td><td><input type='text' name='material[]' class='form-control' value='" +
-                material +
-                "' required/></td><td><input type='text' name='unit[]' class='form-control' value='" + unit +
-                "' readonly/></td></td><td><input type='button' class='btn btn-sm btn-outline-secondary delete-row' value='Delete' /></td></tr>";
-            if ((category != '') && (material != '')) {
-                $("table #add-material-table").append(markup);
-                $("#add-material-row input[type=text]").val('');
-                $("#add-material-row select").val('disabled');
-            }
+        $(document).on('click', '.add-row-btn2', function () {
+            var html = '';
+            html += '<tr>';
+            html +=
+                '<td><input class="form-control" name="units[]" type="text" id="units" placeholder="Unit" required> </td>';
+            html +=
+                '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>'
+            html += '</tr>';
+            $('#table2 tbody').append(html);
         });
 
         $("#add-material-table").on('click', '.delete-row', function() {
             $(this).closest('tr').remove();
         });
 
-        $(".addUnit-row").click(function() {
-            var units = $("#units").val();
-            var markup = "<tr><td><input type='text' name='units[]' class='form-control' value='" +
-                units +
-                "' required/></td><td><input type='button' class='btn btn-sm btn-outline-secondary delete-row' value='Delete' /></td></tr>";
-            if ((units != '')) {
-                $("table #add-unit-table").append(markup);
-                $("#add-unit-row input[type=text]").val('');
-            }
+        $(document).on('click', '.add-row-btn3', function () {
+            var html = '';
+            html += '<tr>';
+            html +=
+                '<td><select name="categ[]" class="custom-select" id="category1" required></select></td>';
+            html += '<td><input class="form-control" name="material[]" type="text" id="material" placeholder="Material Name" required></td>';
+            html += '<td><select name="unit[]" class="custom-select" id="unit" required></select></td>';
+            html +=
+                '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>'
+            html += '</tr>';
+            $('#table3 tbody').append(html);
         });
 
         $("#add-unit-table").on('click', '.delete-row', function() {

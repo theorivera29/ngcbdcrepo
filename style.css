@@ -784,9 +784,7 @@ table .clickable{
 }
 
 .reconcilliation-table{
-    width: 100% !important;
-    margin-top: 5%;
-    margin-left: 2%;
+    margin-top: 2%;
     margin-right: 2%;
     text-align: center;
     margin-bottom: 2%;
@@ -853,6 +851,18 @@ table .clickable{
 .new-category-table > thead > tr > th{
     background-color: #124E78;
     color: #FFF8F0;
+}
+
+.add-row-btn1{
+    float: right !important;
+}
+
+.add-row-btn2{
+    float: right !important;
+}
+
+.add-row-btn3{
+    float: right !important;
 }
 
 #checkbox-category{

@@ -97,13 +97,13 @@
                     <div class="form-group">
                         <label for="firstName" class="label-styles">First Name</label>
                         <input name="firstName" id="firstName" type="text" class="form-control"
-                            placeholder="Enter first name" required>
+                            placeholder="Enter first name" pattern="^[A-Za-z][A-Za-z0-9\s.,-]*$" required>
                         <div class="invalid-feedback" >Please fill out this field.</div>
                     </div>
                     <div class="form-group">
                         <label for="lastName" class="label-styles">Last Name</label>
                         <input name="lastName" id="lastName" type="text" class="form-control"
-                            placeholder="Enter last name" required>
+                            placeholder="Enter last name" pattern="^[A-Za-z][A-Za-z0-9\s.,-]*$" required>
                         <div class="invalid-feedback" >Please fill out this field.</div>
                     </div>
                     <div class="form-group">
@@ -270,9 +270,7 @@
         }, false);
     })();
 
-    bootstrapValidate('#username',
-        'regex:^[A-Za-z0-9._]*$:You can only use alphabetic characters, numbers, period and underscore.')
-    bootstrapValidate('#email', 'email:Enter a valid email address.')
+   
 </script>
 
 </html>
