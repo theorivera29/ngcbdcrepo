@@ -44,7 +44,13 @@
                     <button type="button" class="btn dropdown-toggle dropdown-settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
+                    <?php
+                        if ($accounts_id >= 4) {
+                    ?>
                         <a class="dropdown-item" href="account.php">Account Settings</a>
+                    <?php 
+                        }
+                    ?>
                         <a class="dropdown-item" href="../logout.php">Logout</a>
                     </div>
                 </div>
@@ -151,9 +157,14 @@
                                             deliveredin_receiptno,
                                             deliveredin_remarks,
                                             deliveredin_id
-                                        FROM deliveredin
-                                        INNER JOIN projects 
-                                        ON deliveredin_project = projects.projects_id;";
+                                        FROM 
+                                            projects
+                                        INNER JOIN 
+                                            deliveredin  ON deliveredin_project = projects.projects_id
+                                        INNER JOIN 
+                                            projmateng ON projects.projects_id = projmateng.projmateng_project
+                                        WHERE 
+                                            projects.projects_status = 'open' AND projmateng.projmateng_mateng = $accounts_id;";
                                         $result = mysqli_query($conn, $sql);
                                         while ($row = mysqli_fetch_row($result)) {
                                     ?>
@@ -202,15 +213,21 @@
                                     <?php
                                             
                                             $sql = "SELECT 
-                                            projects.projects_name, 
-                                            requisition.requisition_no, 
-                                            requisition.requisition_date, 
-                                            requisition.requisition_reqBy, 
-                                            requisition.requisition_approvedBy,
-                                            requisition.requisition_remarks,
-                                            requisition.requisition_id
-                                            FROM requisition INNER JOIN projects 
-                                            ON requisition.requisition_project = projects.projects_id";
+                                                        projects.projects_name, 
+                                                        requisition.requisition_no, 
+                                                        requisition.requisition_date, 
+                                                        requisition.requisition_reqBy, 
+                                                        requisition.requisition_approvedBy,
+                                                        requisition.requisition_remarks,
+                                                        requisition.requisition_id 
+                                                    FROM 
+                                                        projects 
+                                                    INNER JOIN 
+                                                        requisition ON requisition.requisition_project = projects.projects_id
+                                                    INNER JOIN 
+                                                        projmateng ON projects.projects_id = projmateng.projmateng_project
+                                                    WHERE 
+                                                        projects.projects_status = 'open' AND projmateng.projmateng_mateng = $accounts_id;";
                                             $result = mysqli_query($conn, $sql);
                                             while ($row = mysqli_fetch_row($result)) {
                                         ?>

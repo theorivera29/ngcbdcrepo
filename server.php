@@ -1,11 +1,11 @@
-<?php
+login<?php
     include "db_connection.php";
     include "smtp_connection.php";
 
 // <--System-->>
     if (isset($_POST['forgotPassword'])) {
         session_start();
-        $request_username = mysqli_real_escape_string($conn, $_POST['inputUsername']);
+        $request_username = strip_tags(mysqli_real_escape_string($conn, $_POST['inputUsername']));
         $stmt = $conn->prepare("SELECT accounts_id FROM accounts WHERE accounts_username = ?");
         $stmt->bind_param("s", $request_username);
         $stmt->execute();
@@ -44,10 +44,11 @@
 
     if (isset($_POST['login'])) {
         session_start();
-        $username = mysqli_real_escape_string($conn, $_POST['inputUsername']);
-        $password = mysqli_real_escape_string($conn, $_POST['inputPassword']); 
-        $stmt = $conn->prepare("SELECT accounts_id, accounts_password, accounts_type FROM accounts WHERE accounts_username = ? AND accounts_status ='active';");
-        $stmt->bind_param("s", $username);
+        $username = strip_tags(mysqli_real_escape_string($conn, $_POST['inputUsername']));
+        $password = strip_tags(mysqli_real_escape_string($conn, $_POST['inputPassword'])); 
+        $stmt = $conn->prepare("SELECT accounts_id, accounts_password, accounts_type FROM accounts WHERE accounts_username = ? AND accounts_status = ?;");
+        $stmt->bind_param("ss", $username, $status);
+        $status = "active";
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($accounts_id, $accounts_password, $accounts_type);
@@ -80,11 +81,11 @@
     if (isset($_POST['createAccount'])) {
         $ctr = 0;
         session_start();
-        $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
-        $lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
-        $username = mysqli_real_escape_string($conn, $_POST['username']);
-        $email = mysqli_real_escape_string($conn, $_POST['email']);
-        $accountType = mysqli_real_escape_string($conn, $_POST['accountType']);
+        $firstName = strip_tags(mysqli_real_escape_string($conn, $_POST['firstName']));
+        $lastName = strip_tags(mysqli_real_escape_string($conn, $_POST['lastName']));
+        $username = strip_tags(mysqli_real_escape_string($conn, $_POST['username']));
+        $email = strip_tags(mysqli_real_escape_string($conn, $_POST['email']));
+        $accountType = strip_tags(mysqli_real_escape_string($conn, $_POST['accountType']));
         $stmt = $conn->prepare("SELECT COUNT(accounts_username ) FROM accounts WHERE accounts_username = ?;");
         $stmt->bind_param("s", $username);
         $stmt->execute();
@@ -295,13 +296,10 @@
 
         $projectName = mysqli_real_escape_string($conn, $_POST['projectName']);
         $projects_id = mysqli_real_escape_string($conn, $_POST['projects_id']);
-        $stmt = $conn->prepare("UPDATE projects set projects_status = 'closed' WHERE projects_id = ?;");
-        $stmt->bind_param("i", $projects_id);
-        $stmt->execute();
-        $stmt->fetch();
-        if(isset($_SESSION['account_id'])) {
-            $accounts_id = $_SESSION['account_id'];
-        }
+        // $stmt = $conn->prepare("UPDATE projects set projects_status = 'closed' WHERE projects_id = ?;");
+        // $stmt->bind_param("i", $projects_id);
+        // $stmt->execute();
+        // $stmt->fetch();
         $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?,?,?);");
         $close_date = date("Y-m-d G:i:s");
         $logs_message = 'Closed Project: '.$projectName;
@@ -309,7 +307,7 @@
         $stmt->bind_param("ssi", $close_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");     
+        // header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");     
     }
 
     if (isset($_POST['reopen_project'])) {
@@ -355,9 +353,9 @@
 
     if (isset($_POST['create_project'])) {
         $projectName = strip_tags(mysqli_real_escape_string($conn, $_POST['projectName']));
-        $address = mysqli_real_escape_string($conn, $_POST['address']);
-        $startDate = mysqli_real_escape_string($conn, $_POST['startDate']);
-        $endDate = mysqli_real_escape_string($conn, $_POST['endDate']);
+        $address = strip_tags(mysqli_real_escape_string($conn, $_POST['address']));
+        $startDate = strip_tags(mysqli_real_escape_string($conn, $_POST['startDate']));
+        $endDate = strip_tags(mysqli_real_escape_string($conn, $_POST['endDate']));
         $projectStatus = 'open';
         $mateng = $_POST['mateng'];
         
@@ -422,11 +420,11 @@
 if (isset($_POST['edit_project'])) {
         $edit_project_date = date("Y-m-d G:i:s");
         $mateng = null;
-        $newProjectName = mysqli_real_escape_string($conn, $_POST['newProjectName']);
-        $newAddress = mysqli_real_escape_string($conn, $_POST['newAddress']);
-        $newStartDate = mysqli_real_escape_string($conn, $_POST['newStartDate']);
-        $newEndDate = mysqli_real_escape_string($conn, $_POST['newEndDate']);
-        $projects_id = mysqli_real_escape_string($conn, $_POST['projects_id']);
+        $newProjectName = strip_tags(mysqli_real_escape_string($conn, $_POST['newProjectName']));
+        $newAddress = strip_tags(mysqli_real_escape_string($conn, $_POST['newAddress']));
+        $newStartDate = strip_tags(mysqli_real_escape_string($conn, $_POST['newStartDate']));
+        $newEndDate = strip_tags(mysqli_real_escape_string($conn, $_POST['newEndDate']));
+        $projects_id = strip_tags(mysqli_real_escape_string($conn, $_POST['projects_id']));
         $account_id = "";
         session_start();
         if(isset($_SESSION['account_id'])) {
@@ -537,9 +535,9 @@ if (isset($_POST['edit_project'])) {
 // <--Materials Engineer-->
 
     if (isset($_POST['curGenerateReport'])) {
-        $preparedBy = mysqli_real_escape_string($conn, $_POST['preparedBy']);
-        $checkedBy = mysqli_real_escape_string($conn, $_POST['checkedBy']);
-        $notedBy = mysqli_real_escape_string($conn, $_POST['notedBy']);
+        $preparedBy = strip_tags(mysqli_real_escape_string($conn, $_POST['preparedBy']));
+        $checkedBy = strip_tags(mysqli_real_escape_string($conn, $_POST['checkedBy']));
+        $notedBy = strip_tags(mysqli_real_escape_string($conn, $_POST['notedBy']));
         session_start();
         $_SESSION['preparedBy'] = $preparedBy;
         $_SESSION['checkedBy'] = $checkedBy;
@@ -566,9 +564,9 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['reconciliation_reconcile'])) {
-        $difference = $_POST['difference'];
-        $matinfo_id = $_POST['matinfo_id'];
-        $systemCount = $_POST['system_Count'];
+        $difference = strip_tags($_POST['difference']);
+        $matinfo_id = strip_tags($_POST['matinfo_id']);
+        $systemCount = strip_tags($_POST['system_Count']);
         session_start();
         $projects_id = $_SESSION['projects_id'];
 
@@ -756,9 +754,9 @@ if (isset($_POST['edit_project'])) {
 
     if (isset($_POST['reconciliation_save'])) {
         session_start();
-        $difference = $_POST['difference'];
-        $matinfo_id = $_POST['matinfo_id'];
-        $systemCount = $_POST['system_Count'];
+        $difference = strip_tags($_POST['difference']);
+        $matinfo_id = strip_tags($_POST['matinfo_id']);
+        $systemCount = strip_tags($_POST['system_Count']);
         $remarks = array();
         $x = 0;
         if (isset($_POST['remarks'])) {
@@ -864,8 +862,8 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['create_category'])) {
-        $categoryName = mysqli_real_escape_string($conn, $_POST['categoryName']);
-        $category = $_POST['category'];
+        $categoryName = strip_tags(mysqli_real_escape_string($conn, $_POST['categoryName']));
+        $category = strip_tags($_POST['category']);
         $account_id = "";
         session_start();
         if(isset($_SESSION['account_id'])) {
@@ -891,8 +889,8 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['create_unit'])) {
-        $unitName = mysqli_real_escape_string($conn, $_POST['unitName']);
-        $units = $_POST['units'];
+        $unitName = strip_tags(mysqli_real_escape_string($conn, $_POST['unitName']));
+        $units = strip_tags($_POST['units']);
         $account_id = "";
         session_start();
         if(isset($_SESSION['account_id'])) {
@@ -919,10 +917,10 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['create_materials'])) {
-        $categ = $_POST['categ'];
-        $materials = $_POST['material'];
-        $threshold = $_POST['threshold'];
-        $unit = $_POST['unit'];
+        $categ = strip_tags($_POST['categ']);
+        $materials = strip_tags($_POST['material']);
+        $threshold = strip_tags($_POST['threshold']);
+        $unit = strip_tags($_POST['unit']);
         $prevStock = 0;
         $proj = 1;
         $currentQuantity = 0;
@@ -976,16 +974,16 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['create_requisitionSlip'])) {
-        $projName = mysqli_real_escape_string($conn, $_POST['projectName']);
-        $reqNo = mysqli_real_escape_string($conn, $_POST['reqNo']);
-        $date = mysqli_real_escape_string($conn, $_POST['date']);
-        $remarks = mysqli_real_escape_string($conn, $_POST['remarks']);
-        $quantity = $_POST['quantity'];
-        $unit = $_POST['unit'];
-        $particulars = $_POST['particulars'];
-        $location = $_POST['location'];
-        $requestedBy = mysqli_real_escape_string($conn, $_POST['requestedBy']);
-        $approvedBy = mysqli_real_escape_string($conn, $_POST['approvedBy']);
+        $projName = strip_tags(mysqli_real_escape_string($conn, $_POST['projectName']));
+        $reqNo = strip_tags(mysqli_real_escape_string($conn, $_POST['reqNo']));
+        $date = strip_tags(mysqli_real_escape_string($conn, $_POST['date']));
+        $remarks = strip_tags(mysqli_real_escape_string($conn, $_POST['remarks']));
+        $quantity = strip_tags($_POST['quantity']);
+        $unit = strip_tags($_POST['unit']);
+        $particulars = strip_tags($_POST['particulars']);
+        $location = strip_tags($_POST['location']);
+        $requestedBy = strip_tags(mysqli_real_escape_string($conn, $_POST['requestedBy']));
+        $approvedBy = strip_tags(mysqli_real_escape_string($conn, $_POST['approvedBy']));
         
         
         $stmt = $conn->prepare("INSERT INTO requisition (requisition_no, requisition_date, requisition_remarks, requisition_reqBy, requisition_approvedBy, requisition_project) VALUES (?, ?, ?, ?, ?, ?);");
@@ -1038,22 +1036,22 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['create_hauling'])) {
-        $formNo = mysqli_real_escape_string($conn, $_POST['formNo']);
-        $date = mysqli_real_escape_string($conn, $_POST['date']);
-        $deliverTo = mysqli_real_escape_string($conn, $_POST['deliverTo']);
-        $hauledFrom = mysqli_real_escape_string($conn, $_POST['projectName']);
-        $requestedBy = mysqli_real_escape_string($conn, $_POST['requestedBy']);
-        $hauledBy = mysqli_real_escape_string($conn, $_POST['hauledBy']);
-        $warehouseman = mysqli_real_escape_string($conn, $_POST['warehouseman']);
-        $approvedBy = mysqli_real_escape_string($conn, $_POST['approvedBy']);
-        $type = mysqli_real_escape_string($conn, $_POST['type']);
-        $plateNo = mysqli_real_escape_string($conn, $_POST['plateNo']);
-        $PORS = mysqli_real_escape_string($conn, $_POST['PORS']);
-        $haulerID = mysqli_real_escape_string($conn, $_POST['haulerID']);
-        $quantity = $_POST['quantity'];
-        $unit = $_POST['unit'];
-        $articles = $_POST['articles'];
-        $status = mysqli_real_escape_string($conn, $_POST['status']);
+        $formNo = strip_tags(mysqli_real_escape_string($conn, $_POST['formNo']));
+        $date = strip_tags(mysqli_real_escape_string($conn, $_POST['date']));
+        $deliverTo = strip_tags(mysqli_real_escape_string($conn, $_POST['delverTo']));
+        $hauledFrom = strip_tags(mysqli_real_escape_string($conn, $_POST['projectName']));
+        $requestedBy = strip_tags(mysqli_real_escape_string($conn, $_POST['requestedBy']));
+        $hauledBy = strip_tags(mysqli_real_escape_string($conn, $_POST['hauledBy']));
+        $warehouseman = strip_tags(mysqli_real_escape_string($conn, $_POST['warehouseman']));
+        $approvedBy = strip_tags(mysqli_real_escape_string($conn, $_POST['approvedBy']));
+        $type = strip_tags(mysqli_real_escape_string($conn, $_POST['type']));
+        $plateNo = strip_tags(mysqli_real_escape_string($conn, $_POST['plateNo']));
+        $PORS = strip_tags(mysqli_real_escape_string($conn, $_POST['PORS']));
+        $haulerID = strip_tags(mysqli_real_escape_string($conn, $_POST['haulerID']));
+        $quantity = strip_tags($_POST['quantity']);
+        $unit = strip_tags($_POST['unit']);
+        $articles = strip_tags($_POST['articles']);
+        $status = strip_tags(mysqli_real_escape_string($conn, $_POST['status']));
             
         $stmt = $conn->prepare("INSERT INTO hauling (hauling_no, hauling_date, hauling_deliverTo, hauling_hauledFrom, hauling_hauledBy, hauling_requestedBy, hauling_warehouseman, hauling_approvedBy, hauling_truckDetailsType, hauling_truckDetailsPlateNo, hauling_truckDetailsPO, hauling_truckDetailsHaulerDR, hauling_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         $stmt->bind_param("isssssssssiis", $formNo, $date, $deliverTo, $hauledFrom, $hauledBy, $requestedBy, $warehouseman, $approvedBy, $type, $plateNo, $PORS, $haulerID, $status);
@@ -1128,11 +1126,11 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['update_account'])) {
-        $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
-        $lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
-        $username = mysqli_real_escape_string($conn, $_POST['username']);
-        $email = mysqli_real_escape_string($conn, $_POST['email']);
-        $password = mysqli_real_escape_string($conn, $_POST['confpass']);
+        $firstName = strip_tags(mysqli_real_escape_string($conn, $_POST['firstName']));
+        $lastName = strip_tags(mysqli_real_escape_string($conn, $_POST['lastName']));
+        $username = strip_tags(mysqli_real_escape_string($conn, $_POST['username']));
+        $email = strip_tags(mysqli_real_escape_string($conn, $_POST['email']));
+        $password = strip_tags(mysqli_real_escape_string($conn, $_POST['confpass']));
         $edit_account_date = date("Y-m-d G:i:s");
         $account_id = "";
         session_start();
@@ -1338,15 +1336,14 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['create_deliveredin'])) {
-        $projectName = mysqli_real_escape_string($conn, $_POST['projectName']);
-        $date = mysqli_real_escape_string($conn, $_POST['deliveredDate']);
-        $remarks = mysqli_real_escape_string($conn, $_POST['remarks']);
-        $receiptNo = mysqli_real_escape_string($conn, $_POST['resibo']);
-        $quantity = $_POST['quantity'];
-        $unit = $_POST['unit'];
-        $articles = $_POST['articles'];
-        $suppliedBy = $_POST['suppliedBy'];
-        echo $receiptNo;
+        $projectName = strip_tags(mysqli_real_escape_string($conn, $_POST['projectName']));
+        $date = strip_tags(mysqli_real_escape_string($conn, $_POST['deliveredDate']));
+        $remarks = strip_tags(mysqli_real_escape_string($conn, $_POST['remarks']));
+        $receiptNo = strip_tags(mysqli_real_escape_string($conn, $_POST['resibo']));
+        $quantity = strip_tags($_POST['quantity']);
+        $unit = strip_tags($_POST['unit']);
+        $articles = strip_tags($_POST['articles']);
+        $suppliedBy = strip_tags($_POST['suppliedBy']);
 
         $stmt = $conn->prepare("INSERT INTO deliveredin (deliveredin_date, deliveredin_remarks, deliveredin_receiptno, deliveredin_project) VALUES (?, ?, ?, ?);");
         $stmt->bind_param("sssi", $date, $remarks, $receiptNo, $projectName);
@@ -1405,9 +1402,8 @@ if (isset($_POST['edit_project'])) {
         if (isset($_SESSION['account_id'])) {
             $account_id = $_SESSION['account_id'];
         }
-        $todo_date = mysqli_real_escape_string($conn, $_POST['todo_date']);
-        $todo_task = mysqli_real_escape_string($conn, $_POST['todo_task']);
-        echo $todo_task;
+        $todo_date = strip_tags(mysqli_real_escape_string($conn, $_POST['todo_date']));
+        $todo_task = strip_tags(mysqli_real_escape_string($conn, $_POST['todo_task']));
         $todo_status = "in progress";
         $stmt = $conn->prepare("INSERT INTO todo (todo_date, todo_task, todo_status, todoOf) VALUES (?, ?, ?, ?);");
         $stmt->bind_param("sssi", $todo_date, $todo_task, $todo_status, $account_id);

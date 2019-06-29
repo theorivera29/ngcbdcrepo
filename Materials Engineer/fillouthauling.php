@@ -52,7 +52,13 @@
                         aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
+                    <?php
+                        if ($accounts_id >= 4) {
+                    ?>
                         <a class="dropdown-item" href="account.php">Account Settings</a>
+                    <?php 
+                        }
+                    ?>
                         <a class="dropdown-item" href="../logout.php">Logout</a>
                     </div>
                 </div>
@@ -188,15 +194,19 @@
                                                 <option value="Choose a project" selected disabled>Choose a project
                                                 </option>
                                                 <?php
-                                                $sql = "SELECT 
+                                                $sql = "SELECT DISTINCT
                                                     projects_name, projects_id 
-                                                FROM projmateng 
-                                                INNER JOIN projects 
-                                                ON projmateng_project = projects.projects_id 
-                                                INNER JOIN accounts 
-                                                ON  projmateng_mateng = accounts.accounts_id 
-                                                WHERE accounts.accounts_id 
-                                                IN (SELECT projmateng_mateng FROM projmateng WHERE projmateng_mateng = $accounts_id)";
+                                                FROM 
+                                                    projmateng 
+                                                INNER JOIN 
+                                                projects ON projmateng_project = projects.projects_id 
+                                                INNER JOIN 
+                                                accounts ON  projmateng_mateng = accounts.accounts_id 
+                                                WHERE 
+                                                    accounts.accounts_id 
+                                                IN (SELECT projmateng_mateng FROM projmateng WHERE projmateng_mateng = $accounts_id)
+                                                AND 
+                                                    projects_status = 'open';";
                                                     $result = mysqli_query($conn, $sql);
                                                     while ($row = mysqli_fetch_row($result)) {
                                             ?>

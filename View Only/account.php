@@ -41,7 +41,13 @@
                         aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="account.php">Account Settings</a>
+                    <?php
+                        if ($accounts_id >= 4) {
+                    ?>
+                        <a class="dropdown-item" href="account.php">Account Settings</a>
+                    <?php 
+                        }
+                    ?>
                         <a class="dropdown-item" href="../logout.php">Logout</a>
                     </div>
                 </div>
