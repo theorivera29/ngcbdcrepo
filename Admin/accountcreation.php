@@ -8,17 +8,24 @@
 <!DOCTYPE html>
 
 <html>
-    
+
 <head>
     <title>NGCBDC</title>
     <link rel="icon" type="image/png" href="../Images/login2.png">
     <link rel="stylesheet" type="text/css" href="../style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 </head>
 
@@ -93,51 +100,54 @@
                     <h4>Create Account</h4>
                 </div>
                 <div class="card-body">
-                
+
                     <div class="form-group">
                         <label for="firstName" class="label-styles">First Name</label>
                         <input name="firstName" id="firstName" type="text" class="form-control"
                             placeholder="Enter first name" pattern="^[A-Za-z][A-Za-z0-9\s.,-]*$" required>
-                        <div class="invalid-feedback" >Please fill out this field.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
                     <div class="form-group">
                         <label for="lastName" class="label-styles">Last Name</label>
                         <input name="lastName" id="lastName" type="text" class="form-control"
                             placeholder="Enter last name" pattern="^[A-Za-z][A-Za-z0-9\s.,-]*$" required>
-                        <div class="invalid-feedback" >Please fill out this field.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
                     <div class="form-group">
                         <label for="username" class="label-styles">Username</label>
                         <input name="username" id="username" type="text" class="form-control"
                             placeholder="Enter username" pattern="^[0-9a-z]*" minlength="5" maxlength="18" required>
-                        <div id="username_feedback" class="invalid-feedback" >Please fill out this field.</div>
+                        <div id="username_feedback" class="invalid-feedback">Please fill out this field.</div>
                     </div>
                     <div class="form-group">
                         <label for="email" class="label-styles">Email</label>
                         <input name="email" id="email" type="email" class="form-control" placeholder="Enter email"
                             pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
                             title="Follow the format. Example: email@email.com" required>
-                        <div id="email_feedback" class="invalid-feedback" >Please fill out this field.</div>
+                        <div id="email_feedback" class="invalid-feedback">Please fill out this field.</div>
                     </div>
-                    <div class="form-group">
-                        <h5 class="form-group" class="label-styles">Account Type:</h5>
-                        <div class="form-group custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline1" name="accountType" class="custom-control-input"
-                                value="View Only" required>
-                            <label class="custom-control-label" for="customRadioInline1">View Only</label>
-                        </div>
-                        <div class="form-group custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline2" name="accountType" class="custom-control-input"
-                                value="Materials Engineer" required>
-                            <label class="custom-control-label" for="customRadioInline2">Materials Engineer</label>
-                        </div>
+
+                    <h5 class="form-group" class="label-styles">Account Type:</h5>
+
+                    <div class="custom-control custom-radio col-lg-4">
+                        <input type="radio" class="custom-control-input" id="customControlValidation1"
+                            name="accountType" value="View Only" required>
+                        <label class="custom-control-label" for="customControlValidation1">View Only</label>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-success add-acct" id="create-accnt-btn">Create an
-                            Account</button>
+                    <div class="custom-control custom-radio mb-3 col-lg-4">
+                        <input type="radio" class="custom-control-input" id="customControlValidation2"
+                            name="accountType" value="Materials Engineer" required>
+                        <label class="custom-control-label" for="customControlValidation2">Materials Engineer</label>
+                        <div class="invalid-feedback">Please select one.</div>
                     </div>
                 </div>
+                <!-- </div> -->
+                <div>
+                    <button type="submit" class="btn btn-success add-acct" id="create-accnt-btn">Create an
+                        Account</button>
+                </div>
             </div>
+        </div>
         </div>
         <!-- Start of confirmation modal -->
         <div class="modal fade" id="create-accnt-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -166,7 +176,8 @@
     <?php 
         if (isset($_SESSION['create_success'])) {
     ?>
-    <div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -188,44 +199,49 @@
 </body>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-            $('#username').keyup(function() {
-                var v = form.username.value;
-                $.post('checkAccountCreation.php', {username: v}, 
-                function(result) {
-                    if(result == 1) {
+    $(document).ready(function () {
+        $('#username').keyup(function () {
+            var v = form.username.value;
+            $.post('checkAccountCreation.php', {
+                    username: v
+                },
+                function (result) {
+                    if (result == 1) {
                         $('#username').attr({
-                            "pattern": "^(.*"+v+").*$"
+                            "pattern": "^(.*" + v + ").*$"
                         });
                         $('#username_feedback').html("Username is available.");
-                    } else if(result == 2) {
+                    } else if (result == 2) {
                         $('#username').attr({
-                            "pattern": "^(?!.*"+v+").*$"
+                            "pattern": "^(?!.*" + v + ").*$"
                         });
                         $('#username_feedback').html("Username is not available.");
-                    } else if(result == 3) {
+                    } else if (result == 3) {
                         $('#username_feedback').html("Username is too short.");
-                    } else if(result == 4) {
+                    } else if (result == 4) {
                         $('#username_feedback').html("Username is too long.");
                     } else {
-                        $('#username_feedback').html("Username may only contain numbers and letters.");
+                        $('#username_feedback').html(
+                            "Username may only contain numbers and letters.");
                     }
                 });
-            });
-            
-            $('#email').keyup(function() {
-                var v = form.email.value;
-                $.post('checkAccountCreation.php', {email: v}, 
-                    function(result) {
-                        $('#email_feedback').html(result);
-                });
-            });
         });
+
+        $('#email').keyup(function () {
+            var v = form.email.value;
+            $.post('checkAccountCreation.php', {
+                    email: v
+                },
+                function (result) {
+                    $('#email_feedback').html(result);
+                });
+        });
+    });
 
     $(document).ready(function () {
         $("#success-modal").modal('show');
     });
-    
+
     function openSlideMenu() {
         document.getElementById('menu').style.width = '15%';
     }
@@ -245,9 +261,8 @@
             var lname = $("#lastName").val();
             var uname = $("#username").val();
             var email = $("input[name=email]").val();
-            var selectFrom = $("input[name=accountType]:checked").val();
-            if ((fname != '') && (lname != '') && (uname != '') && (email != '') && (selectFrom !=
-                    '')) {
+            var selectFrom = $("input:radio[name='accountType']");
+            if ((fname != '') && (lname != '') && (uname != '') && (email != '') && (selectFrom.is(":checked"))) {
                 e.preventDefault();
                 $("#create-accnt-modal").modal('show');
             }
@@ -269,8 +284,6 @@
             });
         }, false);
     })();
-
-   
 </script>
 
 </html>
