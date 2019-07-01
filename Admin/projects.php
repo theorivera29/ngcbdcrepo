@@ -233,7 +233,7 @@
 
                                                     <?php
                                                         $proj_id = $row[4];
-                                                        $sqlmateng = "SELECT CONCAT (accounts_fname, ' ', accounts_lname ), accounts_id  FROM accounts WHERE accounts_type = 'Materials Engineer' AND accounts_deletable = 'yes' AND accounts_status = 'active' AND accounts.accounts_id != 1 AND accounts_id NOT IN (SELECT projmateng_mateng FROM projmateng WHERE projmateng_project = $proj_id);";
+                                                        $sqlmateng = "SELECT CONCAT (accounts_fname, ' ', accounts_lname ), accounts_id, accounts_username  FROM accounts WHERE accounts_type = 'Materials Engineer' AND accounts_deletable = 'yes' AND accounts_status = 'active' AND accounts.accounts_id != 1 AND accounts_id NOT IN (SELECT projmateng_mateng FROM projmateng WHERE projmateng_project = $proj_id);";
                                                         $resultmateng = mysqli_query($conn, $sqlmateng);
                                                         while($rowmateng = mysqli_fetch_row($resultmateng)){
                                                     ?>
@@ -246,7 +246,7 @@
                                                                 <input type="checkbox" name="mateng[]" aria-label="Checkbox for following text input" value="<?php echo $rowmateng[1]; ?>">
                                                             </div>
 
-                                                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="<?php echo $rowmateng[0]; ?>" disabled>
+                                                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="<?php echo $rowmateng[0]; ?> (<?php echo $rowmateng[2]; ?>)" disabled>
                                                         </div>
                                                     </div>
                                                     <?php
