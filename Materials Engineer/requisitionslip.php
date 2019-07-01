@@ -211,11 +211,11 @@
                                         <div class="invalid-feedback">Invalid quantity.</div>
                                     </td>
                                     <td>
-                                        <div class="form-group"><select class="form-control" name="particulars[]" id="particulars" required></select>
+                                        <div class="form-group"><select class="form-control " name="particulars[]" id="particulars" required></select>
                                             <div class="invalid-feedback">Please select one particular.</div>
                                         </div>
                                     </td>
-                                    <td><input type="text" class="form-control" type="text" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>
+                                    <td><input type="text" class="form-control" type="text" name="units[]" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>
                                     <td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" required>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </td>
@@ -303,9 +303,12 @@
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
-                console.log(d);
+               
                 $('#units').val(d[0][1])
                 $('#unit').val(d[0][0])
+               
+            this.className = "form-control";
+            
             })
         })
 
@@ -313,13 +316,15 @@
             $.get('http://localhost/NGCBDC/Materials%20Engineer/../server.php?project_id=' + $(this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
-                console.log(d);
+             
                 var print_options = '';
-                print_options = print_options + `<option disabled selected>Choose your option</option>`
+                print_options = print_options + `<option disabled selected>Choose your option</option>`;
                 d.forEach(function(da) {
-                    print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`
+                    print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
                 })
-                $('#particulars').html(print_options)
+                console.log(print_options);
+                $('.part').html(print_options);
+                $('#particulars').html(print_options);
             })
         })
 
@@ -329,7 +334,7 @@
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?projects_id=' + $(this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
-                console.log(d);
+                
                 $('#location').val(d)
             })
         })
@@ -346,28 +351,66 @@
                 });
             })
         });
-
+        var i = 0;
         $(document).on('click', '.add-row-btn', function() {
+            $('#particulars').className = "form-control";
+
+            $.get('http://localhost/NGCBDC/Materials%20Engineer/../server.php?project_id=' + $('#projects').children(
+                'option:selected').val(), function(data) {
+                var d = JSON.parse(data);
+                console.log(d);
+                var print_options = '';
+                print_options = print_options + `<option disabled selected>Choose your option</option>`;
+                d.forEach(function(da) {
+                    print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
+                })
+                $('.part').html(print_options)
+            });
             var html = '';
+            
             html += '<tr>';
             html +=
                 '<td><input class="form-control" name="quantity[]" min="0" type="number" id="quantity" placeholder="Quantity" required><div class="invalid-feedback">Invalid quantity.</div></td>';
             html +=
-                '<td><div class="form-group"><select class="form-control" name="particulars[]" id="particulars" required></select><div class="invalid-feedback">Please select one particular.</div></div></td>';
+                '<td><div class="form-group"><select class="form-control part" name="particulars[]" id="particulars'+i+'" required></select><div class="invalid-feedback">Please select one particular.</div></div></td>';
             html +=
-                '<td><input type="text" class="form-control" type="text" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>'
+                '<td><input type="text" class="form-control" type="text" name="units[]" id="units'+ i +'" disabled><input type="hidden" class="form-control" name="unit[]" id="unit'+ i +'"></td>'
             html +=
                 '<td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" required><div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>'
             html += '</tr>';
             $('#table1 tbody').append(html);
-        });
+            
+            i++;
+            
+            for( j=0; j < i; j++){
+                var id = "particulars"+j;
+                var unitId = "unit"+j;
+                var unitsId = "units"+j;
+                if($("#"+ id).val()!=null){
+                    document.getElementById(id).className = "form-control";
+                    }
+                        $("#"+id).on('change', function() {
+                        console.log($(this).children('option:selected').val());
+                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this).children(
+                        'option:selected').val(), function(data) {
+                        var d = JSON.parse(data);
+                        
+                        $("#"+unitsId).val(d[0][1])
+                        $("#"+unitId).val(d[0][0])
+                    })
+                })
+                    }
+                    
+                });
 
-        $("#requisitionTable").on('click', '.delete-row', function() {
-            $(this).closest('tr').remove();
-        });
-    });
+                $("#requisitionTable").on('click', '.delete-row', function() {
+                    $(this).closest('tr').remove();
+                });
+            });
+
+   
 
     function openSlideMenu() {
         document.getElementById('menu').style.width = '15%';
@@ -396,18 +439,18 @@
 
     function reqNovalidation() {
 
-var startList = document.getElementById("reqNo").value;
-    if(startList==null){
-    document.getElementById("res").innerHTML="Please fill out this field.";
-    }
-   else if(listNames.includes(startList)){
-    document.getElementById("reqNo").setCustomValidity('Duplicate material requisition number detected!');
-    document.getElementById("res").innerHTML="Duplicate material requisition number detected!";
-   }else{
-    document.getElementById("reqNo").setCustomValidity("");
+    var startList = document.getElementById("reqNo").value;
+        if(startList==null){
+            document.getElementById("res").innerHTML="Please fill out this field.";
+            }
+        else if(listNames.includes(startList)){
+            document.getElementById("reqNo").setCustomValidity('Duplicate material requisition number detected!');
+            document.getElementById("res").innerHTML="Duplicate material requisition number detected!";
+        }else{
+            document.getElementById("reqNo").setCustomValidity("");
 
-   }
-}
+        }
+    }
 
 </script>
 
