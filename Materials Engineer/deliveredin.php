@@ -328,25 +328,60 @@
                         print_options = print_options +
                             `<option value="${da[0]}">${da[1]}</option>`
                     })
-                    $('#articles').html(print_options)
+                    $('.art').html(print_options);
+                    $('#articles').html(print_options);
                 })
         })
 
         $(document).on('click', '.add-row-btn', function() {
+            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $('#projects')
+                .children(
+                    'option:selected').val(),
+                function(data) {
+                    var d = JSON.parse(data)
+                    var print_options = '';
+                    print_options = print_options +
+                        `<option disabled selected>Choose your option</option>`
+                    d.forEach(function(da) {
+                        print_options = print_options +
+                            `<option value="${da[0]}">${da[1]}</option>`
+                    })
+                    $('.art').html(print_options);
+                });
             var html = '';
             html += '<tr>';
             html +=
                 '<td><input class="form-control" name="quantity[]" type="number" min="0" id="quantity" placeholder="Quantity" required><div class="invalid-feedback">Invalid qunatity.</div></td>';
             html +=
-                '<td><div class="form-group"><select class="form-control" name="articles[]" id="articles" required></select><div class="invalid-feedback">Please select one.</div></div></td>';
+                '<td><div class="form-group"><select class="form-control art" name="articles[]" id="articles'+i+'" required></select><div class="invalid-feedback">Please select one.</div></div></td>';
             html +=
-                '<td><input type="text" class="form-control" type="text" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>'
+                '<td><input type="text" class="form-control" type="text" id="units'+i+'" disabled><input type="hidden" class="form-control" name="unit[]" id="unit'+i+'"></td>'
             html +=
                 '<td><input class="form-control" name="suppliedBy[]" type="text" id="suppliedBy" placeholder="Supplied By" required><div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>'
             html += '</tr>';
             $('#table1 tbody').append(html);
+            i++;
+            
+            for( j=0; j < i; j++){
+                var id = "articles"+j;
+                var unitId = "unit"+j;
+                var unitsId = "units"+j;
+                if($("#"+ id).val()!=null){
+                    document.getElementById(id).className = "form-control";
+                    }
+                        $("#"+id).on('change', function() {
+                        console.log($(this).children('option:selected').val());
+                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this).children(
+                        'option:selected').val(), function(data) {
+                        var d = JSON.parse(data);
+                        
+                        $("#"+unitsId).val(d[0][1])
+                        $("#"+unitId).val(d[0][0])
+                    })
+                })
+                    }
         });
 
 
