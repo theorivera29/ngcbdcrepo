@@ -152,9 +152,9 @@
                                             <div class=" col-lg-12">
                                                 <label class="col-lg-12 col-form-label">Form No.:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="formNo" id="formNo"
+                                                    <input class="form-control" type="text" name="formNo" id="formNo" onkeyup="formNovalidation()"
                                                         pattern="[0-9]*" title="Input numbers" required>
-                                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                                    <div id="res" class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -363,6 +363,17 @@
 </body>
 <script type="text/javascript">
     var i = 1;
+    <?php 
+        $sql = "SELECT hauling_no FROM hauling";
+        $result = mysqli_query($conn, $sql);
+    ?>
+    let listNames = [ 
+        <?php  
+        while ($rows = mysqli_fetch_row($result)) {
+            echo '"'.$rows[0].'"'.',';
+        } 
+    ?>""];
+    console.log(listNames);
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
@@ -457,6 +468,21 @@
             });
         }, false);
     })();
+
+    function formNovalidation() {
+
+var startList = document.getElementById("formNo").value;
+    if(startList==null){
+    document.getElementById("res").innerHTML="Please fill out this field.";
+    }
+   else if(listNames.includes(startList)){
+    document.getElementById("formNo").setCustomValidity('Duplicate form number detected!');
+    document.getElementById("res").innerHTML="Duplicate form number detected!";
+   }else{
+    document.getElementById("formNo").setCustomValidity("");
+
+   }
+}
 </script>
 
 
