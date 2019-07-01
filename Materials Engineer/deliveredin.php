@@ -193,7 +193,7 @@
                                                 INNER JOIN accounts 
                                                 ON  projmateng_mateng = accounts.accounts_id 
                                                 WHERE accounts.accounts_id 
-                                                IN (SELECT projmateng_mateng FROM projmateng WHERE projmateng_mateng = $accounts_id);";
+                                                IN (SELECT projmateng_mateng FROM projmateng WHERE projmateng_mateng = $accounts_id) AND projects_status = 'open';";
                                                     $result = mysqli_query($conn, $sql);
                                                     while ($row = mysqli_fetch_row($result)) {
                                             ?>
