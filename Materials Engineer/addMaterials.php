@@ -148,7 +148,7 @@
         </table>
         <h5 class=" card-header list-of-material">List of All Materials</h5>
         <form action="../server.php" method="POST">
-            <table class="table adding-materials-table table-striped table-bordered display" id="mydatatable">
+            <table class="table adding-materials-table table-striped table-bordered display" id="example">
                 <thead>
                     <tr>
                         <th>Select</th>
@@ -158,11 +158,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                <div class="checkbox">
                 <!-- <button type="button" class = "chk_boxes" class="btn btn-primary" value="Select All" label="check all"> -->
                 <!-- <button type="button" id="selectAll" class="main"> -->
-                <input type="checkbox" class="chk_boxes" label="check all" /> Select All
-                </div>
+                <input type="checkbox" id="checkall" label="check all" /> Select All
                     <?php
             $sql = "SELECT 
                 categories.categories_name, 
@@ -180,7 +178,7 @@
                     <tr>
                         <td>
                             <div class="checkbox">
-                                <label><input type="checkbox" name="matName[]" class="chk_boxes1" value="<?php echo $row[3]?>"></label>
+                                <label><input type="checkbox" name="matName[]" class="checkbox1" value="<?php echo $row[3]?>"></label>
                             </div>
                         </td>
                         <td><input name="category" type="text" class="form-control" value="<?php echo $row[0]?>"
@@ -266,11 +264,24 @@
         document.getElementById('menu').style.width = '0';
         document.getElementById('content').style.marginLeft = '0';
     }
-    $(function() {
-    $('.chk_boxes').click(function() {
-        $('.chk_boxes1').prop('checked', this.checked);
-    });
-    });
+    // $(function() {
+    // $('.chk_boxes').click(function() {
+    //     $('.chk_boxes1').prop('checked', this.checked);
+    // });
+    // });
+    var table = $('#example').DataTable();
+
+    $('#checkall').click(function(event) {  //on click 
+    var checked = this.checked;
+    table.column(0).nodes().to$().each(function(index) {    
+        if (checked) {
+            $(this).find('.checkbox1').prop('checked', 'checked');
+        } else {
+             $(this).find('.checkbox1').removeProp('checked');            
+        }
+    });    
+    table.draw();
+ });
 </script>
 
 </html>
