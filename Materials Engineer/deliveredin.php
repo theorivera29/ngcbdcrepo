@@ -148,8 +148,8 @@
                         <div class="col-lg-12">
                             <label class="col-lg-12 col-form-label">Receipt No.:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="text" name="resibo" pattern="[A-Za-z0-9\s]*" required>
-                                <div class="invalid-feedback">Please fill out this field.</div>
+                                <input class="form-control" type="text" name="resibo" id="resibo" onkeyup="resibovalidation()" pattern="[A-Za-z0-9\s]*" required>
+                                <div id="res" class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
                     </div>
@@ -277,8 +277,19 @@
 </body>
 <script type="text/javascript">
     var i = 1;
-    $(document).ready(function() {
-        $('#sidebarCollapse').on('click', function() {
+    <?php 
+        $sql = "SELECT deliveredin_receiptno FROM deliveredin";
+        $result = mysqli_query($conn, $sql);
+    ?>
+    let listNames = [ 
+        <?php  
+        while ($rows = mysqli_fetch_row($result)) {
+            echo '"'.$rows[0].'"'.',';
+        } 
+    ?>""];
+
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         });
 
@@ -370,7 +381,24 @@
         }, false);
     })();
 
-    var projects = $("#projects option:selected");
+
+ 
+
+ 
+function resibovalidation() {
+
+var startList = document.getElementById("resibo").value;
+    if(startList==null){
+    document.getElementById("res").innerHTML="Please fill out this field.";
+    }
+   else if(listNames.includes(startList)){
+    document.getElementById("resibo").setCustomValidity('Duplicate receipt number detected!');
+    document.getElementById("res").innerHTML="Duplicate receipt number detected!";
+   }else{
+    document.getElementById("resibo").setCustomValidity("");
+
+   }
+}
 </script>
 
 </html>

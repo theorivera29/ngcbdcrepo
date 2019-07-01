@@ -144,8 +144,8 @@
                         <div class="col-lg-12">
                             <label class="col-lg-12 col-form-label">Material Requisition No.:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="text" name="reqNo" required>
-                                <div class="invalid-feedback">Please fill out this field.</div>
+                                <input class="form-control" type="text" name="reqNo" id="reqNo" onkeyup="reqNovalidation()" required>
+                                <div id="res" class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
                     </div>
@@ -281,13 +281,25 @@
 </body>
 <script type="text/javascript">
     var i = 1;
+    <?php 
+        $sql = "SELECT requisition_no FROM requisition";
+        $result = mysqli_query($conn, $sql);
+    ?>
+    let listNames = [ 
+        <?php  
+        while ($rows = mysqli_fetch_row($result)) {
+            echo '"'.$rows[0].'"'.',';
+        } 
+    ?>""];
+    console.log(listNames);
+
     $(document).ready(function() {
         $('#sidebarCollapse').on('click', function() {
             $('#sidebar').toggleClass('active');
         });
 
         $('#particulars').on('change', function() {
-            console.log($(this).children('option:selected').val())
+            console.log($(this).children('option:selected').val());
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
@@ -300,7 +312,8 @@
         $('#projects').on('change', function() {
             $.get('http://localhost/NGCBDC/Materials%20Engineer/../server.php?project_id=' + $(this).children(
                 'option:selected').val(), function(data) {
-                var d = JSON.parse(data)
+                var d = JSON.parse(data);
+                console.log(d);
                 var print_options = '';
                 print_options = print_options + `<option disabled selected>Choose your option</option>`
                 d.forEach(function(da) {
@@ -311,6 +324,7 @@
         })
 
         $('#projects').on('change', function() {
+            
             console.log($(this).children('option:selected').val())
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?projects_id=' + $(this).children(
                 'option:selected').val(), function(data) {
@@ -355,10 +369,6 @@
         });
     });
 
-
-
-
-
     function openSlideMenu() {
         document.getElementById('menu').style.width = '15%';
     }
@@ -383,7 +393,24 @@
             });
         }, false);
     })();
+
+    function reqNovalidation() {
+
+var startList = document.getElementById("reqNo").value;
+    if(startList==null){
+    document.getElementById("res").innerHTML="Please fill out this field.";
+    }
+   else if(listNames.includes(startList)){
+    document.getElementById("reqNo").setCustomValidity('Duplicate material requisition number detected!');
+    document.getElementById("res").innerHTML="Duplicate material requisition number detected!";
+   }else{
+    document.getElementById("reqNo").setCustomValidity("");
+
+   }
+}
+
 </script>
+
 
 
 </html>
