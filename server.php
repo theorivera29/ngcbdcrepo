@@ -1,4 +1,4 @@
-login<?php
+<?php
     include "db_connection.php";
     include "smtp_connection.php";
 
@@ -261,7 +261,7 @@ login<?php
         $date_today = date("Y-m-d G:i:s");
         $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
         $stmt->bind_param("ssi", $date_today, $logs_message, $logs_of);
-        $logs_message = 'Removed User ID '.$name.' from Project '.$projects_name;
+        $logs_message = 'Removed Materials Engineer: '.$name.' from Project '.$projects_name;
         $logs_of = 2;
         $stmt->execute();
         $stmt->close();
