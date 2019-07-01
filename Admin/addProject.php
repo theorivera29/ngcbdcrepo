@@ -71,7 +71,7 @@
             <div class="form-group">
                 <label for="address" class="label-styles">ADDRESS:</label>
                 <input name="address" id="address" type="text" class="form-control" placeholder="Enter project address"
-                    title="Input letters and numbers only" pattern="^[A-Za-z][A-Za-z0-9\s.,-@#^&*]*$" required>
+                    title="Input letters and numbers only" pattern="^[A-Za-z0-9,#][A-Za-z\s.,_&.()@/<>';:|]*$" required>
                 <div class="invalid-feedback">Please fill out this field.</div>
             </div>
             <div class="form-group row">
@@ -84,7 +84,7 @@
                 <div class="col-lg-6">
                     <label for="endDate" class="label-styles">END DATE:</label>
                     <input name="endDate" id="endDate" type="date" class="form-control end-date"
-                        min="$('#startdate').val()" onkeydown="return false" disabled required>
+                        min="$('#startDate').val()" onkeydown="return false" disabled required>
                     <div class="invalid-feedback">Please choose an end date.</div>
                 </div>
             </div>
