@@ -862,23 +862,23 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['create_category'])) {
-        $categoryName = strip_tags(mysqli_real_escape_string($conn, $_POST['categoryName']));
-        $category = strip_tags($_POST['category']);
+        $category = $_POST['category'];
+        $stripCateg = array_map( 'strip_tags', $category );
         $account_id = "";
         session_start();
         if(isset($_SESSION['account_id'])) {
             $account_id = $_SESSION['account_id'];
         }
 
-            for($x = 0; $x < sizeof($category); $x++){
+            for($x = 0; $x < sizeof($stripCateg); $x++){
                 $stmt = $conn->prepare("INSERT INTO categories (categories_name)
                     VALUES (?);");
-                $stmt->bind_param("s", $category[$x]);
+                $stmt->bind_param("s", $stripCateg[$x]);
                 $stmt->execute();
                 $stmt->close();
                 $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?,?,?);");
                 $create_categ_date = date("Y-m-d G:i:s");
-                $logs_message = 'Created Category: '.$category[$x];
+                $logs_message = 'Created Category: '.$stripCateg[$x];
                 $logs_of = $account_id;
                 $stmt->bind_param("ssi", $create_categ_date, $logs_message, $logs_of);
                 $stmt->execute();
@@ -889,8 +889,8 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['create_unit'])) {
-        $unitName = strip_tags(mysqli_real_escape_string($conn, $_POST['unitName']));
-        $units = strip_tags($_POST['units']);
+        $units = $_POST['units'];
+        $stripUnits = array_map( 'strip_tags', $units );
         $account_id = "";
         session_start();
         if(isset($_SESSION['account_id'])) {
@@ -900,27 +900,30 @@ if (isset($_POST['edit_project'])) {
             for($x = 0; $x < sizeof($units); $x++){
                 $stmt = $conn->prepare("INSERT INTO unit (unit_name)
                     VALUES (?);");
-                $stmt->bind_param("s", $units[$x]);
+                $stmt->bind_param("s", $stripUnits[$x]);
                 $stmt->execute();
                 $stmt->close();
                 $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?,?,?);");
                 $create_unit_date = date("Y-m-d G:i:s");
-                $logs_message = 'Created Unit: '.$units[$x];
+                $logs_message = 'Created Unit: '.$stripUnits[$x];
                 $logs_of = $account_id;
                 $stmt->bind_param("ssi", $create_unit_date, $logs_message, $logs_of);
                 $stmt->execute();
             $stmt->close();
-                
                 }
             
         header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
 
     if (isset($_POST['create_materials'])) {
-        $categ = strip_tags($_POST['categ']);
-        $materials = strip_tags($_POST['material']);
-        $threshold = strip_tags($_POST['threshold']);
-        $unit = strip_tags($_POST['unit']);
+        $categ = $_POST['categ'];
+        $stripCateg = array_map( 'strip_tags', $categ );
+        $materials = $_POST['material'];
+        $stripMat = array_map( 'strip_tags', $materials );
+        $threshold = $_POST['threshold'];
+        $stripThreshold = array_map( 'strip_tags', $threshold );
+        $unit = $_POST['unit'];
+        $stripUnits = array_map( 'strip_tags', $unit );
         $prevStock = 0;
         $proj = 1;
         $currentQuantity = 0;
@@ -928,33 +931,33 @@ if (isset($_POST['edit_project'])) {
         for($x = 0; $x < sizeof($materials); $x++){
 
             $stmt = $conn->prepare("SELECT categories_id FROM categories WHERE categories_name = ?;");
-            $stmt->bind_param("s", $categ[$x]);
+            $stmt->bind_param("s", $stripCateg[$x]);
             $stmt->execute();
             $stmt->store_result();
             $stmt->bind_result($categ_id[$x]);
             $stmt->fetch();
             
             $stmt = $conn->prepare("SELECT unit_id FROM unit WHERE unit_name = ?;");
-            $stmt->bind_param("s", $unit[$x]);
+            $stmt->bind_param("s", $stripUnits[$x]);
             $stmt->execute();
             $stmt->store_result();
             $stmt->bind_result($unit_id[$x]);
             $stmt->fetch();
                 
             $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit)VALUES (?, ?, ?);");
-            $stmt->bind_param("sii", $materials[$x], $categ_id[$x], $unit_id[$x]);
+            $stmt->bind_param("sii", $stripMat[$x], $categ_id[$x], $unit_id[$x]);
             $stmt->execute();
             $stmt->close();
             
             $stmt = $conn->prepare("SELECT mat_id FROM materials WHERE mat_name = ?;");
-            $stmt->bind_param("s", $materials[$x]);
+            $stmt->bind_param("s", $stripMat[$x]);
             $stmt->execute();
             $stmt->store_result();
             $stmt->bind_result($mat_id[$x]);
             $stmt->fetch();
             
            $stmt = $conn->prepare("INSERT INTO matinfo (matinfo_prevStock, matinfo_project, matinfo_notif, currentQuantity, matinfo_matname)VALUES (?, ?, ?, ?, ?);");
-            $stmt->bind_param("iiiii", $prevStock, $proj, $threshold[$x], $currentQuantity, $mat_id[$x]);
+            $stmt->bind_param("iiiii", $prevStock, $proj, $stripThreshold[$x], $currentQuantity, $mat_id[$x]);
             $stmt->execute();
             $stmt->close(); 
 
@@ -965,7 +968,7 @@ if (isset($_POST['edit_project'])) {
             $date_today = date("Y-m-d G:i:s");
             $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
             $stmt->bind_param("ssi", $date_today, $logs_message, $logs_of);
-            $logs_message = 'Created material '.$materials[$x];
+            $logs_message = 'Created material '.$stripMat[$x];
             $logs_of = $accounts_id;
             $stmt->execute();
             $stmt->close();

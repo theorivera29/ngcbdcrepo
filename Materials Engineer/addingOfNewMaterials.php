@@ -654,8 +654,7 @@
         $(document).on('click', '.add-row-btn3', function () {
             var html = '';
             html += '<tr>';
-            html +=
-                '<td><select name="categ[]" class="custom-select" id="category1" required></select></td>';
+            html += '<td><select name="categ[]" class="custom-select" id="category1" required></select></td>';
             html += '<td><input class="form-control" name="material[]" type="text" id="material" placeholder="Material Name" required></td>';
             html += '<td><select name="unit[]" class="custom-select" id="unit" required></select></td>';
             html +=
