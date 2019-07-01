@@ -91,7 +91,7 @@
             <label class="label-styles">Materials Engineer Involved</label>
             <?php
                     $sqlmateng = "SELECT 
-                    CONCAT(accounts_fname,' ', accounts_lname), accounts_id FROM accounts WHERE accounts_type = 'Materials Engineer' AND accounts_deletable = 'yes' AND accounts_status = 'active';";
+                    CONCAT(accounts_fname,' ', accounts_lname), accounts_id, accounts_username FROM accounts WHERE accounts_type = 'Materials Engineer' AND accounts_deletable = 'yes' AND accounts_status = 'active';";
                     $resultmateng = mysqli_query($conn, $sqlmateng);
                     while($rowmateng = mysqli_fetch_row($resultmateng)){
                 ?>
@@ -99,7 +99,7 @@
              <div class="custom-control custom-checkbox mb-3 options">
                 
                 <input type="checkbox" class="custom-control-input" name="mateng[]" id="selectMatEng-<?php echo $rowmateng[1]?>" value="<?php echo $rowmateng[1]?>" required>
-                <label class="custom-control-label" for="selectMatEng-<?php echo $rowmateng[1]?>"><?php echo $rowmateng[0]?></label>            
+                <label class="custom-control-label" for="selectMatEng-<?php echo $rowmateng[1]?>"><?php echo $rowmateng[0]?> (<?php echo $rowmateng[2]?>)</label>            
             </div> 
             <div class="invalid-feedback">Please select atleast one Materials Engineer.</div>
 
