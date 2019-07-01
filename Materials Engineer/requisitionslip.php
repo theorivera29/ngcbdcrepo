@@ -291,7 +291,6 @@
             echo '"'.$rows[0].'"'.',';
         } 
     ?>""];
-    console.log(listNames);
 
     $(document).ready(function() {
         $('#sidebarCollapse').on('click', function() {
