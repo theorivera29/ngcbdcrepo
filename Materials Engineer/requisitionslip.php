@@ -18,7 +18,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-     <script src="../js/jquery/jquery-3.4.1.min.js"></script>
+    <script src="../js/jquery/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 
@@ -42,11 +42,11 @@
                     <button type="button" class="btn dropdown-toggle dropdown-settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                    <?php
+                        <?php
                         if ($accounts_id >= 4) {
                     ?>
                         <a class="dropdown-item" href="account.php">Account Settings</a>
-                    <?php 
+                        <?php 
                         }
                     ?>
                         <a class="dropdown-item" href="../logout.php">Logout</a>
@@ -205,13 +205,31 @@
                                 </tr>
                             </thead>
                             <tbody id="requisitionTable">
-                            <tr>
+                                
+                                <tr>
+                                    <td><input class="form-control" name="quantity[]" min="0" type="number" id="quantity" placeholder="Quantity" required>
+                                        <div class="invalid-feedback">Invalid quantity.</div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group"><select class="form-control" name="particulars[]" id="particulars" required></select>
+                                            <div class="invalid-feedback">Please select one particular.</div>
+                                        </div>
+                                    </td>
+                                    <td><input type="text" class="form-control" type="text" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>
+                                    <td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" required>
+                                        <div class="invalid-feedback">Please fill out this field.</div>
+                                    </td>
+                                    <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete" /></td>
+                                </tr>
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
                                     <td colspan="5">
-                                        <button type="button" class="btn btn-success add-row-btn"><i class="fas fa-plus"
-                                                id="plus-icon"></i> Add Row</button>
+                                        <button type="button" class="btn btn-success add-row-btn"><i class="fas fa-plus" id="plus-icon"></i> Add Row</button>
                                     </td>
                                 </tr>
-                            </tbody>
+                            </tfoot>
                         </table>
                     </div>
                     <div class="form-group row col-lg-12">
@@ -280,7 +298,7 @@
         })
 
         $('#projects').on('change', function() {
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $(this).children(
+            $.get('http://localhost/NGCBDC/Materials%20Engineer/../server.php?project_id=' + $(this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data)
                 var print_options = '';
@@ -301,8 +319,8 @@
                 $('#location').val(d)
             })
         })
-	
-	$('#particulars').on('change', function() {
+
+        $('#particulars').on('change', function() {
             var projects_id = $("#projects").val();
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?matinfo_id=' + $(this).children(
                 'option:selected').val() + '&matinfo_project=' + projects_id, function(data) {
@@ -315,7 +333,7 @@
             })
         });
 
-        $(document).on('click', '.add-row-btn', function () {
+        $(document).on('click', '.add-row-btn', function() {
             var html = '';
             html += '<tr>';
             html +=
@@ -365,7 +383,6 @@
             });
         }, false);
     })();
-
 </script>
 
 
