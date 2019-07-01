@@ -237,6 +237,12 @@
                                                                 Row</button>
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <td><input id="quantity" class="form-control" name="quantity[]" pattern="[0-9]*" title="Input numbers" type="number" id="quantity" placeholder="Quantity" required> <div class="invalid-feedback">Invalid quantity.</div></td>
+                                                        <td><div class="form-group"><select class="form-control" name="articles[]" id="articles" required></select><div class="invalid-feedback">Please select one.</div></div></td>
+                                                        <td><input type="text" class="form-control" type="text" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>
+                                                        <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -451,9 +457,6 @@
             });
         }, false);
     })();
-
-    bootstrapValidate('#formNo', 'numeric:You can only input numeric characters.')
-    bootstrapValidate('#formNo1', 'numeric:You can only input numeric characters.')
 </script>
 
 
