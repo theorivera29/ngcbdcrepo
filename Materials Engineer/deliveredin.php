@@ -222,7 +222,7 @@
                                         <div class="invalid-feedback">Invalid qunatity.</div>
                                     </td>
                                     <td>
-                                        <div class="form-group"><select class="form-control" name="articles[]" id="articles" required></select>
+                                        <div class="form-group"><select class="form-control" onfocusin="revSel(this);return true;" onchange="remSel(this);return true;" name="articles[]" id="articles" required></select>
                                             <div class="invalid-feedback">Please select one.</div>
                                         </div>
                                     </td>
@@ -287,7 +287,7 @@
             echo '"'.$rows[0].'"'.',';
         } 
     ?>""];
-
+    let selectedList=[];
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
@@ -301,6 +301,8 @@
                     var d = JSON.parse(data);
                     $('#units').val(d[0][1])
                     $('#unit').val(d[0][0])
+
+                    this.className = "form-control";
                 })
         })
 
@@ -310,7 +312,7 @@
                 this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
-                console.log(d);
+                
                 $('#location').val(d)
             })
         })
@@ -325,14 +327,17 @@
                     print_options = print_options +
                         `<option disabled selected>Choose your option</option>`
                     d.forEach(function(da) {
-                        print_options = print_options +
-                            `<option value="${da[0]}">${da[1]}</option>`
+                        if (!selectedList.includes(da[0])){
+                        print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
+                    } else {
+                        print_options = print_options + `<option value="${da[0]}" disabled>${da[1]}</option>`;
+                    }
                     })
                     $('.art').html(print_options);
                     $('#articles').html(print_options);
                 })
         })
-
+        var i=0;
         $(document).on('click', '.add-row-btn', function() {
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $('#projects')
                 .children(
@@ -340,11 +345,13 @@
                 function(data) {
                     var d = JSON.parse(data)
                     var print_options = '';
-                    print_options = print_options +
-                        `<option disabled selected>Choose your option</option>`
+                    print_options = print_options + `<option disabled selected>Choose your option</option>`;
                     d.forEach(function(da) {
-                        print_options = print_options +
-                            `<option value="${da[0]}">${da[1]}</option>`
+                        if (!selectedList.includes(da[0])){
+                        print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
+                    } else {
+                        print_options = print_options + `<option value="${da[0]}" disabled>${da[1]}</option>`;
+                    }
                     })
                     $('.art').html(print_options);
                 });
@@ -353,7 +360,7 @@
             html +=
                 '<td><input class="form-control" name="quantity[]" type="number" min="0" id="quantity" placeholder="Quantity" required><div class="invalid-feedback">Invalid qunatity.</div></td>';
             html +=
-                '<td><div class="form-group"><select class="form-control art" name="articles[]" id="articles'+i+'" required></select><div class="invalid-feedback">Please select one.</div></div></td>';
+                '<td><div class="form-group"><select class="form-control art art2" onfocusin="revSel(this, \'#articles'+i+'\');return true;" onchange="remSel(this, \'articles'+i+'\');return true;" name="articles[]" id="articles'+i+'" required></select><div class="invalid-feedback">Please select one.</div></div></td>';
             html +=
                 '<td><input type="text" class="form-control" type="text" id="units'+i+'" disabled><input type="hidden" class="form-control" name="unit[]" id="unit'+i+'"></td>'
             html +=
@@ -368,17 +375,17 @@
                 var id = "articles"+j;
                 var unitId = "unit"+j;
                 var unitsId = "units"+j;
-                if($("#"+ id).val()!=null){
-                    document.getElementById(id).className = "form-control";
-                    }
+               
+                    
                         $("#"+id).on('change', function() {
                         console.log($(this).children('option:selected').val());
-                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this).children(
+                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $("#"+id).children(
                         'option:selected').val(), function(data) {
                         var d = JSON.parse(data);
-                        
+                        if($("#"+ id).val()==null){
                         $("#"+unitsId).val(d[0][1])
                         $("#"+unitId).val(d[0][0])
+                        }
                     })
                 })
                     }
@@ -389,6 +396,40 @@
             $(this).closest('tr').remove();
         });
     });
+
+    function remSel(inp1, classId){
+        inp1.className = "form-control art2";
+        console.log("#"+classId+" option[value='" + inp1.value + "']");
+
+        $("#"+classId+" option[value='" + inp1.value + "']").prop("disabled", true);
+        $(".art2 option[value='" + inp1.value + "']").prop("disabled", true);
+        $('#articles option[value="' + inp1.value + '"]').prop("disabled", true);
+        selectedList.push(inp1.value);
+        // $(".part option[value='" + inp1.value + "']").remove();
+    }
+    function revSel(inp1,id){
+        var oldValue = inp1.value;
+        
+        $(id).on('change', function() {
+            removeItem(selectedList, oldValue);
+            $(".art2 option[value='" + oldValue + "']").prop("disabled", false);
+            $("#articles option[value='" + oldValue + "']").prop("disabled", false);
+        });
+        $('#articles').on('change', function() {
+            removeItem(selectedList, oldValue);
+            $(".art2 option[value='" + oldValue + "']").prop("disabled", false);
+            $("#articles option[value='" + oldValue + "']").prop("disabled", false);
+        });
+        // $(".part option[value='" + inp1.value + "']").remove();
+    }
+    function removeItem(array, item){
+    for(var i in array){
+        if(array[i]==item){
+            array.splice(i,1);
+            break;
+        }
+    }
+}
 
     function openSlideMenu() {
         document.getElementById('menu').style.width = '15%';

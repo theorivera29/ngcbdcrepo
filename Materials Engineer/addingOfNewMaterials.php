@@ -156,14 +156,17 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add-categ-table">
+                                        <td><input class="form-control" name="category[]" type="text" id="category" placeholder="Category Name" required></td>
+                                        <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>
+                                    </tbody>
+                                    <tfoot>
                                     <tr>
                                     <td colspan="2">
                                         <button type="button" class="btn btn-success add-row-btn1"><i class="fas fa-plus"
                                                 id="plus-icon"></i> Add Row</button>
                                     </td>
                                 </tr>
-                                    </tbody>
-                                    
+                                    </tfoot>
                                 </table>
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
@@ -266,13 +269,20 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add-unit-table">
+                                        <tr>
+                                            <td><input class="form-control" name="units[]" type="text" id="units" placeholder="Unit" required> </td>
+                                            <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>
+                                        </tr>
+                                    
+                                    </tbody>
+                                    <tfoot>
                                     <tr>
                                     <td colspan="2">
                                         <button type="button" class="btn btn-success add-row-btn2"><i class="fas fa-plus"
                                                 id="plus-icon"></i> Add Row</button>
                                     </td>
                                 </tr>
-                                    </tbody>
+                                    </tfoot>
                                 </table>
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
@@ -383,15 +393,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add-material-table">
-                                    <tr>
-                                    <td colspan="4">
-                                        <button type="button" class="btn btn-success add-row-btn3"><i class="fas fa-plus"
-                                                id="plus-icon"></i> Add Row</button>
-                                    </td>
-                                </tr>
-                                    </tbody>
-                                    <!-- <tfoot>
-                                        <tr id="add-material-row">
+                                            <tr>
                                             <td><select name="categ[]" class="custom-select" id="category1" required>
                                                     <option value="disabled" selected disabled>Choose Category</option>
                                                     <?php 
@@ -411,8 +413,8 @@
                                                     ?>
                                                 </select>
                                             </td>
-                                            
-                                            <td><select name="unit[]" class="custom-select" id="unit" required>
+                                                <td><input class="form-control" name="material[]" type="text" id="material" placeholder="Material Name" required></td>
+                                                <td><select name="unit[]" class="custom-select" id="unit" required>
                                                     <option value="disabled" selected disabled>Choose unit</option>
                                                     <?php 
                                                             $sql = "SELECT
@@ -431,11 +433,18 @@
                                                     ?>
                                                 </select>
                                             </td>
-                                            <td colspan="5">
-                                                <input type="button" class="btn btn-md btn-outline-secondary addMat-row" value="Add Row" />
+                                                <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/>
+                                            </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="4">
+                                                <button type="button" class="btn btn-success add-row-btn3"><i class="fas fa-plus"
+                                                        id="plus-icon"></i> Add Row</button>
                                             </td>
                                         </tr>
-                                    </tfoot> -->
+                                    </tfoot>
+                                    
                                 </table>
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
@@ -654,9 +663,45 @@
         $(document).on('click', '.add-row-btn3', function () {
             var html = '';
             html += '<tr>';
-            html += '<td><select name="categ[]" class="custom-select" id="category1" required></select></td>';
+            html += '<td><select name="categ[]" class="custom-select" id="category1" required> <option value="disabled" selected disabled>Choose Category</option>';
+                <?php 
+                        $sql = "SELECT
+                            categories_name
+                        FROM
+                                categories
+                        ORDER BY 1;";
+                    $result = mysqli_query($conn, $sql);
+                    echo "html +='";
+                    while($row = mysqli_fetch_row($result)){
+                        echo ' <option value="'.$row[0].'">';
+                        echo $row[0];
+                        echo '</option>';
+                    }
+                    echo "';";
+                ?>
+                                                    
+                                                    
+            html += '</select></td>';
             html += '<td><input class="form-control" name="material[]" type="text" id="material" placeholder="Material Name" required></td>';
-            html += '<td><select name="unit[]" class="custom-select" id="unit" required></select></td>';
+            html += '<td><select name="unit[]" class="custom-select" id="unit" required> <option value="disabled" selected disabled>Choose unit</option>';
+                <?php 
+                        $sql = "SELECT
+                            unit_name
+                        FROM
+                            unit
+                        ORDER BY 1;";
+                    $result = mysqli_query($conn, $sql);
+                    echo "html +='";
+                    while($row = mysqli_fetch_row($result)){
+                        echo '<option value="'.$row[0].'">';
+                        echo $row[0];
+                        echo '</option>';
+                    }
+                    echo "';";
+                ?>
+               
+               
+            html += '</select></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>'
             html += '</tr>';

@@ -211,7 +211,7 @@
                                         <div class="invalid-feedback">Invalid quantity.</div>
                                     </td>
                                     <td>
-                                        <div class="form-group"><select class="form-control " name="particulars[]" id="particulars" required></select>
+                                        <div class="form-group"><select class="form-control " onfocusin="revSel(this);return true;" onchange="remSel(this);return true;" name="particulars[]" id="particulars" required></select>
                                             <div class="invalid-feedback">Please select one particular.</div>
                                         </div>
                                     </td>
@@ -291,13 +291,14 @@
             echo '"'.$rows[0].'"'.',';
         } 
     ?>""];
-
+    let selectedList=[];
     $(document).ready(function() {
         $('#sidebarCollapse').on('click', function() {
             $('#sidebar').toggleClass('active');
         });
-
+       
         $('#particulars').on('change', function() {
+            
             console.log($(this).children('option:selected').val());
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this).children(
                 'option:selected').val(), function(data) {
@@ -315,13 +316,17 @@
             $.get('http://localhost/NGCBDC/Materials%20Engineer/../server.php?project_id=' + $(this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
-             
+                
                 var print_options = '';
                 print_options = print_options + `<option disabled selected>Choose your option</option>`;
                 d.forEach(function(da) {
-                    print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
+                    if (!selectedList.includes(da[0])){
+                        print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
+                    } else {
+                        print_options = print_options + `<option value="${da[0]}" disabled>${da[1]}</option>`;
+                    }
                 })
-                console.log(print_options);
+            
                 $('.part').html(print_options);
                 $('#particulars').html(print_options);
             })
@@ -357,11 +362,16 @@
             $.get('http://localhost/NGCBDC/Materials%20Engineer/../server.php?project_id=' + $('#projects').children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
-                console.log(d);
                 var print_options = '';
                 print_options = print_options + `<option disabled selected>Choose your option</option>`;
                 d.forEach(function(da) {
-                    print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
+                    if (!selectedList.includes(da[0])){
+                        print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
+                    } else {
+                        print_options = print_options + `<option value="${da[0]}" disabled>${da[1]}</option>`;
+                    }
+                    
+                    
                 })
                 $('.part').html(print_options)
             });
@@ -369,9 +379,9 @@
             
             html += '<tr>';
             html +=
-                '<td><input class="form-control" name="quantity[]" min="0" type="number" id="quantity" placeholder="Quantity" required><div class="invalid-feedback">Invalid quantity.</div></td>';
+                '<td><input class="form-control" name="quantity[]" min="0" type="number" id="quantity'+i+'" placeholder="Quantity" required><div class="invalid-feedback">Invalid quantity.</div></td>';
             html +=
-                '<td><div class="form-group"><select class="form-control part" name="particulars[]" id="particulars'+i+'" required></select><div class="invalid-feedback">Please select one particular.</div></div></td>';
+                '<td><div class="form-group"><select class="form-control part part2" onfocusin="revSel(this, \'#particulars'+i+'\');return true;" onchange="remSel(this, \'particulars'+i+'\');return true;" name="particulars[]" id="particulars'+i+'" required></select><div class="invalid-feedback">Please select one particular.</div></div></td>';
             html +=
                 '<td><input type="text" class="form-control" type="text" name="units[]" id="units'+ i +'" disabled><input type="hidden" class="form-control" name="unit[]" id="unit'+ i +'"></td>'
             html +=
@@ -387,17 +397,27 @@
                 var id = "particulars"+j;
                 var unitId = "unit"+j;
                 var unitsId = "units"+j;
-                if($("#"+ id).val()!=null){
-                    document.getElementById(id).className = "form-control";
-                    }
+                var qty = "quantity"+j;
+   
                         $("#"+id).on('change', function() {
                         console.log($(this).children('option:selected').val());
-                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this).children(
+                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $("#"+id).children(
                         'option:selected').val(), function(data) {
                         var d = JSON.parse(data);
-                        
-                        $("#"+unitsId).val(d[0][1])
-                        $("#"+unitId).val(d[0][0])
+                        if($("#"+ id).val()==null){
+                        $("#"+unitsId).val(d[0][1]);
+                        $("#"+unitId).val(d[0][0]);
+                        var projects_id = $("#projects").val();
+                        $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?matinfo_id=' + $("#"+id).children(
+                            'option:selected').val() + '&matinfo_project=' + projects_id, function(data1) {
+                            var e = JSON.parse(data1);
+                            var print_options = '';
+                            $('#'+ qty).attr({
+                                "max": e[0][0],
+                                "min": 0
+                            });
+                        })
+                        }
                     })
                 })
                     }
@@ -409,7 +429,40 @@
                 });
             });
 
-   
+    
+    function remSel(inp1, classId){
+        inp1.className = "form-control part2";
+        console.log("#"+classId+" option[value='" + inp1.value + "']");
+
+        $("#"+classId+" option[value='" + inp1.value + "']").prop("disabled", true);
+        $(".part2 option[value='" + inp1.value + "']").prop("disabled", true);
+        $('#particulars option[value="' + inp1.value + '"]').prop("disabled", true);
+        selectedList.push(inp1.value);
+        // $(".part option[value='" + inp1.value + "']").remove();
+    }
+    function revSel(inp1,id){
+        var oldValue = inp1.value;
+        
+        $(id).on('change', function() {
+            removeItem(selectedList, oldValue);
+            $(".part2 option[value='" + oldValue + "']").prop("disabled", false);
+            $("#particulars option[value='" + oldValue + "']").prop("disabled", false);
+        });
+        $('#particulars').on('change', function() {
+            removeItem(selectedList, oldValue);
+            $(".part2 option[value='" + oldValue + "']").prop("disabled", false);
+            $("#particulars option[value='" + oldValue + "']").prop("disabled", false);
+        });
+        // $(".part option[value='" + inp1.value + "']").remove();
+    }
+    function removeItem(array, item){
+    for(var i in array){
+        if(array[i]==item){
+            array.splice(i,1);
+            break;
+        }
+    }
+}
 
     function openSlideMenu() {
         document.getElementById('menu').style.width = '15%';
