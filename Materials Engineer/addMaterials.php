@@ -270,14 +270,13 @@
     // });
     // });
     var table = $('#example').DataTable();
-
     $('#checkall').click(function(event) {  //on click 
     var checked = this.checked;
     table.column(0).nodes().to$().each(function(index) {    
         if (checked) {
-            $(this).find('.checkbox1').prop('checked', 'checked');
+            $(this).find('.checkbox1').prop("checked", true);
         } else {
-             $(this).find('.checkbox1').removeProp('checked');            
+             $(this).find('.checkbox1').prop("checked", false);            
         }
     });    
     table.draw();
