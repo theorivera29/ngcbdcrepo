@@ -74,7 +74,9 @@
             <?php echo $row[0]?>
         </h4>
         <h5 class=" card-header">List of All Materials Added</h5>
+        <form action="../server.php" method="POST">
         <table class="table adding-materials-table table-striped table-bordered display" id="mydatatable">
+        
             <thead>
                 <tr>
                     <th>Category</th>
@@ -84,28 +86,25 @@
                 </tr>
             </thead>
             <tbody>
-
-
                 <?php
                 $sql = "SELECT 
-                categories.categories_name, 
-                materials.mat_name, 
-                unit.unit_name, 
-                matinfo.matinfo_matname,
-                matinfo.matinfo_id
-                FROM materials
-                INNER JOIN categories 
-                ON materials.mat_categ = categories.categories_id 
-                INNER JOIN unit 
-                ON materials.mat_unit = unit.unit_id
-                INNER JOIN matinfo 
-                ON matinfo.matinfo_matname = materials.mat_id
-                WHERE matinfo.matinfo_project = $proj_id;";
+                            categories.categories_name, 
+                            materials.mat_name, 
+                            unit.unit_name, 
+                            matinfo.matinfo_matname,
+                            matinfo.matinfo_id
+                        FROM materials
+                        INNER JOIN categories 
+                        ON materials.mat_categ = categories.categories_id 
+                        INNER JOIN unit 
+                        ON materials.mat_unit = unit.unit_id
+                        INNER JOIN matinfo 
+                        ON matinfo.matinfo_matname = materials.mat_id
+                        WHERE matinfo.matinfo_project = $proj_id;";
                     $result = mysqli_query($conn, $sql);
                     while ($row = mysqli_fetch_row($result)) {
                 ?>
                 <tr>
-                    <form action="../server.php" method="POST">
                         <td>
                             <?php echo $row[0]; ?>
                         </td>
@@ -114,38 +113,42 @@
                         </td>
                         <?php
                     $matname = $row[3];
-                    $sql1 = "SELECT matinfo_notif FROM matinfo WHERE matinfo_matname = $matname;";
+                    $sql1 = "SELECT matinfo_notif FROM matinfo WHERE matinfo_matname = $matname AND matinfo_project = $proj_id;";
                     $result1 = mysqli_query($conn, $sql1);
-                    $row1 = mysqli_fetch_row($result1)
+                    $row1 = mysqli_fetch_row($result1);
+                    $sql2 = "SELECT matinfo_id FROM matinfo WHERE matinfo_matname = $matname AND matinfo_project = $proj_id;";
+                    $result2 = mysqli_query($conn, $sql2);
+                    $row2 = mysqli_fetch_row($result2);
                 ?>
                         <td>
-                            <input type="text" class="form-control" value="<?php echo $row1[0]?>" name="threshold"
-                                placeholder="Enter Threshold">
+                            <input type="hidden" name="matinfo_id[]" value="<?php echo $row2[0];?>">
+                            <input type="text" class="form-control" name="threshold[]"
+                                placeholder="Enter threshold" value="<?php echo $row1[0]?>">
                         </td>
                         <td>
                             <?php echo $row[2]; ?>
                         </td>
-                    </form>
                 </tr>
                 <?php
                 }   
              ?>
             </tbody>
             <tfoot>
-                    <tr>
-                        <td colspan="4">
+                <tr>
+                    <td colspan="4">
 
-                            <div class="row form-group save-btn-container">
-                                <div class="col-lg-12">
-                                    <!-- <input type="hidden" name="proj_id" value="<?php echo $proj_id?>"> -->
-                                    <input type="submit" name="edit_threshold" class="btn btn-info" value="Save">
-                                    <input type="reset" class="btn btn-danger" value="Cancel">
-                                </div>
+                        <div class="row form-group save-btn-container">
+                            <div class="col-lg-12">
+                                <!-- <input type="hidden" name="proj_id" value="<?php echo $proj_id?>"> -->
+                                <button type="submit" name="edit_threshold" class="btn btn-info">Save</button>
+                                <input type="reset" class="btn btn-danger" value="Cancel">
                             </div>
-                        </td>
-                    </tr>
-                </tfoot>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
+        </form>
         <h5 class=" card-header list-of-material">List of All Materials</h5>
         <form action="../server.php" method="POST">
             <table class="table adding-materials-table table-striped table-bordered display" id="example">
@@ -250,16 +253,13 @@
     $(document).ready(function () {
         $('#mydatatable').DataTable();
         $('table.display').DataTable();
-
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         });
     });
-
     function openSlideMenu() {
         document.getElementById('menu').style.width = '15%';
     }
-
     function closeSlideMenu() {
         document.getElementById('menu').style.width = '0';
         document.getElementById('content').style.marginLeft = '0';

@@ -352,6 +352,7 @@
     }
 
     if (isset($_POST['create_project'])) {
+        echo "as";
         $projectName = strip_tags(mysqli_real_escape_string($conn, $_POST['projectName']));
         $address = strip_tags(mysqli_real_escape_string($conn, $_POST['address']));
         $startDate = strip_tags(mysqli_real_escape_string($conn, $_POST['startDate']));
@@ -920,13 +921,8 @@ if (isset($_POST['edit_project'])) {
         $stripCateg = array_map( 'strip_tags', $categ );
         $materials = $_POST['material'];
         $stripMat = array_map( 'strip_tags', $materials );
-        $threshold = $_POST['threshold'];
-        $stripThreshold = array_map( 'strip_tags', $threshold );
         $unit = $_POST['unit'];
         $stripUnits = array_map( 'strip_tags', $unit );
-        $prevStock = 0;
-        $proj = 1;
-        $currentQuantity = 0;
         
         for($x = 0; $x < sizeof($materials); $x++){
 
@@ -955,11 +951,14 @@ if (isset($_POST['edit_project'])) {
             $stmt->store_result();
             $stmt->bind_result($mat_id[$x]);
             $stmt->fetch();
+<<<<<<< HEAD
             
-           $stmt = $conn->prepare("INSERT INTO matinfo (matinfo_prevStock, matinfo_project, matinfo_notif, currentQuantity, matinfo_matname)VALUES (?, ?, ?, ?, ?);");
+            $stmt = $conn->prepare("INSERT INTO matinfo (matinfo_prevStock, matinfo_project, matinfo_notif, currentQuantity, matinfo_matname)VALUES (?, ?, ?, ?, ?);");
             $stmt->bind_param("iiiii", $prevStock, $proj, $stripThreshold[$x], $currentQuantity, $mat_id[$x]);
             $stmt->execute();
             $stmt->close(); 
+=======
+>>>>>>> 848d6d2ba2ff14c4590170cff12336c4e4c892dc
 
             if(isset($_SESSION['account_id'])) {
                 $accounts_id = $_SESSION['account_id'];
@@ -1260,28 +1259,58 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['edit_threshold'])) {
-        $matinfo_id = mysqli_real_escape_string($conn, $_POST['matinfo_id']);
-        $threshold = mysqli_real_escape_string($conn, $_POST['threshold']);
-        $proj_id = mysqli_real_escape_string($conn, $_POST['proj_id']);
-        
-        
-        $stmt = $conn->prepare("UPDATE matinfo SET matinfo_notif = ? WHERE matinfo_id = ?;");
-        $stmt->bind_param("ii", $threshold, $matinfo_id);
-        $stmt->execute();
-        $stmt->close();
+        $matinfo_id_arr = $_POST['matinfo_id'];
+        $threshold_arr = $_POST['threshold'];
 
-        $edit_unit_date = date("Y-m-d G:i:s");
-        $account_id = "";
         session_start();
+        $account_id = "";
         if(isset($_SESSION['account_id'])) {
             $account_id = $_SESSION['account_id'];
         }
-        $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
-        $stmt->bind_param("ssi", $edit_unit_date, $logs_message, $logs_of);
-        $logs_message = 'Edited threshold to '.$threshold;
-        $logs_of = $account_id;
-        $stmt->execute();
-        $stmt->close();
+
+        for ($ctr = 0; $ctr <= sizeof($matinfo_id_arr)-1; $ctr++) {
+            $matinfo_id = $matinfo_id_arr[$ctr];
+            $threshold = $threshold_arr[$ctr];
+
+            $stmt = $conn->prepare("SELECT matinfo_notif FROM matinfo WHERE matinfo_id = ?;");
+            $stmt->bind_param("i", $matinfo_id);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($matinfo_notif);
+            $stmt->fetch();
+
+            if ($matinfo_notif != $threshold) {
+                $stmt = $conn->prepare("UPDATE matinfo SET matinfo_notif = ? WHERE matinfo_id = ?;");
+                $stmt->bind_param("ii", $threshold, $matinfo_id);
+                $stmt->execute();
+                $stmt->close();
+
+                $edit_unit_date = date("Y-m-d G:i:s");
+
+                $stmt = $conn->prepare("SELECT materials.mat_name FROM matinfo INNER JOIN materials ON materials.mat_id = matinfo.matinfo_matname WHERE matinfo.matinfo_id = ?;");
+                $stmt->bind_param("i", $matinfo_id);
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->bind_result($mat_name);
+                $stmt->fetch();
+
+                $stmt = $conn->prepare("SELECT projects.projects_name FROM matinfo INNER JOIN projects ON projects.projects_id = matinfo.matinfo_project WHERE matinfo.matinfo_id = ?;");
+                $stmt->bind_param("i", $matinfo_id);
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->bind_result($projects_name);
+                $stmt->fetch();
+
+                $edit_date = date("Y-m-d G:i:s");
+                $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
+                $stmt->bind_param("ssi", $edit_date, $logs_message, $logs_of);
+                $logs_message = 'Edited threshold material '.$mat_name.' of project '.$projects_name.' to '.$threshold;
+                $logs_of = $account_id;
+                echo $logs_of."<br/>";
+                $stmt->execute();
+                $stmt->close();
+            }
+        }
         header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addMaterials.php");     
     }
 
@@ -1489,9 +1518,23 @@ if (isset($_POST['edit_project'])) {
             $stmt->execute();
             $stmt->close();
 
+            $stmt = $conn->prepare("SELECT mat_name FROM materials WHERE mat_id = ?");
+            $stmt->bind_param("i", $matName[$x]);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($materials_name);
+            $stmt->fetch();
+
+            $stmt = $conn->prepare("SELECT projects_name FROM projects WHERE projects_id = ?");
+            $stmt->bind_param("i", $project);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($project_name);
+            $stmt->fetch();
+
             $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?,?,?);");
             $create_mat_date = date("Y-m-d G:i:s");
-            $logs_message = 'Added Material '.$matName[$x].' to Project '.$project;
+            $logs_message = 'Added Material '.$materials_name.' to Project '.$project_name;
             $logs_of = $account_id;
             $stmt->bind_param("ssi", $create_mat_date, $logs_message, $logs_of);
             $stmt->execute();
