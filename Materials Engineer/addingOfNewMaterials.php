@@ -172,7 +172,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add-categ-table">
-                                        <td><input class="form-control category" name="category[]" type="text" id="category"
+                                        <td><input class="form-control category" name="category[]" onkeyup="brandVal(this)" type="text" id="category"
                                                 placeholder="Category Name" required>
                                                 <div class="invalid-feedback">Please fill out this field.</div>
                                         </td>
@@ -295,7 +295,7 @@
                         <!-- Start of Unit-->
                         <div class="tab-pane fade show adding-of-materials-container" id="nav-unit" role="tabpanel"
                             aria-labelledby="nav-unit-tab">
-                            <form action="../server.php" method="POST">
+                            <form action="../server.php" method="POST" class="needs-validation" novalidate>
                                 <table class="table new-category-table table-striped table-bordered" id="table2">
                                     <thead>
                                         <tr>
@@ -305,8 +305,8 @@
                                     </thead>
                                     <tbody id="add-unit-table">
                                         <tr>
-                                            <td><input class="form-control" name="units[]" type="text" id="units"
-                                                    placeholder="Unit" required> </td>
+                                            <td><input class="form-control unitName" name="units[]" onkeyup="brandVal(this)" type="text" id="units"
+                                                    placeholder="Unit" required> <div class="invalid-feedback">Please fill out this field.</div></td>
                                             <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row"
                                                     value="Remove" /></td>
                                         </tr>
@@ -323,8 +323,7 @@
                                 </table>
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#add-unit-modal">Save</button>
+                                        <button type="submit" id="unitButton" class="btn btn-primary" >Save</button>
                                         <input type="reset" class="btn btn-danger" value="Cancel">
                                     </div>
                                 </div>
@@ -432,7 +431,7 @@
                         <!-- Start of Brand-->
                         <div class="tab-pane fade show adding-of-materials-container" id="nav-brand" role="tabpanel"
                             aria-labelledby="nav-brand-tab">
-                            <form action="../server.php" method="POST">
+                            <form action="../server.php" method="POST" class="needs-validation" novalidate>
                                 <table class="table new-category-table table-striped table-bordered" id="table3">
                                     <thead>
                                         <tr>
@@ -442,8 +441,8 @@
                                     </thead>
                                     <tbody id="add-brand-table">
                                         <tr>
-                                            <td><input class="form-control" name="brand[]" type="text" id="brand"
-                                                    placeholder="Brand" required> </td>
+                                            <td><input class="form-control brand" onkeyup="brandVal(this)" name="brand[]" type="text" id="brand"
+                                                    placeholder="Brand" required><div class="invalid-feedback">Please fill out this field.</div> </td>
                                             <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row"
                                                     value="Remove" /></td>
                                         </tr>
@@ -460,8 +459,7 @@
                                 </table>
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#add-brand-modal">Save</button>
+                                        <button type="submit" id="brandButton" class="btn btn-primary" >Save</button>
                                         <input type="reset" class="btn btn-danger" value="Cancel">
                                     </div>
                                 </div>
@@ -569,7 +567,7 @@
                         <!-- Start of Materials -->
                         <div class="tab-pane fade show" id="nav-material" role="tabpanel"
                             aria-labelledby="nav-material-tab">
-                            <form action="../server.php" method="POST">
+                            <form action="../server.php" method="POST" class="needs-validation" novalidate>
                                 <table class="table new-category-table" id="table4">
                                     <thead>
                                         <tr>
@@ -582,7 +580,7 @@
                                     </thead>
                                     <tbody id="add-material-table">
                                         <tr>
-                                            <td><select name="categ[]" class="custom-select" id="category1" required>
+                                            <td><select name="categ[]" class="custom-select matName" id="category1" onchange="selectionVal(this)" required>
                                                     <option value="disabled" selected disabled>Choose Category</option>
                                                     <?php 
                                                             $sql = "SELECT
@@ -600,10 +598,11 @@
                                                         }
                                                     ?>
                                                 </select>
+                                                <div class="invalid-feedback">Please select one.</div>
                                             </td>
-                                            <td><input class="form-control" name="material[]" type="text" id="material"
+                                            <td><input class="form-control matName" name="material[]" onkeyup="brandVal(this)" type="text" id="material"
                                                     placeholder="Material Name" required></td>
-                                            <td><select name="unit[]" class="custom-select" id="unit" required>
+                                            <td><select name="unit[]" class="custom-select matName" id="unit" onchange="selectionVal(this)" required>
                                                     <option value="disabled" selected disabled>Choose unit</option>
                                                     <?php 
                                                             $sql = "SELECT
@@ -621,8 +620,9 @@
                                                         }
                                                     ?>
                                                 </select>
+                                                <div class="invalid-feedback">Please select one.</div>
                                             </td>
-                                            <td><select name="brands[]" class="custom-select" id="brands" required>
+                                            <td><select name="brands[]" class="custom-select matName" id="brands" onchange="selectionVal(this)" required>
                                                     <option value="disabled" selected disabled>Choose brand</option>
                                                     <?php 
                                                             $sql = "SELECT
@@ -639,7 +639,9 @@
                                                     <?php
                                                         }
                                                     ?>
-                                                </select></td>
+                                                </select>
+                                                <div class="invalid-feedback">Please select one.</div>
+                                            </td>
                                             <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row"
                                                     value="Remove" />
                                         </tr>
@@ -656,8 +658,7 @@
                                 </table>
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
-                                        <input type="button" class="btn btn-primary" value="Save Material"
-                                            data-toggle="modal" data-target="#add-mat-modal">
+                                        <input type="submit" id="matButton" class="btn btn-primary" value="Save Material">
                                         <input type="reset" class="btn btn-danger" value="Cancel">
                                     </div>
                                 </div>
@@ -870,7 +871,7 @@
             var html = '';
             html += '<tr>';
             html +=
-                '<td><input class="form-control category" name="category[]" type="text" id="category" placeholder="Category Name" required><div class="invalid-feedback">Please fill out this field.</div></td>';
+                '<td><input class="form-control category" name="category[]" onkeyup="brandVal(this)" type="text" id="category" placeholder="Category Name" required><div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove"/></td>'
             html += '</tr>';
@@ -885,7 +886,7 @@
             var html = '';
             html += '<tr>';
             html +=
-                '<td><input class="form-control" name="units[]" type="text" id="units" placeholder="Unit" required> </td>';
+                '<td><input class="form-control unitName" name="units[]" onkeyup="brandVal(this)" type="text" id="units" placeholder="Unit" required> <div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove"/></td>'
             html += '</tr>';
@@ -899,7 +900,7 @@
             var html = '';
             html += '<tr>';
             html +=
-                '<td><input class="form-control" name="brand[]" type="text" id="brand" placeholder="Brand" required> </td>';
+                '<td><input class="form-control brand" onkeyup="brandVal(this)" name="brand[]" type="text" id="brand" placeholder="Brand" required><div class="invalid-feedback">Please fill out this field.</div> </td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove"/></td>'
             html += '</tr>';
@@ -914,7 +915,7 @@
             var html = '';
             html += '<tr>';
             html +=
-                '<td><select name="categ[]" class="custom-select" id="category1" required> <option value="disabled" selected disabled>Choose Category</option>'; 
+                '<td><select name="categ[]" class="custom-select matCateg" id="category1" onchange="selectionVal(this)" required> <option value="disabled" selected disabled>Choose Category</option>'; 
             <?php
             $sql = "SELECT
             categories_name
@@ -931,11 +932,11 @@
             }
             echo "';";
             ?>
-            html += '</select></td>';
+            html += '</select><div class="invalid-feedback">Please select one.</div></td>';
             html +=
-                '<td><input class="form-control" name="material[]" type="text" id="material" placeholder="Material Name" required></td>';
+                '<td><input class="form-control matName" name="material[]" onkeyup="brandVal(this)" type="text" id="material" placeholder="Material Name" required><div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
-                '<td><select name="unit[]" class="custom-select" id="unit" required> <option value="disabled" selected disabled>Choose unit</option>'; 
+                '<td><select name="unit[]" class="custom-select unitMat" id="unit" onchange="selectionVal(this)" required> <option value="disabled" selected disabled>Choose unit</option>'; 
             <?php
             $sql = "SELECT
             unit_name
@@ -955,8 +956,8 @@
             ?>
 
 
-            html += '</select></td>';
-            html += '<td><select name="brands[]" class="custom-select" id="brands" required><option value="disabled" selected disabled>Choose brand</option>';
+            html += '</select><div class="invalid-feedback">Please select one.</div></td>';
+            html += '<td><select name="brands[]" class="custom-select brandMat" id="brands" onchange="selectionVal(this)" required><option value="disabled" selected disabled>Choose brand</option>';
             <?php 
                     $sql = "SELECT
                         brands_name
@@ -973,7 +974,7 @@
            echo "';";
            
             ?>
-            html += '</select></td>';
+            html += '</select><div class="invalid-feedback">Please select one.</div></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove"/></td>'
             html += '</tr>';
@@ -984,11 +985,6 @@
             $(this).closest('tr').remove();
         });
 
-        $(".category").each(function() { 
-            $(this).on('keyup', function () {
-                
-            });
-        });
         $('#categButton').click(function (e) {
             var isValid;
             $(".category").each(function() {
@@ -1001,19 +997,68 @@
                 this.setCustomValidity("");
             }
             });
-            console.log(isValid);
             if (isValid==true) {
                 e.preventDefault();
                 $("#add-categ-modal").modal('show');   
-            } else {
-                
-            }
-                
-            
-            
+            } 
         });
 
         
+        $('#unitButton').click(function (e) {
+            var isValid;
+            $(".unitName").each(function() {
+            var element = $(this);
+            if (element.val() == "") {
+                isValid = false;
+                this.setCustomValidity("Please fill out this field.");
+            } else {
+                isValid = true;
+                this.setCustomValidity("");
+            }
+            });
+            if (isValid==true) {
+                e.preventDefault();
+                $("#add-unit-modal").modal('show');   
+            } 
+        });
+
+    
+        $('#brandButton').click(function (e) {
+            var isValid2;
+            $(".brand").each(function() {
+            var element2 = $(this);
+            if (element2.val() == "") {
+                isValid2 = false;
+                this.setCustomValidity("Please fill out this field.");
+            } else {
+                isValid2 = true;
+                this.setCustomValidity("");
+            }
+            });
+            if (isValid2==true) {
+                e.preventDefault();
+                $("#add-brand-modal").modal('show');   
+            } 
+        });
+
+        $('#matButton').click(function (e) {
+            var isValid3;
+            $(".matName").each(function() {
+            var element2 = $(this);
+            if (element2.children('option:selected').val() == "disabled") {
+                isValid3 = false;
+                this.setCustomValidity("Please fill out this field.");
+            } else {
+                isValid3 = true;
+                this.setCustomValidity("");
+            }
+            });
+            if (isValid3==true) {
+                e.preventDefault();
+           
+                $("#add-brand-modal").modal('show');   
+            } 
+        });
     });
 
     (function () {
@@ -1032,23 +1077,21 @@
         }, false);
     })();
 
+    function brandVal(brand){
+            if (brand.value == "") {
+                  brand.setCustomValidity("Please fill out this field.");
+                } else {
+                  brand.setCustomValidity("");
+                }
+        }
     
-
-    // function enableBtn(){
-    //     var empt = 0;
-    //     console.log($(this).val());
-    //     $(".category").each(function( index ) {
-
-    //         if ($(this).val() == null){
-    //             empt++;
-    //             console.log("empty");
-    //         } 
-
-    //         if (empt !=0 ){
-    //             $(".add-categ").prop('disabled', false);
-    //         }
-    //     });
-    // }
+        function selectionVal(brand){
+            if (brand.children('option:selected').val() == "disabled") {
+                  brand.setCustomValidity("Please fill out this field.");
+                } else {
+                  brand.setCustomValidity("");
+                }
+        }
 </script>
 
 
