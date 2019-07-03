@@ -154,16 +154,14 @@
             <table class="table adding-materials-table table-striped table-bordered display" id="example">
                 <thead>
                     <tr>
-                        <th>Select</th>
+
+                        <th><input type="checkbox" id="checkall" label="check all" /> Select All</th>
                         <th>Category</th>
                         <th>Material Name</th>
                         <th>Unit</th>
                     </tr>
                 </thead>
                 <tbody>
-                <!-- <button type="button" class = "chk_boxes" class="btn btn-primary" value="Select All" label="check all"> -->
-                <!-- <button type="button" id="selectAll" class="main"> -->
-                <input type="checkbox" id="checkall" label="check all" /> Select All
                     <?php
             $sql = "SELECT 
                 categories.categories_name, 
