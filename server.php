@@ -306,7 +306,7 @@
         $stmt->bind_param("ssi", $close_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        // header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");     
+        header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");     
     }
 
     if (isset($_POST['reopen_project'])) {

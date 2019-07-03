@@ -2,7 +2,6 @@
     session_start();
     $_SESSION['acc_type'] = "Materials Engineer";
     include "../session.php";
-
      $accounts_id =$_SESSION['account_id'];
 ?>
 
@@ -292,7 +291,6 @@
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         });
-
         $('#articles').on('change', function() {
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this)
                 .children(
@@ -301,11 +299,9 @@
                     var d = JSON.parse(data);
                     $('#units').val(d[0][1])
                     $('#unit').val(d[0][0])
-
                     this.className = "form-control";
                 })
         })
-
         $('#projects').on('change', function() {
             console.log($(this).children('option:selected').val())
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?projects_id=' + $(
@@ -316,7 +312,6 @@
                 $('#location').val(d)
             })
         })
-
         $('#projects').on('change', function() {
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $(this)
                 .children(
@@ -390,17 +385,13 @@
                 })
                     }
         });
-
-
         $("#deliveredTable").on('click', '.delete-row', function() {
             $(this).closest('tr').remove();
         });
     });
-
     function remSel(inp1, classId){
         inp1.className = "form-control art2";
         console.log("#"+classId+" option[value='" + inp1.value + "']");
-
         $("#"+classId+" option[value='" + inp1.value + "']").prop("disabled", true);
         $(".art2 option[value='" + inp1.value + "']").prop("disabled", true);
         $('#articles option[value="' + inp1.value + '"]').prop("disabled", true);
@@ -430,17 +421,13 @@
         }
     }
 }
-
     function openSlideMenu() {
         document.getElementById('menu').style.width = '15%';
     }
-
     function closeSlideMenu() {
         document.getElementById('menu').style.width = '0';
         document.getElementById('content').style.marginLeft = '0';
     }
-
-
     (function() {
         'use strict';
         window.addEventListener('load', function() {
@@ -456,13 +443,9 @@
             });
         }, false);
     })();
-
-
  
-
  
 function resibovalidation() {
-
 var startList = document.getElementById("resibo").value;
     if(startList==null){
     document.getElementById("res").innerHTML="Please fill out this field.";
@@ -472,7 +455,6 @@ var startList = document.getElementById("resibo").value;
     document.getElementById("res").innerHTML="Duplicate receipt number detected!";
    }else{
     document.getElementById("resibo").setCustomValidity("");
-
    }
 }
 </script>

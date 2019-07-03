@@ -38,10 +38,10 @@
 </head>
 
 <body>
-    <div id="content">
+<div id="content">
         <span class="slide">
-            <a href="#" class="open" onclick="window.location.href='viewInventory.php'">
-                <i class="fas fa-arrow-circle-left"></i>
+            <a href="#" class="open" id="sideNav-a" onclick="openSlideMenu()">
+                <i class="fas fa-bars"></i>
             </a>
             <h4 class="title">NEW GOLDEN CITY BUILDERS AND DEVELOPMENT CORPORATION</h4>
             <div class="account-container">
@@ -58,11 +58,11 @@
                         aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                    <?php
+                        <?php
                         if ($accounts_id >= 4) {
                     ?>
                         <a class="dropdown-item" href="account.php">Account Settings</a>
-                    <?php 
+                        <?php 
                         }
                     ?>
                         <a class="dropdown-item" href="../logout.php">Logout</a>
@@ -70,8 +70,81 @@
                 </div>
             </div>
         </span>
-    </div>
 
+        <div id="menu" class="navigation sidenav">
+            <a href="#" class="close" id="sideNav-a" onclick="closeSlideMenu()">
+                <i class="fas fa-times"></i>
+            </a>
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <img src="../Images/login2.png" id="ngcbdc-logo">
+                </div>
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="dashboard.php" id="sideNav-a">Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <a href="#siteSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"
+                            id="sideNav-a">Site</a>
+                        <ul class="collapse list-unstyled" id="siteSubmenu">
+                            <li>
+                                <a href="projects.php" id="sideNav-a">Projects</a>
+                            </li>
+                            <li>
+                                <a href="sitematerials.php" id="sideNav-a">Site Materials</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="#haulingSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"
+                            id="sideNav-a">Hauling</a>
+                        <ul class="collapse list-unstyled" id="haulingSubmenu">
+                            <li>
+                                <a href="fillouthauling.php" id="sideNav-a">Fill out Hauling Receipt</a>
+                            </li>
+                            <li>
+                                <a href="hauleditems.php" id="sideNav-a">View Hauled Materials</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="#transactionSubmenu" data-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle" id="sideNav-a">Transactions</a>
+                        <ul class="collapse list-unstyled" id="transactionSubmenu">
+                            <li>
+                                <a href="requisitionslip.php" id="sideNav-a">Material Requisition Slip</a>
+                            </li>
+                            <li>
+                                <a href="deliveredin.php" id="sideNav-a">Delivered In Form</a>
+                            </li>
+                            <li>
+                                <a href="viewTransactions.php" id="sideNav-a">View Transactions</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="addingOfNewMaterials.php" id="sideNav-a">Adding of Materials</a>
+                    </li>
+                    <li class="active">
+                        <a href="#reportSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"
+                            id="sideNav-a">Reports</a>
+                        <ul class="collapse list-unstyled" id="reportSubmenu">
+                            <li>
+                                <a href="currentReport.php" id="sideNav-a">Monthly Report</a>
+                            </li>
+                            <li>
+                                <a href="previousReports.php" id="sideNav-a">Previous Reports</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <a href="#" class="open" onclick="window.location.href='projects.php'">
+        <i class="fas fa-arrow-circle-left arrow-left"></i>
+    </a>
+    
     <form action="../server.php" method="POST">
     <div class="card low-in-quantity-container">
         <h5 class="card-header">Reconcilliation of <?php echo $projects_name ;?></h5>
