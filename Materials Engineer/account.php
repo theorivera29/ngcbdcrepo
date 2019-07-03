@@ -184,8 +184,6 @@
                         <input type="button" class="btn btn-success save-accnt-btn" data-toggle="modal"
                                 data-target="#edit-acct-modal"
                             value="Save Changes">
-                        <input type="reset" class="btn btn-danger cancel-accnt-btn" value="Cancel">
-
                     </div>
                     <!-- Start of confirmation modal -->
                     <div class="modal fade" id="edit-acct-modal" tabindex="-1" role="dialog"

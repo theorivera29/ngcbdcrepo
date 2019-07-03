@@ -915,6 +915,33 @@ if (isset($_POST['edit_project'])) {
         header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
 
+    if (isset($_POST['create_brand'])) {
+        $brand = $_POST['brand'];
+        $stripBrand = array_map( 'strip_tags', $brand );
+        $account_id = "";
+        session_start();
+        if(isset($_SESSION['account_id'])) {
+            $account_id = $_SESSION['account_id'];
+        }
+
+            for($x = 0; $x < sizeof($brand); $x++){
+                $stmt = $conn->prepare("INSERT INTO brands (brands_name)
+                    VALUES (?);");
+                $stmt->bind_param("s", $stripBrand[$x]);
+                $stmt->execute();
+                $stmt->close();
+                $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?,?,?);");
+                $create_brand_date = date("Y-m-d G:i:s");
+                $logs_message = 'Created Unit: '.$stripBrand[$x];
+                $logs_of = $account_id;
+                $stmt->bind_param("ssi", $create_brand_date, $logs_message, $logs_of);
+                $stmt->execute();
+            $stmt->close();
+                }
+            
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
+    }
+
     if (isset($_POST['create_materials'])) {
         $categ = $_POST['categ'];
         $stripCateg = array_map( 'strip_tags', $categ );
