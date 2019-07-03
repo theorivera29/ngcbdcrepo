@@ -985,7 +985,10 @@
         });
 
         $(".category").each(function() { 
-            $(this).on('keyup',
+            $(this).on('keyup', function () {
+                
+            });
+        });
         $('#categButton').click(function (e) {
             var isValid;
             $(".category").each(function() {
