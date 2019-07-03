@@ -154,16 +154,14 @@
             <table class="table adding-materials-table table-striped table-bordered display" id="example">
                 <thead>
                     <tr>
-                        <th>Select</th>
+
+                        <th><input type="checkbox" id="checkall" label="check all" /> Select All</th>
                         <th>Category</th>
                         <th>Material Name</th>
                         <th>Unit</th>
                     </tr>
                 </thead>
                 <tbody>
-                <!-- <button type="button" class = "chk_boxes" class="btn btn-primary" value="Select All" label="check all"> -->
-                <!-- <button type="button" id="selectAll" class="main"> -->
-                <input type="checkbox" id="checkall" label="check all" /> Select All
                     <?php
             $sql = "SELECT 
                 categories.categories_name, 
@@ -274,9 +272,9 @@
     var checked = this.checked;
     table.column(0).nodes().to$().each(function(index) {    
         if (checked) {
-            $(this).find('.checkbox1').prop('checked', 'checked');
+            $(this).find('.checkbox1').prop("checked", true);
         } else {
-             $(this).find('.checkbox1').removeProp('checked');            
+             $(this).find('.checkbox1').prop("checked", false);            
         }
     });    
     table.draw();

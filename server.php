@@ -943,6 +943,7 @@ if (isset($_POST['edit_project'])) {
             $stmt->bind_param("s", $stripMat[$x]);
             $stmt->execute();
             $stmt->store_result();
+<<<<<<< HEAD
             if ($stmt->num_rows === 0) {
                 $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit)VALUES (?, ?, ?);");
                 $stmt->bind_param("sii", $stripMat[$x], $categ_id[$x], $unit_id[$x]);
@@ -955,6 +956,10 @@ if (isset($_POST['edit_project'])) {
                 $stmt->store_result();
                 $stmt->bind_result($mat_id[$x]);
                 $stmt->fetch();
+=======
+            $stmt->bind_result($mat_id[$x]);
+            $stmt->fetch();
+>>>>>>> 0fee59fc4e199688db1cab22ed2475bb2052834a
 
                 if(isset($_SESSION['account_id'])) {
                     $accounts_id = $_SESSION['account_id'];
