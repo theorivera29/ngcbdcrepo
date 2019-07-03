@@ -20,7 +20,6 @@
         $stmt->bind_param("s", $accounts_id);
         $stmt->execute();
         $stmt->store_result();
-        echo $stmt->num_rows;
         if ($stmt->num_rows === 0) {
             $stmt->close();
             $password_request_date = date("Y-m-d");
@@ -939,38 +938,36 @@ if (isset($_POST['edit_project'])) {
             $stmt->store_result();
             $stmt->bind_result($unit_id[$x]);
             $stmt->fetch();
-                
-            $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit)VALUES (?, ?, ?);");
-            $stmt->bind_param("sii", $stripMat[$x], $categ_id[$x], $unit_id[$x]);
-            $stmt->execute();
-            $stmt->close();
-            
-            $stmt = $conn->prepare("SELECT mat_id FROM materials WHERE mat_name = ?;");
+
+            $stmt = $conn->prepare("SELECT mat_name FROM materials WHERE mat_name = ?;");
             $stmt->bind_param("s", $stripMat[$x]);
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($mat_id[$x]);
-            $stmt->fetch();
-<<<<<<< HEAD
-            
-            $stmt = $conn->prepare("INSERT INTO matinfo (matinfo_prevStock, matinfo_project, matinfo_notif, currentQuantity, matinfo_matname)VALUES (?, ?, ?, ?, ?);");
-            $stmt->bind_param("iiiii", $prevStock, $proj, $stripThreshold[$x], $currentQuantity, $mat_id[$x]);
-            $stmt->execute();
-            $stmt->close(); 
-=======
->>>>>>> 848d6d2ba2ff14c4590170cff12336c4e4c892dc
+            if ($stmt->num_rows === 0) {
+                $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit)VALUES (?, ?, ?);");
+                $stmt->bind_param("sii", $stripMat[$x], $categ_id[$x], $unit_id[$x]);
+                $stmt->execute();
+                $stmt->close();
+                
+                $stmt = $conn->prepare("SELECT mat_id FROM materials WHERE mat_name = ?;");
+                $stmt->bind_param("s", $stripMat[$x]);
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->bind_result($mat_id[$x]);
+                $stmt->fetch();
 
-            if(isset($_SESSION['account_id'])) {
-                $accounts_id = $_SESSION['account_id'];
+                if(isset($_SESSION['account_id'])) {
+                    $accounts_id = $_SESSION['account_id'];
+                }
+        
+                $date_today = date("Y-m-d G:i:s");
+                $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
+                $stmt->bind_param("ssi", $date_today, $logs_message, $logs_of);
+                $logs_message = 'Created material '.$stripMat[$x];
+                $logs_of = $accounts_id;
+                $stmt->execute();
+                $stmt->close();
             }
-    
-            $date_today = date("Y-m-d G:i:s");
-            $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
-            $stmt->bind_param("ssi", $date_today, $logs_message, $logs_of);
-            $logs_message = 'Created material '.$stripMat[$x];
-            $logs_of = $accounts_id;
-            $stmt->execute();
-            $stmt->close();
         }
         header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
