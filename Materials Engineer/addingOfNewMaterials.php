@@ -189,7 +189,7 @@
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
                                         <button type="button" class="btn btn-primary add-categ" data-toggle="modal"
-                                            data-target="#add-categ-modal">Save Category</button>
+                                            data-target="#add-categ-modal">Save</button>
                                         <input type="reset" class="btn btn-danger" value="Cancel">
                                     </div>
                                 </div>
@@ -323,8 +323,7 @@
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
                                         <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#add-unit-modal">Save
-                                            Unit</button>
+                                            data-target="#add-unit-modal">Save</button>
                                         <input type="reset" class="btn btn-danger" value="Cancel">
                                     </div>
                                 </div>
@@ -461,8 +460,7 @@
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
                                         <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#add-brand-modal">Save
-                                            Unit</button>
+                                            data-target="#add-brand-modal">Save</button>
                                         <input type="reset" class="btn btn-danger" value="Cancel">
                                     </div>
                                 </div>
@@ -473,7 +471,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to
-                                                    add the following units?</h5>
+                                                    add the following brands?</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     &times;
@@ -503,10 +501,10 @@
                                 <tbody>
                                     <?php 
                                             $sql = "SELECT
-                                                        unit_id,
-                                                        unit_name
+                                                        brands_id,
+                                                        brands_name
                                                     FROM
-                                                        unit
+                                                        brands
                                                     ORDER BY 1;";
                                             $result = mysqli_query($conn, $sql);
                                             while($row = mysqli_fetch_row($result)){
@@ -518,19 +516,19 @@
                                             <?php echo $row[1]?>
                                         </td>
                                         <td><button type="button" class="btn btn-outline-secondary" data-toggle="modal"
-                                                data-target="#edit-unit-modal-<?php echo $row[0]?>">Edit</button>
+                                                data-target="#edit-brand-modal-<?php echo $row[0]?>">Edit</button>
                                         </td>
                                     </tr>
 
                                     <!-- Start of edit unit modal -->
-                                    <div class="modal fade" id="edit-unit-modal-<?php echo $row[0]?>" tabindex="-1"
+                                    <div class="modal fade" id="edit-brand-modal-<?php echo $row[0]?>" tabindex="-1"
                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <form action="../server.php" method="POST">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Edit
-                                                            Unit:
+                                                            Brand:
                                                             <?php echo $row[1];?>
                                                         </h5>
                                                         <button type="button" class="close" data-dismiss="modal"
@@ -539,16 +537,16 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
-                                                            <label for="editcategory" class="label-styles">Unit</label>
+                                                            <label for="editcategory" class="label-styles">Brand</label>
                                                             <input type="text" class="form-control"
-                                                                value="<?php echo $row[1]?>" name="unit_name"
-                                                                placeholder="Enter new unit name">
+                                                                value="<?php echo $row[1]?>" name="brands_name"
+                                                                placeholder="Enter new brand name">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <input type="hidden" value="<?php echo $row[0]?>"
-                                                            name="unit_id" />
-                                                        <button type="submit" name="edit_unit"
+                                                            name="brands_id" />
+                                                        <button type="submit" name="edit_brands"
                                                             class="btn btn-success">Save</button>
                                                         <button type="button" class="btn btn-danger"
                                                             data-dismiss="modal">Cancel</button>
@@ -623,11 +621,11 @@
                                                     ?>
                                                 </select>
                                             </td>
-                                            <td><select name="unit[]" class="custom-select" id="unit" required>
+                                            <td><select name="brands[]" class="custom-select" id="brands" required>
                                                     <option value="disabled" selected disabled>Choose brand</option>
                                                     <?php 
                                                             $sql = "SELECT
-                                                                brand_name
+                                                                brands_name
                                                             FROM
                                                                 brands
                                                             ORDER BY 1;";
@@ -708,13 +706,17 @@
                                                         materials.mat_name,
                                                         unit.unit_name,
                                                         materials.mat_id,
-                                                        unit.unit_id
+                                                        unit.unit_id,
+                                                        brands.brands_name,
+                                                        brands.brands_id
                                                     FROM
                                                         materials
                                                     INNER JOIN
                                                         categories ON materials.mat_categ = categories.categories_id
                                                     INNER JOIN
-                                                        unit ON materials.mat_unit = unit.unit_id";
+                                                        unit ON materials.mat_unit = unit.unit_id
+                                                    INNER JOIN
+                                                        brands ON brands.brands_id = mat_brand";
                                             $result = mysqli_query($conn, $sql);
                                             while($row = mysqli_fetch_row($result)){
                                         ?>
@@ -729,7 +731,7 @@
                                                 <?php echo $row[2];?>
                                             </td>
                                             <td>
-                                                <?php echo $row[3];?>
+                                                <?php echo $row[5];?>
                                             </td>
                                             <td><input type="button" class="btn btn-md btn-outline-secondary"
                                                     value="Edit" data-toggle="modal"
