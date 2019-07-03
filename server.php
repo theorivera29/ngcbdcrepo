@@ -921,13 +921,8 @@ if (isset($_POST['edit_project'])) {
         $stripCateg = array_map( 'strip_tags', $categ );
         $materials = $_POST['material'];
         $stripMat = array_map( 'strip_tags', $materials );
-        $threshold = $_POST['threshold'];
-        $stripThreshold = array_map( 'strip_tags', $threshold );
         $unit = $_POST['unit'];
         $stripUnits = array_map( 'strip_tags', $unit );
-        $prevStock = 0;
-        $proj = 1;
-        $currentQuantity = 0;
         
         for($x = 0; $x < sizeof($materials); $x++){
 
@@ -956,11 +951,14 @@ if (isset($_POST['edit_project'])) {
             $stmt->store_result();
             $stmt->bind_result($mat_id[$x]);
             $stmt->fetch();
+<<<<<<< HEAD
             
             $stmt = $conn->prepare("INSERT INTO matinfo (matinfo_prevStock, matinfo_project, matinfo_notif, currentQuantity, matinfo_matname)VALUES (?, ?, ?, ?, ?);");
             $stmt->bind_param("iiiii", $prevStock, $proj, $stripThreshold[$x], $currentQuantity, $mat_id[$x]);
             $stmt->execute();
             $stmt->close(); 
+=======
+>>>>>>> 848d6d2ba2ff14c4590170cff12336c4e4c892dc
 
             if(isset($_SESSION['account_id'])) {
                 $accounts_id = $_SESSION['account_id'];
