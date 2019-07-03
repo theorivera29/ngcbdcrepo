@@ -951,6 +951,11 @@ if (isset($_POST['edit_project'])) {
         $stripUnits = array_map( 'strip_tags', $unit );
         $brands = $_POST['brands'];
         $stripBrands = array_map( 'strip_tags', $brands );
+        
+        var_dump($categ);
+        var_dump($materials);
+        var_dump($unit);
+        var_dump($stripBrands);
 
         session_start();
         if(isset($_SESSION['account_id'])) {
@@ -972,25 +977,14 @@ if (isset($_POST['edit_project'])) {
             $stmt->bind_result($unit_id[$x]);
             $stmt->fetch();
 
-            $stmt = $conn->prepare("SELECT mat_name FROM materials WHERE mat_name = ?;");
-            $stmt->bind_param("s", $stripMat[$x]);
-            $stmt->execute();
-            $stmt->store_result();
-
             $stmt = $conn->prepare("SELECT brands_id FROM brands WHERE brands_name = ?;");
             $stmt->bind_param("s", $stripBrands[$x]);
             $stmt->execute();
             $stmt->store_result();
             $stmt->bind_result($brands_id[$x]);
             $stmt->fetch();
-            if ($stmt->num_rows === 0) {
                 $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit, mat_brand)VALUES (?, ?, ?, ?);");
                 $stmt->bind_param("siii", $stripMat[$x], $categ_id[$x], $unit_id[$x], $brands_id[$x]);
-                $stmt->execute();
-                $stmt->close();
-
-                $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit)VALUES (?, ?, ?);");
-                $stmt->bind_param("sii", $stripMat[$x], $categ_id[$x], $unit_id[$x]);
                 $stmt->execute();
                 $stmt->close();
                 
@@ -1008,7 +1002,6 @@ if (isset($_POST['edit_project'])) {
                 $logs_of = $accounts_id;
                 $stmt->execute();
                 $stmt->close();
-            }
         }
         header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
