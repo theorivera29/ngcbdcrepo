@@ -250,16 +250,13 @@
     $(document).ready(function () {
         $('#mydatatable').DataTable();
         $('table.display').DataTable();
-
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         });
     });
-
     function openSlideMenu() {
         document.getElementById('menu').style.width = '15%';
     }
-
     function closeSlideMenu() {
         document.getElementById('menu').style.width = '0';
         document.getElementById('content').style.marginLeft = '0';
@@ -270,7 +267,6 @@
     // });
     // });
     var table = $('#example').DataTable();
-
     $('#checkall').click(function(event) {  //on click 
     var checked = this.checked;
     table.column(0).nodes().to$().each(function(index) {    
