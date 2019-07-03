@@ -915,6 +915,33 @@ if (isset($_POST['edit_project'])) {
         header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
 
+    if (isset($_POST['create_brand'])) {
+        $brand = $_POST['brand'];
+        $stripBrand = array_map( 'strip_tags', $brand );
+        $account_id = "";
+        session_start();
+        if(isset($_SESSION['account_id'])) {
+            $account_id = $_SESSION['account_id'];
+        }
+
+            for($x = 0; $x < sizeof($brand); $x++){
+                $stmt = $conn->prepare("INSERT INTO brands (brands_name)
+                    VALUES (?);");
+                $stmt->bind_param("s", $stripBrand[$x]);
+                $stmt->execute();
+                $stmt->close();
+                $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?,?,?);");
+                $create_brand_date = date("Y-m-d G:i:s");
+                $logs_message = 'Created Unit: '.$stripBrand[$x];
+                $logs_of = $account_id;
+                $stmt->bind_param("ssi", $create_brand_date, $logs_message, $logs_of);
+                $stmt->execute();
+            $stmt->close();
+                }
+            
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
+    }
+
     if (isset($_POST['create_materials'])) {
         $categ = $_POST['categ'];
         $stripCateg = array_map( 'strip_tags', $categ );
@@ -922,9 +949,15 @@ if (isset($_POST['edit_project'])) {
         $stripMat = array_map( 'strip_tags', $materials );
         $unit = $_POST['unit'];
         $stripUnits = array_map( 'strip_tags', $unit );
-        
-        for($x = 0; $x < sizeof($materials); $x++){
+        $brands = $_POST['brands'];
+        $stripBrands = array_map( 'strip_tags', $brands );
 
+        session_start();
+        if(isset($_SESSION['account_id'])) {
+            $accounts_id = $_SESSION['account_id'];
+        }
+
+        for($x = 0; $x < sizeof($materials); $x++){
             $stmt = $conn->prepare("SELECT categories_id FROM categories WHERE categories_name = ?;");
             $stmt->bind_param("s", $stripCateg[$x]);
             $stmt->execute();
@@ -943,7 +976,19 @@ if (isset($_POST['edit_project'])) {
             $stmt->bind_param("s", $stripMat[$x]);
             $stmt->execute();
             $stmt->store_result();
+
+            $stmt = $conn->prepare("SELECT brands_id FROM brands WHERE brands_name = ?;");
+            $stmt->bind_param("s", $stripBrands[$x]);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($brands_id[$x]);
+            $stmt->fetch();
             if ($stmt->num_rows === 0) {
+                $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit, mat_brand)VALUES (?, ?, ?, ?);");
+                $stmt->bind_param("siii", $stripMat[$x], $categ_id[$x], $unit_id[$x], $brands_id[$x]);
+                $stmt->execute();
+                $stmt->close();
+
                 $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit)VALUES (?, ?, ?);");
                 $stmt->bind_param("sii", $stripMat[$x], $categ_id[$x], $unit_id[$x]);
                 $stmt->execute();
@@ -955,15 +1000,11 @@ if (isset($_POST['edit_project'])) {
                 $stmt->store_result();
                 $stmt->bind_result($mat_id[$x]);
                 $stmt->fetch();
-
-                if(isset($_SESSION['account_id'])) {
-                    $accounts_id = $_SESSION['account_id'];
-                }
         
                 $date_today = date("Y-m-d G:i:s");
                 $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
                 $stmt->bind_param("ssi", $date_today, $logs_message, $logs_of);
-                $logs_message = 'Created material '.$stripMat[$x];
+                $logs_message = 'Created material '.$stripMat[$x]. 'with a brand of '.$stripBrands[$x];
                 $logs_of = $accounts_id;
                 $stmt->execute();
                 $stmt->close();
@@ -1249,6 +1290,30 @@ if (isset($_POST['edit_project'])) {
         $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
         $stmt->bind_param("ssi", $edit_unit_date, $logs_message, $logs_of);
         $logs_message = 'Edited unit to '.$unit_name;
+        $logs_of = $account_id;
+        $stmt->execute();
+        $stmt->close();
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
+    }
+
+    if (isset($_POST['edit_brands'])) {
+        $brands_name = mysqli_real_escape_string($conn, $_POST['brands_name']);
+        $brands_id = mysqli_real_escape_string($conn, $_POST['brands_id']);
+        
+        $stmt = $conn->prepare("UPDATE brands SET brands_name = ? WHERE brands_id = ?;");
+        $stmt->bind_param("si", $brands_name, $brands_id);
+        $stmt->execute();
+        $stmt->close();
+    
+        $brands_date = date("Y-m-d G:i:s");
+        $account_id = "";
+        session_start();
+        if(isset($_SESSION['account_id'])) {
+            $account_id = $_SESSION['account_id'];
+        }
+        $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
+        $stmt->bind_param("ssi", $brands_date, $logs_message, $logs_of);
+        $logs_message = 'Edited brands to '.$brands_name;
         $logs_of = $account_id;
         $stmt->execute();
         $stmt->close();
