@@ -163,7 +163,7 @@
                         <!-- Start of Category -->
                         <div class="tab-pane fade show active adding-of-materials-container" id="nav-category"
                             role="tabpanel" aria-labelledby="nav-category-tab">
-                            <form action="../server.php" method="POST">
+                            <form action="../server.php" method="POST" class="needs-validation" novalidate>
                                 <table class="table new-category-table table-striped table-bordered" id="table1">
                                     <thead>
                                         <tr>
@@ -172,8 +172,10 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add-categ-table">
-                                        <td><input class="form-control" name="category[]" type="text" id="category"
-                                                placeholder="Category Name" required></td>
+                                        <td><input class="form-control category" name="category[]" type="text" id="category"
+                                                placeholder="Category Name" required>
+                                                <div class="invalid-feedback">Please fill out this field.</div>
+                                        </td>
                                         <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row"
                                                 value="Remove" /></td>
                                     </tbody>
@@ -188,8 +190,7 @@
                                 </table>
                                 <div class="row form-group save-btn-container">
                                     <div class="col-lg-12">
-                                        <button type="button" class="btn btn-primary add-categ" data-toggle="modal"
-                                            data-target="#add-categ-modal">Save</button>
+                                        <button type="submit" id="categButton" class="btn btn-primary add-categ" >Save</button>
                                         <input type="reset" class="btn btn-danger" value="Cancel">
                                     </div>
                                 </div>
@@ -430,16 +431,16 @@
 
                         <!-- Start of Brand-->
                         <div class="tab-pane fade show adding-of-materials-container" id="nav-brand" role="tabpanel"
-                            aria-labelledby="nav-unit-tab">
+                            aria-labelledby="nav-brand-tab">
                             <form action="../server.php" method="POST">
-                                <table class="table new-category-table table-striped table-bordered" id="table2">
+                                <table class="table new-category-table table-striped table-bordered" id="table3">
                                     <thead>
                                         <tr>
                                             <th scope="col">Brand</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="add-unit-table">
+                                    <tbody id="add-brand-table">
                                         <tr>
                                             <td><input class="form-control" name="brand[]" type="text" id="brand"
                                                     placeholder="Brand" required> </td>
@@ -451,7 +452,7 @@
                                     <tfoot>
                                         <tr>
                                             <td colspan="2">
-                                                <button type="button" class="btn btn-success add-row-btn2"><i
+                                                <button type="button" class="btn btn-success add-row-btn3"><i
                                                         class="fas fa-plus" id="plus-icon"></i> Add Row</button>
                                             </td>
                                         </tr>
@@ -569,7 +570,7 @@
                         <div class="tab-pane fade show" id="nav-material" role="tabpanel"
                             aria-labelledby="nav-material-tab">
                             <form action="../server.php" method="POST">
-                                <table class="table new-category-table" id="table3">
+                                <table class="table new-category-table" id="table4">
                                     <thead>
                                         <tr>
                                             <th scope="col">Category</th>
@@ -645,8 +646,8 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="4">
-                                                <button type="button" class="btn btn-success add-row-btn3"><i
+                                            <td colspan="5">
+                                                <button type="button" class="btn btn-success add-row-btn4"><i
                                                         class="fas fa-plus" id="plus-icon"></i> Add Row</button>
                                             </td>
                                         </tr>
@@ -869,7 +870,7 @@
             var html = '';
             html += '<tr>';
             html +=
-                '<td><input class="form-control" name="category[]" type="text" id="category" placeholder="Category Name" required></td>';
+                '<td><input class="form-control category" name="category[]" type="text" id="category" placeholder="Category Name" required><div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove"/></td>'
             html += '</tr>';
@@ -890,12 +891,26 @@
             html += '</tr>';
             $('#table2 tbody').append(html);
         });
-
-        $("#add-material-table").on('click', '.delete-row', function () {
+        $("#add-unit-table").on('click', '.delete-row', function () {
             $(this).closest('tr').remove();
         });
 
         $(document).on('click', '.add-row-btn3', function () {
+            var html = '';
+            html += '<tr>';
+            html +=
+                '<td><input class="form-control" name="brand[]" type="text" id="brand" placeholder="Brand" required> </td>';
+            html +=
+                '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove"/></td>'
+            html += '</tr>';
+            $('#table3 tbody').append(html);
+        });
+        $("#add-brand-table").on('click', '.delete-row', function () {
+            $(this).closest('tr').remove();
+        });
+        
+
+        $(document).on('click', '.add-row-btn4', function () {
             var html = '';
             html += '<tr>';
             html +=
@@ -916,8 +931,6 @@
             }
             echo "';";
             ?>
-
-
             html += '</select></td>';
             html +=
                 '<td><input class="form-control" name="material[]" type="text" id="material" placeholder="Material Name" required></td>';
@@ -943,16 +956,96 @@
 
 
             html += '</select></td>';
+            html += '<td><select name="brands[]" class="custom-select" id="brands" required><option value="disabled" selected disabled>Choose brand</option>';
+            <?php 
+                    $sql = "SELECT
+                        brands_name
+                    FROM
+                        brands
+                    ORDER BY 1;";
+                $result = mysqli_query($conn, $sql);
+                echo "html +='";
+                while($row = mysqli_fetch_row($result)){
+                    echo '<option value="'.$row[0].'">';
+                    echo $row[0];
+                    echo '</option>';
+                }
+           echo "';";
+           
+            ?>
+            html += '</select></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove"/></td>'
             html += '</tr>';
-            $('#table3 tbody').append(html);
+            $('#table4 tbody').append(html);
         });
 
-        $("#add-unit-table").on('click', '.delete-row', function () {
+        $("#add-material-table").on('click', '.delete-row', function () {
             $(this).closest('tr').remove();
         });
+
+        $(".category").each(function() { 
+            $(this).on('keyup',
+        $('#categButton').click(function (e) {
+            var isValid;
+            $(".category").each(function() {
+            var element = $(this);
+            if (element.val() == "") {
+                isValid = false;
+                this.setCustomValidity("Please fill out this field.");
+            } else {
+                isValid = true;
+                this.setCustomValidity("");
+            }
+            });
+            console.log(isValid);
+            if (isValid==true) {
+                e.preventDefault();
+                $("#add-categ-modal").modal('show');   
+            } else {
+                
+            }
+                
+            
+            
+        });
+
+        
     });
+
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+
+    
+
+    // function enableBtn(){
+    //     var empt = 0;
+    //     console.log($(this).val());
+    //     $(".category").each(function( index ) {
+
+    //         if ($(this).val() == null){
+    //             empt++;
+    //             console.log("empty");
+    //         } 
+
+    //         if (empt !=0 ){
+    //             $(".add-categ").prop('disabled', false);
+    //         }
+    //     });
+    // }
 </script>
 
 
