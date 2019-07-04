@@ -156,7 +156,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add-categ-table">
-                                        <td><input class="form-control category" name="category[]" onkeyup="brandVal(this)" type="text" id="category" placeholder="Category Name" required>
+                                        <td><input class="form-control category" name="category[]" onkeyup="brandVal(this)" type="text" id="category" placeholder="Category Name" pattern="^[A-Za-z][A-Za-z0-9\s.-]*$" required>
                                             <div class="invalid-feedback">Please fill out this field.</div>
                                         </td>
                                         <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove" /></td>
@@ -271,7 +271,7 @@
                                     </thead>
                                     <tbody id="add-unit-table">
                                         <tr>
-                                            <td><input class="form-control unitName" name="units[]" onkeyup="brandVal(this)" type="text" id="units" placeholder="Unit" required>
+                                            <td><input class="form-control unitNames" name="units[]" onkeyup="brandVal(this)" type="text" id="units" placeholder="Unit" pattern="^[A-Za-z][A-Za-z\s.]*$" required>
                                                 <div class="invalid-feedback">Please fill out this field.</div>
                                             </td>
                                             <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove" /></td>
@@ -808,7 +808,7 @@
             var html = '';
             html += '<tr>';
             html +=
-                '<td><input class="form-control category" name="category[]" onkeyup="brandVal(this)" type="text" id="category" placeholder="Category Name" required><div class="invalid-feedback">Please fill out this field.</div></td>';
+                '<td><input class="form-control category" name="category[]" onkeyup="brandVal(this)" type="text" id="category" placeholder="Category Name" pattern="^[A-Za-z][A-Za-z0-9\s.-\']*$" required><div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove"/></td>'
             html += '</tr>';
@@ -823,7 +823,7 @@
             var html = '';
             html += '<tr>';
             html +=
-                '<td><input class="form-control unitName" name="units[]" onkeyup="brandVal(this)" type="text" id="units" placeholder="Unit" required> <div class="invalid-feedback">Please fill out this field.</div></td>';
+                '<td><input class="form-control unitNames" name="units[]" onkeyup="brandVal(this)" type="text" id="units" placeholder="Unit" pattern="^[A-Za-z][A-Za-z\s.]*$" required> <div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove"/></td>'
             html += '</tr>';
@@ -837,7 +837,7 @@
             var html = '';
             html += '<tr>';
             html +=
-                '<td><input class="form-control brand" onkeyup="brandVal(this)" name="brand[]" type="text" id="brand" placeholder="Brand" required><div class="invalid-feedback">Please fill out this field.</div> </td>';
+                '<td><input class="form-control brand" onkeyup="brandVal(this)" name="brand[]" type="text" id="brand" placeholder="Brand" pattern="^[A-Za-z][A-Za-z0-9\s.\']*$" required><div class="invalid-feedback">Please fill out this field.</div> </td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove"/></td>'
             html += '</tr>';
@@ -871,7 +871,7 @@
             ?>
             html += '</select><div class="invalid-feedback">Please select one.</div></td>';
             html +=
-                '<td><input class="form-control matName" name="material[]" onkeyup="brandVal(this)" type="text" id="material" placeholder="Material Name" required><div class="invalid-feedback">Please fill out this field.</div></td>';
+                '<td><input class="form-control matName" name="material[]" onkeyup="brandVal(this)" type="text" id="material" placeholder="Material Name" pattern="^[A-Za-z][A-Za-z0-9\s.\'\"]*$" required><div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
                 '<td><select name="unit[]" class="custom-select unitMat unitName" id="unit" onchange="selectionVal(this)" required> <option value="disabled" selected disabled>Choose unit</option>'; 
             <?php
@@ -967,7 +967,7 @@
 
         $('#unitButton').click(function(e) {
             var isValid;
-            $(".unitName").each(function() {
+            $(".unitNames").each(function() {
                 var element = $(this);
                 if (element.val() == "") {
                     isValid = false;
