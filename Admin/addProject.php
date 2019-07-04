@@ -137,7 +137,7 @@
 
              <div class="custom-control custom-checkbox mb-3 options">
                 
-                <input type="checkbox" class="custom-control-input" name="mateng[]" id="selectMatEng-<?php echo $rowmateng[1]?>" value="<?php echo $rowmateng[1]?>" required>
+                <input type="checkbox" class="custom-control-input" name="mateng[]" id="selectMatEng-<?php echo $rowmateng[1]?>" value="<?php echo $rowmateng[1]?>">
                 <label class="custom-control-label" for="selectMatEng-<?php echo $rowmateng[1]?>"><?php echo $rowmateng[0]?> (<?php echo $rowmateng[2]?>)</label>            
             </div> 
             <div class="invalid-feedback">Please select atleast one Materials Engineer.</div>
@@ -231,9 +231,7 @@
             var address = $("#address").val();
             var sdate = $("#startDate").val();
             var edate = $("#endDate").val();
-            var selectMat = $("input:checkbox[name='mateng[]']");
-            if ((projname != '') && (address != '') && (sdate != '') && (edate != '') && (selectMat.is(
-                    ":checked"))) {
+            if ((projname != '') && (address != '') && (sdate != '') && (edate != '')) {
                 e.preventDefault();
                 $("#create-proj-modal").modal('show');
             }
