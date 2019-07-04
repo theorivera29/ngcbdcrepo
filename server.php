@@ -1019,10 +1019,6 @@ if (isset($_POST['edit_project'])) {
         $stripParticulars = array_map('strip_tags', $particulars);
         $location = $_POST['location'];
         $stripLocation = array_map('strip_tags', $location);
-        
-        var_dump($stripQuantity);
-        var_dump($stripParticulars);
-        var_dump($stripLocation);
 
         $stmt = $conn->prepare("INSERT INTO requisition (requisition_no, requisition_date, requisition_remarks, requisition_reqBy, requisition_approvedBy, requisition_project) VALUES (?, ?, ?, ?, ?, ?);");
         $stmt->bind_param("issssi", $reqNo, $date, $remarks, $requestedBy, $approvedBy, $projName);
@@ -1070,7 +1066,7 @@ if (isset($_POST['edit_project'])) {
         $stmt->bind_param("ssi", $create_requisition_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        //header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewTransactions.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewTransactions.php");     
     }
 
     if (isset($_POST['create_hauling'])) {
@@ -1086,10 +1082,13 @@ if (isset($_POST['edit_project'])) {
         $plateNo = strip_tags(mysqli_real_escape_string($conn, $_POST['plateNo']));
         $PORS = strip_tags(mysqli_real_escape_string($conn, $_POST['PORS']));
         $haulerID = strip_tags(mysqli_real_escape_string($conn, $_POST['haulerID']));
-        $quantity = strip_tags($_POST['quantity']);
-        $unit = strip_tags($_POST['unit']);
-        $articles = strip_tags($_POST['articles']);
         $status = strip_tags(mysqli_real_escape_string($conn, $_POST['status']));
+        $quantity = $_POST['quantity'];
+        $stripQuantity = array_map('strip_tags', $quantity);
+        $unit = $_POST['unit'];
+        $stripUnit = array_map('strip_tags', $unit);
+        $articles = $_POST['articles'];
+        $stripArticles = array_map('strip_tags', $articles);
             
         $stmt = $conn->prepare("INSERT INTO hauling (hauling_no, hauling_date, hauling_deliverTo, hauling_hauledFrom, hauling_hauledBy, hauling_requestedBy, hauling_warehouseman, hauling_approvedBy, hauling_truckDetailsType, hauling_truckDetailsPlateNo, hauling_truckDetailsPO, hauling_truckDetailsHaulerDR, hauling_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         $stmt->bind_param("isssssssssiis", $formNo, $date, $deliverTo, $hauledFrom, $hauledBy, $requestedBy, $warehouseman, $approvedBy, $type, $plateNo, $PORS, $haulerID, $status);
