@@ -205,15 +205,16 @@
                                 </tr>
                             </thead>
                             <tbody id="requisitionTable">
-                                
+
                                 <tr>
                                     <td><input class="form-control" name="quantity[]" min="0" type="number" id="quantity" placeholder="Quantity" required>
                                         <div class="invalid-feedback">Invalid quantity.</div>
                                     </td>
                                     <td>
-                                        <div class="form-group"><select class="form-control " onfocusin="revSel(this);return true;" onchange="remSel(this);return true;" name="particulars[]" id="particulars" required></select>
+                                        <div class="form-group"><select class="form-control " onfocusin="revSel(this);return true;" onchange="remSel(this,particulars,hiddenparticulars);return true;" id="particulars" required></select>
                                             <div class="invalid-feedback">Please select one particular.</div>
                                         </div>
+                                        <input type="hidden" name="particulars[]" id="hiddenparticulars">
                                     </td>
                                     <td><input type="text" class="form-control" type="text" name="units[]" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>
                                     <td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" required>
@@ -221,7 +222,7 @@
                                     </td>
                                     <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete" /></td>
                                 </tr>
-                                
+
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -285,30 +286,33 @@
         $sql = "SELECT requisition_no FROM requisition";
         $result = mysqli_query($conn, $sql);
     ?>
-    let listNames = [ 
+    let listNames = [
         <?php  
         while ($rows = mysqli_fetch_row($result)) {
             echo '"'.$rows[0].'"'.',';
         } 
-    ?>""];
-    let selectedList=[];
+    ?>
+        ""
+    ];
+    let selectedList = [];
     $(document).ready(function() {
         $('#sidebarCollapse').on('click', function() {
             $('#sidebar').toggleClass('active');
         });
-       
+
         $('#particulars').on('change', function() {
-            
+
+            var particulars = $("#particulars option:selected").val();
             console.log($(this).children('option:selected').val());
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
-               
+
                 $('#units').val(d[0][1])
                 $('#unit').val(d[0][0])
-               
-            this.className = "form-control";
-            
+                $('#hiddenparticulars').val(particulars)
+                this.className = "form-control";
+
             })
         })
 
@@ -316,29 +320,29 @@
             $.get('http://localhost/NGCBDC/Materials%20Engineer/../server.php?project_id=' + $(this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
-                
+
                 var print_options = '';
                 print_options = print_options + `<option disabled selected>Choose your option</option>`;
                 d.forEach(function(da) {
-                    if (!selectedList.includes(da[0])){
+                    if (!selectedList.includes(da[0])) {
                         print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
                     } else {
                         print_options = print_options + `<option value="${da[0]}" disabled>${da[1]}</option>`;
                     }
                 })
-            
+
                 $('.part').html(print_options);
                 $('#particulars').html(print_options);
             })
         })
 
         $('#projects').on('change', function() {
-            
+
             console.log($(this).children('option:selected').val())
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?projects_id=' + $(this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
-                
+
                 $('#location').val(d)
             })
         })
@@ -355,7 +359,6 @@
                 });
             })
         });
-        var i = 0;
         $(document).on('click', '.add-row-btn', function() {
             $('#particulars').className = "form-control";
 
@@ -365,84 +368,87 @@
                 var print_options = '';
                 print_options = print_options + `<option disabled selected>Choose your option</option>`;
                 d.forEach(function(da) {
-                    if (!selectedList.includes(da[0])){
+                    if (!selectedList.includes(da[0])) {
                         print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
                     } else {
                         print_options = print_options + `<option value="${da[0]}" disabled>${da[1]}</option>`;
                     }
-                    
-                    
+
+
                 })
                 $('.part').html(print_options)
             });
             var html = '';
-            
+
             html += '<tr>';
             html +=
-                '<td><input class="form-control" name="quantity[]" min="0" type="number" id="quantity'+i+'" placeholder="Quantity" required><div class="invalid-feedback">Invalid quantity.</div></td>';
+                '<td><input class="form-control" name="quantity[]" min="0" type="number" id="quantity' + i + '" placeholder="Quantity" required><div class="invalid-feedback">Invalid quantity.</div></td>';
             html +=
-                '<td><div class="form-group"><select class="form-control part part2" onfocusin="revSel(this, \'#particulars'+i+'\');return true;" onchange="remSel(this, \'particulars'+i+'\');return true;" name="particulars[]" id="particulars'+i+'" required></select><div class="invalid-feedback">Please select one particular.</div></div></td>';
+                '<td><div class="form-group"><select class="form-control part part2" onfocusin="revSel(this, \'#particulars' + i + '\');return true;" onchange="remSel(this, \'particulars' + i + '\', \'hiddenparticulars' + i + '\');return true;" id="particulars' + i + '" required></select><div class="invalid-feedback">Please select one particular.</div></div></td><input type="hidden" name="particulars[]" id="hiddenparticulars' + i + '">';
             html +=
-                '<td><input type="text" class="form-control" type="text" name="units[]" id="units'+ i +'" disabled><input type="hidden" class="form-control" name="unit[]" id="unit'+ i +'"></td>'
+                '<td><input type="text" class="form-control" type="text" name="units[]" id="units' + i + '" disabled><input type="hidden" class="form-control" name="unit[]" id="unit' + i + '"></td>'
             html +=
                 '<td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" required><div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>'
             html += '</tr>';
             $('#table1 tbody').append(html);
-            
+
             i++;
-            
-            for( j=0; j < i; j++){
-                var id = "particulars"+j;
-                var unitId = "unit"+j;
-                var unitsId = "units"+j;
-                var qty = "quantity"+j;
-   
-                        $("#"+id).on('change', function() {
-                        console.log($(this).children('option:selected').val());
-                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $("#"+id).children(
+
+            for (j = 0; j < i; j++) {
+                var id = "particulars" + j;
+                var unitId = "unit" + j;
+                var unitsId = "units" + j;
+                var qty = "quantity" + j;
+
+                $("#" + id).on('change', function() {
+                    console.log($(this).children('option:selected').val());
+                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $("#" + id).children(
                         'option:selected').val(), function(data) {
                         var d = JSON.parse(data);
-                        if($("#"+ id).val()==null){
-                        $("#"+unitsId).val(d[0][1]);
-                        $("#"+unitId).val(d[0][0]);
-                        var projects_id = $("#projects").val();
-                        $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?matinfo_id=' + $("#"+id).children(
-                            'option:selected').val() + '&matinfo_project=' + projects_id, function(data1) {
-                            var e = JSON.parse(data1);
-                            var print_options = '';
-                            $('#'+ qty).attr({
-                                "max": e[0][0],
-                                "min": 0
-                            });
-                        })
+                        if ($("#" + id).val() == null) {
+                            $("#" + unitsId).val(d[0][1]);
+                            $("#" + unitId).val(d[0][0]);
+
+                            var projects_id = $("#projects").val();
+                            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?matinfo_id=' + $("#" + id).children(
+                                'option:selected').val() + '&matinfo_project=' + projects_id, function(data1) {
+                                var e = JSON.parse(data1);
+                                var print_options = '';
+                                $('#' + qty).attr({
+                                    "max": e[0][0],
+                                    "min": 0
+                                });
+                            })
                         }
                     })
                 })
-                    }
-                    
-                });
+            }
 
-                $("#requisitionTable").on('click', '.delete-row', function() {
-                    $(this).closest('tr').remove();
-                });
-            });
+        });
 
-    
-    function remSel(inp1, classId){
+        $("#requisitionTable").on('click', '.delete-row', function() {
+            $(this).closest('tr').remove();
+        });
+    });
+
+
+    function remSel(inp1, classId, article) {
         inp1.className = "form-control part2";
-        console.log("#"+classId+" option[value='" + inp1.value + "']");
-
-        $("#"+classId+" option[value='" + inp1.value + "']").prop("disabled", true);
+        console.log("#" + classId + " option[value='" + inp1.value + "']");
+        
+        $("#" + classId + " option[value='" + inp1.value + "']").prop("disabled", true);
+        $("#" + article).val(inp1.value);
         $(".part2 option[value='" + inp1.value + "']").prop("disabled", true);
         $('#particulars option[value="' + inp1.value + '"]').prop("disabled", true);
         selectedList.push(inp1.value);
         // $(".part option[value='" + inp1.value + "']").remove();
     }
-    function revSel(inp1,id){
+
+    function revSel(inp1, id) {
         var oldValue = inp1.value;
-        
+
         $(id).on('change', function() {
             removeItem(selectedList, oldValue);
             $(".part2 option[value='" + oldValue + "']").prop("disabled", false);
@@ -455,14 +461,15 @@
         });
         // $(".part option[value='" + inp1.value + "']").remove();
     }
-    function removeItem(array, item){
-    for(var i in array){
-        if(array[i]==item){
-            array.splice(i,1);
-            break;
+
+    function removeItem(array, item) {
+        for (var i in array) {
+            if (array[i] == item) {
+                array.splice(i, 1);
+                break;
+            }
         }
     }
-}
 
     function openSlideMenu() {
         document.getElementById('menu').style.width = '15%';
@@ -491,14 +498,13 @@
 
     function reqNovalidation() {
 
-    var startList = document.getElementById("reqNo").value;
-        if(startList==null){
-            document.getElementById("res").innerHTML="Please fill out this field.";
-            }
-        else if(listNames.includes(startList)){
+        var startList = document.getElementById("reqNo").value;
+        if (startList == null) {
+            document.getElementById("res").innerHTML = "Please fill out this field.";
+        } else if (listNames.includes(startList)) {
             document.getElementById("reqNo").setCustomValidity('Duplicate material requisition number detected!');
-            document.getElementById("res").innerHTML="Duplicate material requisition number detected!";
-        }else{
+            document.getElementById("res").innerHTML = "Duplicate material requisition number detected!";
+        } else {
             document.getElementById("reqNo").setCustomValidity("");
 
         }

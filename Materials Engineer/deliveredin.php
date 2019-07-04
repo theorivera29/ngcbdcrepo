@@ -215,15 +215,15 @@
                                 </tr>
                             </thead>
                             <tbody id="deliveredTable">
-                                
+
                                 <tr>
                                     <td><input class="form-control" name="quantity[]" type="number" min="0" id="quantity" placeholder="Quantity" required>
                                         <div class="invalid-feedback">Invalid qunatity.</div>
                                     </td>
                                     <td>
-                                        <div class="form-group"><select class="form-control" onfocusin="revSel(this);return true;" onchange="remSel(this);return true;" name="articles[]" id="articles" required></select>
-                                            <div class="invalid-feedback">Please select one.</div>
-                                        </div>
+                                        <select class="form-control" onfocusin="revSel(this);return true;" onchange="remSel(this, articles, hiddenarticles);return true;" id="articles" required></select>
+                                        <div class="invalid-feedback">Please select one.</div>
+                                        <input type="hidden" name="articles[]" id="hiddenarticles">
                                     </td>
                                     <td><input type="text" class="form-control" type="text" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>
                                     <td><input class="form-control" name="suppliedBy[]" type="text" id="suppliedBy" placeholder="Supplied By" required>
@@ -231,7 +231,7 @@
                                     </td>
                                     <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete" /></td>
                                 </tr>
-                                
+
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -280,18 +280,21 @@
         $sql = "SELECT deliveredin_receiptno FROM deliveredin";
         $result = mysqli_query($conn, $sql);
     ?>
-    let listNames = [ 
+    let listNames = [
         <?php  
         while ($rows = mysqli_fetch_row($result)) {
             echo '"'.$rows[0].'"'.',';
         } 
-    ?>""];
-    let selectedList=[];
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
+    ?>
+        ""
+    ];
+    let selectedList = [];
+    $(document).ready(function() {
+        $('#sidebarCollapse').on('click', function() {
             $('#sidebar').toggleClass('active');
         });
         $('#articles').on('change', function() {
+            var articles = $("#articles option:selected").val();
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this)
                 .children(
                     'option:selected').val(),
@@ -299,6 +302,7 @@
                     var d = JSON.parse(data);
                     $('#units').val(d[0][1])
                     $('#unit').val(d[0][0])
+                    $('#hiddenarticles').val(articles)
                     this.className = "form-control";
                 })
         })
@@ -308,7 +312,7 @@
                 this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
-                
+
                 $('#location').val(d)
             })
         })
@@ -322,17 +326,17 @@
                     print_options = print_options +
                         `<option disabled selected>Choose your option</option>`
                     d.forEach(function(da) {
-                        if (!selectedList.includes(da[0])){
-                        print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
-                    } else {
-                        print_options = print_options + `<option value="${da[0]}" disabled>${da[1]}</option>`;
-                    }
+                        if (!selectedList.includes(da[0])) {
+                            print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
+                        } else {
+                            print_options = print_options + `<option value="${da[0]}" disabled>${da[1]}</option>`;
+                        }
                     })
                     $('.art').html(print_options);
                     $('#articles').html(print_options);
                 })
         })
-        var i=0;
+        var i = 0;
         $(document).on('click', '.add-row-btn', function() {
             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $('#projects')
                 .children(
@@ -342,22 +346,23 @@
                     var print_options = '';
                     print_options = print_options + `<option disabled selected>Choose your option</option>`;
                     d.forEach(function(da) {
-                        if (!selectedList.includes(da[0])){
-                        print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
-                    } else {
-                        print_options = print_options + `<option value="${da[0]}" disabled>${da[1]}</option>`;
-                    }
+                        if (!selectedList.includes(da[0])) {
+                            print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
+                        } else {
+                            print_options = print_options + `<option value="${da[0]}" disabled>${da[1]}</option>`;
+                        }
                     })
                     $('.art').html(print_options);
                 });
+
             var html = '';
             html += '<tr>';
             html +=
                 '<td><input class="form-control" name="quantity[]" type="number" min="0" id="quantity" placeholder="Quantity" required><div class="invalid-feedback">Invalid qunatity.</div></td>';
             html +=
-                '<td><div class="form-group"><select class="form-control art art2" onfocusin="revSel(this, \'#articles'+i+'\');return true;" onchange="remSel(this, \'articles'+i+'\');return true;" name="articles[]" id="articles'+i+'" required></select><div class="invalid-feedback">Please select one.</div></div></td>';
+                '<td><div class="form-group"><select class="form-control art art2" onfocusin="revSel(this, \'#articles' + i + '\');return true;" onchange="remSel(this, \'articles' + i + '\', \'hiddenarticles' + i + '\');return true;" id="articles' + i + '" required></select><div class="invalid-feedback">Please select one.</div></div></td><input type="hidden" name="articles[]" id="hiddenarticles' + i + '">';
             html +=
-                '<td><input type="text" class="form-control" type="text" id="units'+i+'" disabled><input type="hidden" class="form-control" name="unit[]" id="unit'+i+'"></td>'
+                '<td><input type="text" class="form-control" type="text" id="units' + i + '" disabled><input type="hidden" class="form-control" name="unit[]" id="unit' + i + '"></td>'
             html +=
                 '<td><input class="form-control" name="suppliedBy[]" type="text" id="suppliedBy" placeholder="Supplied By" required><div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
@@ -365,42 +370,48 @@
             html += '</tr>';
             $('#table1 tbody').append(html);
             i++;
-            
-            for( j=0; j < i; j++){
-                var id = "articles"+j;
-                var unitId = "unit"+j;
-                var unitsId = "units"+j;
-               
-                    
-                        $("#"+id).on('change', function() {
-                        console.log($(this).children('option:selected').val());
-                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $("#"+id).children(
+
+            for (j = 0; j < i; j++) {
+                var id = "articles" + j;
+                var unitId = "unit" + j;
+                var unitsId = "units" + j;
+                var articles = $("#articles option:selected");
+
+                $("#" + id).on('change', function() {
+                    console.log($(this).children('option:selected').val());
+                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $("#" + id).children(
                         'option:selected').val(), function(data) {
                         var d = JSON.parse(data);
-                        if($("#"+ id).val()==null){
-                        $("#"+unitsId).val(d[0][1])
-                        $("#"+unitId).val(d[0][0])
+                        if ($("#" + id).val() == null) {
+                            $("#" + unitsId).val(d[0][1])
+                            $("#" + unitId).val(d[0][0])
                         }
                     })
                 })
-                    }
+            }
         });
         $("#deliveredTable").on('click', '.delete-row', function() {
             $(this).closest('tr').remove();
         });
     });
-    function remSel(inp1, classId){
+
+
+
+
+    function remSel(inp1, classId, article) {
         inp1.className = "form-control art2";
-        console.log("#"+classId+" option[value='" + inp1.value + "']");
-        $("#"+classId+" option[value='" + inp1.value + "']").prop("disabled", true);
+        console.log("#" + classId + " option[value='" + inp1.value + "']");
+        $("#" + classId + " option[value='" + inp1.value + "']").prop("disabled", true);
+        $("#" + article).val(inp1.value);
         $(".art2 option[value='" + inp1.value + "']").prop("disabled", true);
         $('#articles option[value="' + inp1.value + '"]').prop("disabled", true);
         selectedList.push(inp1.value);
         // $(".part option[value='" + inp1.value + "']").remove();
     }
-    function revSel(inp1,id){
+
+    function revSel(inp1, id) {
         var oldValue = inp1.value;
-        
+
         $(id).on('change', function() {
             removeItem(selectedList, oldValue);
             $(".art2 option[value='" + oldValue + "']").prop("disabled", false);
@@ -413,17 +424,20 @@
         });
         // $(".part option[value='" + inp1.value + "']").remove();
     }
-    function removeItem(array, item){
-    for(var i in array){
-        if(array[i]==item){
-            array.splice(i,1);
-            break;
+
+    function removeItem(array, item) {
+        for (var i in array) {
+            if (array[i] == item) {
+                array.splice(i, 1);
+                break;
+            }
         }
     }
-}
+
     function openSlideMenu() {
         document.getElementById('menu').style.width = '15%';
     }
+
     function closeSlideMenu() {
         document.getElementById('menu').style.width = '0';
         document.getElementById('content').style.marginLeft = '0';
@@ -443,20 +457,20 @@
             });
         }, false);
     })();
- 
- 
-function resibovalidation() {
-var startList = document.getElementById("resibo").value;
-    if(startList==null){
-    document.getElementById("res").innerHTML="Please fill out this field.";
+
+
+    function resibovalidation() {
+        var startList = document.getElementById("resibo").value;
+        if (startList == null) {
+            document.getElementById("res").innerHTML = "Please fill out this field.";
+        } else if (listNames.includes(startList)) {
+            document.getElementById("resibo").setCustomValidity('Duplicate receipt number detected!');
+            document.getElementById("res").innerHTML = "Duplicate receipt number detected!";
+        } else {
+            document.getElementById("resibo").setCustomValidity("");
+        }
     }
-   else if(listNames.includes(startList)){
-    document.getElementById("resibo").setCustomValidity('Duplicate receipt number detected!');
-    document.getElementById("res").innerHTML="Duplicate receipt number detected!";
-   }else{
-    document.getElementById("resibo").setCustomValidity("");
-   }
-}
+
 </script>
 
 </html>
