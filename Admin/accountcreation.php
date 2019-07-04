@@ -143,8 +143,7 @@
                 </div>
                 <!-- </div> -->
                 <div>
-                    <button type="submit" class="btn btn-success add-acct" id="create-accnt-btn">Create an
-                        Account</button>
+                    <button type="submit" class="btn btn-success add-acct" id="create-accnt-btn">Create Account</button>
                 </div>
             </div>
         </div>

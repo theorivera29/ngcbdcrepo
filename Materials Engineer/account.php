@@ -235,7 +235,7 @@
                     $('.error').text('');
                     allowsubmit = true;
                 } else {
-                    $('.error').text('Password do not matched');
+                    $('.error').text('Password does not match');
                     allowsubmit = false;
                 }
             });
