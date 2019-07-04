@@ -754,9 +754,9 @@ if (isset($_POST['edit_project'])) {
 
     if (isset($_POST['reconciliation_save'])) {
         session_start();
-        $difference = strip_tags($_POST['difference']);
-        $matinfo_id = strip_tags($_POST['matinfo_id']);
-        $systemCount = strip_tags($_POST['system_Count']);
+        $difference = $_POST['difference'];
+        $matinfo_id = $_POST['matinfo_id'];
+        $systemCount = $_POST['system_Count'];
         $remarks = array();
         $x = 0;
         if (isset($_POST['remarks'])) {
@@ -773,7 +773,7 @@ if (isset($_POST['edit_project'])) {
             $stmt->close();
 
             if ($dif != 0) {
-                $rem = $remarks[$x];
+                $rem = strip_tags($remarks[$x]);
                 $stmt = $conn->prepare("INSERT INTO reconciliation (reconciliation_physCount, reconciliation_matinfo, reconciliation_remarks) VALUES (?, ?, ?);");
                 $stmt->bind_param("iis", $phys, $mat, $rem);
                 $stmt->execute();
@@ -952,11 +952,6 @@ if (isset($_POST['edit_project'])) {
         $brands = $_POST['brands'];
         $stripBrands = array_map('strip_tags', $brands);
         
-        var_dump($categ);
-        var_dump($materials);
-        var_dump($unit);
-        var_dump($stripBrands);
-
         session_start();
         if(isset($_SESSION['account_id'])) {
             $accounts_id = $_SESSION['account_id'];
@@ -983,25 +978,25 @@ if (isset($_POST['edit_project'])) {
             $stmt->store_result();
             $stmt->bind_result($brands_id[$x]);
             $stmt->fetch();
-                $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit, mat_brand)VALUES (?, ?, ?, ?);");
-                $stmt->bind_param("siii", $stripMat[$x], $categ_id[$x], $unit_id[$x], $brands_id[$x]);
-                $stmt->execute();
-                $stmt->close();
-                
-                $stmt = $conn->prepare("SELECT mat_id FROM materials WHERE mat_name = ?;");
-                $stmt->bind_param("s", $stripMat[$x]);
-                $stmt->execute();
-                $stmt->store_result();
-                $stmt->bind_result($mat_id[$x]);
-                $stmt->fetch();
-        
-                $date_today = date("Y-m-d G:i:s");
-                $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
-                $stmt->bind_param("ssi", $date_today, $logs_message, $logs_of);
-                $logs_message = 'Created material '.$stripMat[$x]. 'with a brand of '.$stripBrands[$x];
-                $logs_of = $accounts_id;
-                $stmt->execute();
-                $stmt->close();
+            $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit, mat_brand)VALUES (?, ?, ?, ?);");
+            $stmt->bind_param("siii", $stripMat[$x], $categ_id[$x], $unit_id[$x], $brands_id[$x]);
+            $stmt->execute();
+            $stmt->close();
+            
+            $stmt = $conn->prepare("SELECT mat_id FROM materials WHERE mat_name = ?;");
+            $stmt->bind_param("s", $stripMat[$x]);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($mat_id[$x]);
+            $stmt->fetch();
+    
+            $date_today = date("Y-m-d G:i:s");
+            $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
+            $stmt->bind_param("ssi", $date_today, $logs_message, $logs_of);
+            $logs_message = 'Created material '.$stripMat[$x]. 'with a brand of '.$stripBrands[$x];
+            $logs_of = $accounts_id;
+            $stmt->execute();
+            $stmt->close();
         }
         header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }

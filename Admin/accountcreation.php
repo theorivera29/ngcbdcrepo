@@ -121,7 +121,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email" class="label-styles">Email</label>
-                        <input name="email" id="email" type="email" class="form-control" placeholder="Enter email"
+                        <input name="email" id="email" type="text" class="form-control" placeholder="Enter email"
                             pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
                             title="Follow the format. Example: email@email.com" required>
                         <div id="email_feedback" class="invalid-feedback">Please fill out this field.</div>
@@ -232,7 +232,22 @@
                     email: v
                 },
                 function (result) {
-                    $('#email_feedback').html(result);
+                    if(result == 1) {
+                        $('#email').attr({
+                            "pattern": "^(?!.*" + v + ").*$"
+                        });                        
+                        $('#email_feedback').html("Email address is not available.");
+                    } else if(result == 0) {
+                        $('#email').attr({
+                            "pattern": "^(?.*" + v + ").*$"
+                        }); 
+                        $('#email_feedback').html(result);
+                    } else {
+                        $('#email').attr({
+                            "pattern": "^(?!.*" + v + ").*$"
+                        });    
+                        $('#email_feedback').html("Invalid email.");
+                    }
                 });
         });
     });

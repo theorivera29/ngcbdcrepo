@@ -139,7 +139,6 @@
 
                         <div class="row form-group save-btn-container">
                             <div class="col-lg-12">
-                                <!-- <input type="hidden" name="proj_id" value="<?php echo $proj_id?>"> -->
                                 <button type="submit" name="edit_threshold" class="btn btn-success">Save</button>
                                 <input type="reset" class="btn btn-danger" value="Cancel">
                             </div>

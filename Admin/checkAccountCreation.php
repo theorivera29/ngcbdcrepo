@@ -27,15 +27,14 @@
         $email = str_replace(" ", "", $email);
         $check = mysqli_query($conn, "SELECT accounts_email FROM accounts WHERE accounts_email = '$email';");
         $rows = mysqli_num_rows($check);
-        $pattern = "*@*";
-        if(preg_match($pattern, $email)) {
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
             if ($rows == 0) {
-                echo "Email address is available.";
+                echo 0;
             } else {
-                echo "Email address is not available.";
+                echo 1;
             }   
         } else {
-            echo "Invalid email.";
+            echo 2;
             
         }
     }
