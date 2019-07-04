@@ -27,18 +27,27 @@
     <title>NGCBDC</title>
     <link rel="icon" type="image/png" href="../Images/login2.png">
     <link rel="stylesheet" type="text/css" href="../style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 </head>
 
 <body>
-<div id="content">
+    <div id="content">
         <span class="slide">
             <a href="#" class="open" id="sideNav-a" onclick="openSlideMenu()">
                 <i class="fas fa-bars"></i>
@@ -143,7 +152,7 @@
         </div>
 
     </div>
-    <a href="#" class="open" onclick="window.location.href='dashboard.php'">
+    <a href="#" class="open" onclick="window.location.href='projects.php'">
         <i class="fas fa-arrow-circle-left arrow-left"></i>
     </a>
     <section id="tabs">
@@ -285,7 +294,8 @@
                                         <td>
                                             <form action="../server.php" method="POST">
                                                 <input type="hidden" name="matinfo_id" value="<?php echo $row[5] ;?>">
-                                                <button type="submit" class="btn btn-info" name="viewStockCard"><?php echo $row[1] ;?></button>
+                                                <button type="submit" class="btn btn-info"
+                                                    name="viewStockCard"><?php echo $row[1] ;?></button>
                                             </form>
                                         </td>
                                         <td><?php echo $row[2] ;?></td>
@@ -330,8 +340,7 @@
                             </table>
                         </div>
                         <div class="tab-pane fade" id="nav-category" role="tabpanel" aria-labelledby="nav-category-tab">
-                        <table class="table category-table table-striped table-bordered display"
-                                id="mydatatable">
+                            <table class="table category-table table-striped table-bordered display" id="mydatatable">
                                 <thead>
                                     <tr>
                                         <th>Category</th>
@@ -339,7 +348,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php
+                                    <?php
                                 $sql = "SELECT DISTINCT
                                             categories.categories_id,
                                             categories_name
@@ -356,13 +365,15 @@
                             ?>
                                     <tr>
                                         <form action="../server.php" method="POST">
-                                        <td><?php echo $row[1] ;?></button>
-                                        </td>
-                                        <td>
-                                        <input type="hidden" name="categories_id" value="<?php echo $row[0]; ?>">
-                                        <button type="submit" name="materialCategories" class="btn btn-info" id="open-category-btn">View</button>
+                                            <td><?php echo $row[1] ;?></button>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="categories_id"
+                                                    value="<?php echo $row[0]; ?>">
+                                                <button type="submit" name="materialCategories" class="btn btn-info"
+                                                    id="open-category-btn">View</button>
 
-                                        </td>
+                                            </td>
                                         </form>
                                     </tr>
                                     <?php
@@ -377,7 +388,6 @@
             </div>
         </div>
     </section>
-
 </body>
 
 <script type="text/javascript">
@@ -388,6 +398,16 @@
             $('#sidebar').toggleClass('active');
         });
     });
+
+    
+    function openSlideMenu() {
+        document.getElementById('menu').style.width = '15%';
+    }
+
+    function closeSlideMenu() {
+        document.getElementById('menu').style.width = '0';
+        document.getElementById('content').style.marginLeft = '0';
+    }
 </script>
 
 </html>

@@ -399,7 +399,7 @@
 
         $('#articles').on('change', function() {
             var projects_id = $("#projects").val();
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?matinfo_id=' + $(this)
+            $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?matinfo_id=' + $(this)
                 .children(
                     'option:selected').val() + '&matinfo_project=' + projects_id,
                 function(data) {
@@ -459,6 +459,7 @@
                             $("#" + unitId).val(d[0][0]);
                             var projects_id = $("#projects").val();
                             $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?matinfo_id=' + $("#" + id)
+
                                 .children(
                                     'option:selected').val() + '&matinfo_project=' + projects_id,
                                 function(data1) {

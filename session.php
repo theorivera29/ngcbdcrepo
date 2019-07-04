@@ -8,7 +8,7 @@
     }
 
     if(!isset($_SESSION['loggedin'])) {
-	header("location: http://localhost/ngcbdcrepo/index.php");
+	header("location: https://inventory-system-ngbdc.hostingerapp.com/index.php");
 	exit;
     }
 	
@@ -17,7 +17,7 @@
         $result_session = mysqli_query($conn, $sql_session);
         $row_session = mysqli_fetch_row($result_session);
         if (strcmp($row_session[0], $acc_type) != 0) {
-            header("location: http://localhost/ngcbdcrepo/index.php");
+            header("location: https://inventory-system-ngbdc.hostingerapp.com/index.php");
             exit;
         }
     }
