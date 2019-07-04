@@ -221,7 +221,7 @@
                                         <div class="invalid-feedback">Invalid qunatity.</div>
                                     </td>
                                     <td>
-                                        <select class="form-control" onfocusin="revSel(this);return true;" onchange="remSel(this, articles, hiddenarticles);return true;" id="articles" required></select>
+                                        <select class="form-control art3" onfocusin="revSel(this);return true;" onchange="remSel(this, articles, hiddenarticles);return true;" id="articles" required></select>
                                         <div class="invalid-feedback">Please select one.</div>
                                         <input type="hidden" name="articles[]" id="hiddenarticles">
                                     </td>
@@ -360,7 +360,7 @@
             html +=
                 '<td><input class="form-control" name="quantity[]" type="number" min="0" id="quantity" placeholder="Quantity" required><div class="invalid-feedback">Invalid qunatity.</div></td>';
             html +=
-                '<td><div class="form-group"><select class="form-control art art2" onfocusin="revSel(this, \'#articles' + i + '\');return true;" onchange="remSel(this, \'articles' + i + '\', \'hiddenarticles' + i + '\');return true;" id="articles' + i + '" required></select><div class="invalid-feedback">Please select one.</div></div></td><input type="hidden" name="articles[]" id="hiddenarticles' + i + '">';
+                '<td><div class="form-group"><select class="form-control art art2 art3" onfocusin="revSel(this, \'#articles' + i + '\');return true;" onchange="remSel(this, \'articles' + i + '\', \'hiddenarticles' + i + '\');return true;" id="articles' + i + '" required></select><div class="invalid-feedback">Please select one.</div></div></td><input type="hidden" name="articles[]" id="hiddenarticles' + i + '">';
             html +=
                 '<td><input type="text" class="form-control" type="text" id="units' + i + '" disabled><input type="hidden" class="form-control" name="unit[]" id="unit' + i + '"></td>'
             html +=
@@ -393,6 +393,22 @@
         $("#deliveredTable").on('click', '.delete-row', function() {
             $(this).closest('tr').remove();
         });
+
+        // $(".").click(function(e) {
+
+        // $(".art3").each(function() {
+        //         var element = $(this);
+        //         if (element.val() == "") {
+        //             this.setCustomValidity("Please fill out this field.");
+        //         } else {
+        //             this.setCustomValidity("");
+        //         }
+        //     });
+        //     if ((formNo != '') && (date != '') && (status != '') && (deliverTo != '') && (projects!='') && (requestedBy != '') && (hauledBy != '') && (warehouseman != '') && (approvedBy != '') && (type != '') && (PORS != '') && (haulerID != '')) {
+        //         e.preventDefault();
+        //         $("#save-modal").modal('show');
+        //     }
+        // });
     });
 
 
@@ -407,6 +423,11 @@
         $('#articles option[value="' + inp1.value + '"]').prop("disabled", true);
         selectedList.push(inp1.value);
         // $(".part option[value='" + inp1.value + "']").remove();
+        if (inp1.value == "disabled") {
+            inp1.setCustomValidity("Please fill out this field.");
+                } else {
+                    inp1.setCustomValidity("");
+                }
     }
 
     function revSel(inp1, id) {
