@@ -135,7 +135,7 @@
                         <div class="col-lg-12">
                             <label class="col-lg-12 col-form-label">Date:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="date" name="date" required>
+                                <input class="form-control" type="date" name="date" id="date" required>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                         <div class="col-lg-12">
                             <label class="col-lg-12 col-form-label">Material Requisition No.:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="text" name="reqNo" id="reqNo" onkeyup="reqNovalidation()" required>
+                                <input class="form-control" type="text" name="reqNo" id="reqNo" onkeyup="reqNovalidation()" pattern="^[A-Za-z0-9][A-Za-z0-9\s.,-]*$" required>
                                 <div id="res" class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
@@ -181,7 +181,7 @@
                     <div class="form-group row col-lg-12">
                         <label class="col-lg-2 col-form-label">Location:</label>
                         <div class="col-lg-9">
-                            <input id="location" class="form-control" type="text" name="location" required readonly>
+                            <input id="location" class="form-control" type="text" name="location" pattern="^[A-Za-z0-9][A-Za-z0-9\s.,-]*$"  required readonly>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
 
                         <label class="col-lg-2 col-form-label">Remarks:</label>
                         <div class="col-lg-9">
-                            <input class="form-control" type="text" name="remarks" required>
+                            <input class="form-control" type="text" name="remarks" id="remarks" pattern="^[A-Za-z0-9][A-Za-z0-9\s.,-]*$"  required>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                     </div>
@@ -211,13 +211,13 @@
                                         <div class="invalid-feedback">Invalid quantity.</div>
                                     </td>
                                     <td>
-                                        <div class="form-group"><select class="form-control " onfocusin="revSel(this);return true;" onchange="remSel(this,particulars,hiddenparticulars);return true;" id="particulars" required></select>
+                                        <div class="form-group"><select class="form-control part3" onfocusin="revSel(this);return true;" onchange="remSel(this,particulars,hiddenparticulars);return true;" id="particulars" required></select>
                                             <div class="invalid-feedback">Please select one particular.</div>
                                         </div>
                                         <input type="hidden" name="particulars[]" id="hiddenparticulars">
                                     </td>
                                     <td><input type="text" class="form-control" type="text" name="units[]" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>
-                                    <td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" required>
+                                    <td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" pattern="^[A-Za-z0-9][A-Za-z0-9\s.,-]*$"  required>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </td>
                                     <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete" /></td>
@@ -237,21 +237,21 @@
                         <div class="form-group col-lg-6">
                             <label class="col-lg-12 col-form-label">Requested by:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="text" name="requestedBy" required>
+                                <input class="form-control" type="text" name="requestedBy" id="requestedBy" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
                         <div class="form-group col-lg-6">
                             <label class="col-lg-12 col-form-label">Approved by:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="text" name="approvedBy" required>
+                                <input class="form-control" type="text" name="approvedBy" id="approvedBy" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
                     </div>
                     <div class="row form-group save-btn-container">
                         <div class="col-lg-12">
-                            <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#save-modal" value="Save Changes">
+                            <input type="submit" class="btn btn-primary reqBTN" value="Save Changes">
                             <input type="reset" class="btn btn-danger" value="Cancel">
                         </div>
                     </div>
@@ -322,7 +322,7 @@
                 var d = JSON.parse(data);
 
                 var print_options = '';
-                print_options = print_options + `<option disabled selected>Choose your option</option>`;
+                print_options = print_options + `<option value="" disabled selected>Choose your option</option>`;
                 d.forEach(function(da) {
                     if (!selectedList.includes(da[0])) {
                         print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
@@ -366,7 +366,7 @@
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
                 var print_options = '';
-                print_options = print_options + `<option disabled selected>Choose your option</option>`;
+                print_options = print_options + `<option value="" disabled selected>Choose your option</option>`;
                 d.forEach(function(da) {
                     if (!selectedList.includes(da[0])) {
                         print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
@@ -384,11 +384,11 @@
             html +=
                 '<td><input class="form-control" name="quantity[]" min="0" type="number" id="quantity' + i + '" placeholder="Quantity" required><div class="invalid-feedback">Invalid quantity.</div></td>';
             html +=
-                '<td><div class="form-group"><select class="form-control part part2" onfocusin="revSel(this, \'#particulars' + i + '\');return true;" onchange="remSel(this, \'particulars' + i + '\', \'hiddenparticulars' + i + '\');return true;" id="particulars' + i + '" required></select><div class="invalid-feedback">Please select one particular.</div></div></td><input type="hidden" name="particulars[]" id="hiddenparticulars' + i + '">';
+                '<td><div class="form-group"><select class="form-control part part2 part3" onfocusin="revSel(this, \'#particulars' + i + '\');return true;" onchange="remSel(this, \'particulars' + i + '\', \'hiddenparticulars' + i + '\');return true;" id="particulars' + i + '" required></select><div class="invalid-feedback">Please select one particular.</div></div></td><input type="hidden" name="particulars[]" id="hiddenparticulars' + i + '">';
             html +=
                 '<td><input type="text" class="form-control" type="text" name="units[]" id="units' + i + '" disabled><input type="hidden" class="form-control" name="unit[]" id="unit' + i + '"></td>'
             html +=
-                '<td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" required><div class="invalid-feedback">Please fill out this field.</div></td>';
+                '<td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required><div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>'
             html += '</tr>';
@@ -430,6 +430,31 @@
 
         $("#requisitionTable").on('click', '.delete-row', function() {
             $(this).closest('tr').remove();
+        });
+
+        $(".reqBTN").click(function(e) {
+
+        $(".part3").each(function() {
+                var element = $(this);
+                if (element.val() == "") {
+                    this.setCustomValidity("Please fill out this field.");
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
+
+            var date = $("#date").val();
+            var reqNo = $("#reqNo").val();
+            var projects = $("#projects").val();
+            var location = $("#location").val();
+            var remarks = $("#remarks").val();
+            var requestedBy = $("#requestedBy").val();
+            var approvedBy = $("#approvedBy").val();
+            if ((date != '') && (reqNo != '') && (projects != '') && (location!='') && (remarks != '') && (requestedBy != '') && (approvedBy != '')) {
+                e.preventDefault();
+                jQuery.noConflict();
+                $("#save-modal").modal('show');
+            }
         });
     });
 

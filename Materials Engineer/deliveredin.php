@@ -10,19 +10,27 @@
 <html>
 
 <head>
-    <title>NGCBDC</title>
+<title>NGCBDC</title>
     <link rel="icon" type="image/png" href="../Images/login2.png">
     <link rel="stylesheet" type="text/css" href="../style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-    <script src="../js/jquery/jquery-3.4.1.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    
 </head>
 
 <body>
@@ -138,7 +146,7 @@
                         <div class="col-lg-12">
                             <label class="col-lg-12 col-form-label">Date:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="date" name="deliveredDate" required>
+                                <input class="form-control" type="date" name="deliveredDate" id="date" required>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
@@ -147,7 +155,7 @@
                         <div class="col-lg-12">
                             <label class="col-lg-12 col-form-label">Receipt No.:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="text" name="resibo" id="resibo" onkeyup="resibovalidation()" pattern="[A-Za-z0-9\s]*" required>
+                                <input class="form-control" type="text" name="resibo" id="resibo" onkeyup="resibovalidation()" pattern="[A-Za-z0-9]*" required>
                                 <div id="res" class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
@@ -226,7 +234,7 @@
                                         <input type="hidden" name="articles[]" id="hiddenarticles">
                                     </td>
                                     <td><input type="text" class="form-control" type="text" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>
-                                    <td><input class="form-control" name="suppliedBy[]" type="text" id="suppliedBy" placeholder="Supplied By" required>
+                                    <td><input class="form-control" name="suppliedBy[]" type="text" id="suppliedBy" placeholder="Supplied By" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </td>
                                     <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete" /></td>
@@ -244,7 +252,7 @@
                     </div>
                     <div class="row form-group save-btn-container">
                         <div class="col-lg-12">
-                            <input type="button" class="btn btn-primary deliveredin-btn" value="Save Changes" data-toggle="modal" data-target="#save-modal">
+                            <input type="submit" class="btn btn-primary deliveredin-btn" value="Save Changes">
                             <input type="reset" class="btn btn-danger" value="Cancel">
                         </div>
                     </div>
@@ -324,7 +332,7 @@
                     var d = JSON.parse(data)
                     var print_options = '';
                     print_options = print_options +
-                        `<option disabled selected>Choose your option</option>`
+                        `<option value="" disabled selected>Choose your option</option>`
                     d.forEach(function(da) {
                         if (!selectedList.includes(da[0])) {
                             print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
@@ -344,7 +352,7 @@
                 function(data) {
                     var d = JSON.parse(data)
                     var print_options = '';
-                    print_options = print_options + `<option disabled selected>Choose your option</option>`;
+                    print_options = print_options + `<option value="" disabled selected>Choose your option</option>`;
                     d.forEach(function(da) {
                         if (!selectedList.includes(da[0])) {
                             print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
@@ -394,21 +402,28 @@
             $(this).closest('tr').remove();
         });
 
-        // $(".").click(function(e) {
+        $(".deliveredin-btn").click(function(e) {
 
-        // $(".art3").each(function() {
-        //         var element = $(this);
-        //         if (element.val() == "") {
-        //             this.setCustomValidity("Please fill out this field.");
-        //         } else {
-        //             this.setCustomValidity("");
-        //         }
-        //     });
-        //     if ((formNo != '') && (date != '') && (status != '') && (deliverTo != '') && (projects!='') && (requestedBy != '') && (hauledBy != '') && (warehouseman != '') && (approvedBy != '') && (type != '') && (PORS != '') && (haulerID != '')) {
-        //         e.preventDefault();
-        //         $("#save-modal").modal('show');
-        //     }
-        // });
+        $(".art3").each(function() {
+                var element = $(this);
+                if (element.val() == "") {
+                    this.setCustomValidity("Please fill out this field.");
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
+
+            var date = $("#date").val();
+            var resibo = $("#resibo").val();
+            var remarks = $("#remarks").val();
+            var projects = $("#projects").val();
+            var location = $("#location").val();
+            if ((date != '') && (resibo != '') && (remarks != '') && (projects != '') && (location!='') ) {
+                e.preventDefault();
+                jQuery.noConflict();
+                $("#save-modal").modal('show');
+            }
+        });
     });
 
 

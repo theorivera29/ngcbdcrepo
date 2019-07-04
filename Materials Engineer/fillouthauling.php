@@ -13,16 +13,24 @@
     <title>NGCBDC</title>
     <link rel="icon" type="image/png" href="../Images/login2.png">
     <link rel="stylesheet" type="text/css" href="../style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-    <script src="../js/jquery/jquery-3.4.1.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    
 </head>
 
 <body>
@@ -170,7 +178,7 @@
                                             <label class="col-lg-2 col-form-label">Deliver to:</label>
                                             <div class="col-lg-9">
                                                 <input class="form-control" id="deliverTo" type="text" name="deliverTo"
-                                                    pattern="^[A-Za-z0-9\s-.]*" title="Input letters" required>
+                                                    title="Input letters" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
                                                 <div class="invalid-feedback">Please fill out this field.</div>
                                             </div>
                                         </div>
@@ -247,14 +255,14 @@
                                             <div class="form-group col-lg-6">
                                                 <label class="col-lg-12 col-form-label">Requested by:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="requestedBy" id="#requestedBy" pattern="[A-Za-z\s]*" title="Input letters" required>
+                                                    <input class="form-control" type="text" name="requestedBy" id="#requestedBy"  title="Input letters" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                             </div>
                                             <div class="form-group col-lg-6">
                                                 <label class="col-lg-12 col-form-label">Hauled by:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="hauledBy" id="hauledBy" pattern="[A-Za-z\s]*" title="Input letters" required>
+                                                    <input class="form-control" type="text" name="hauledBy" id="hauledBy" title="Input letters" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                             </div>
@@ -263,12 +271,12 @@
                                             <div class="form-group col-lg-6">
                                                 <label class="col-lg-12 col-form-label">Warehouseman:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="warehouseman" id="warehouseman" pattern="[A-Za-z\s]*" title="Input letters" required>
+                                                    <input class="form-control" type="text" name="warehouseman" id="warehouseman" title="Input letters" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                                 <label class="col-lg-12 col-form-label">Approved by:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="approvedBy" id="approvedBy" pattern="[A-Za-z\s]*" title="Input letters" required>
+                                                    <input class="form-control" type="text" name="approvedBy" id="approvedBy" title="Input letters"  pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                             </div>
@@ -281,20 +289,20 @@
                                                     <div class="card-body form-group row col-lg-12">
                                                         <label class="col-lg-4 col-form-label">Type:</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="text" name="type" id="type" pattern="[A-Za-z0-9\s]*" title="Input letters" required>
+                                                            <input class="form-control" type="text" name="type" id="type" title="Input letters" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
                                                             <div class="invalid-feedback">Please fill out this field.
                                                             </div>
 
                                                         </div>
                                                         <label class="col-lg-4 col-form-label">Plate #:</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="text" name="plateNo" id="plateNo" pattern="[A-Za-z0-9\s]*" title="Input letters and numbers" required>
+                                                            <input class="form-control" type="text" name="plateNo" id="plateNo" title="Input letters and numbers" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
                                                             <div class="invalid-feedback">Please fill out this field.
                                                             </div>
                                                         </div>
                                                         <label class="col-lg-4 col-form-label">P.O./R.S. #:</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="text" name="PORS" id="PORS" pattern="[A-Za-z0-9\s.-]*" title="Input letters and numbers" required>
+                                                            <input class="form-control" type="text" name="PORS" id="PORS" title="Input letters and numbers" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
                                                             <div class="invalid-feedback">Please fill out this field.
                                                             </div>
                                                         </div>
@@ -480,6 +488,14 @@
         });
 
         $(".save-hauled").click(function(e) {
+            $(".art3").each(function() {
+                var element = $(this);
+                if (element.val() == "") {
+                    this.setCustomValidity("Please fill out this field.");
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
             var formNo = $("#formNo").val();
             var date = $("#date").val();
             var status = $("#status").val();
@@ -492,16 +508,10 @@
             var type = $("#type").val();
             var PORS = $("#PORS").val();
             var haulerID = $("#haulerID").val();
-            $(".art3").each(function() {
-                var element = $(this);
-                if (element.val() == "") {
-                    this.setCustomValidity("Please fill out this field.");
-                } else {
-                    this.setCustomValidity("");
-                }
-            });
+            
             if ((formNo != '') && (date != '') && (status != '') && (deliverTo != '') && (projects!='') && (requestedBy != '') && (hauledBy != '') && (warehouseman != '') && (approvedBy != '') && (type != '') && (PORS != '') && (haulerID != '')) {
                 e.preventDefault();
+                jQuery.noConflict();
                 $("#save-modal").modal('show');
             }
         });
