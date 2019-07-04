@@ -944,13 +944,13 @@ if (isset($_POST['edit_project'])) {
 
     if (isset($_POST['create_materials'])) {
         $categ = $_POST['categ'];
-        $stripCateg = array_map( 'strip_tags', $categ );
+        $stripCateg = array_map('strip_tags', $categ);
         $materials = $_POST['material'];
-        $stripMat = array_map( 'strip_tags', $materials );
+        $stripMat = array_map('strip_tags', $materials);
         $unit = $_POST['unit'];
-        $stripUnits = array_map( 'strip_tags', $unit );
+        $stripUnits = array_map('strip_tags', $unit);
         $brands = $_POST['brands'];
-        $stripBrands = array_map( 'strip_tags', $brands );
+        $stripBrands = array_map('strip_tags', $brands);
         
         var_dump($categ);
         var_dump($materials);
@@ -1011,13 +1011,14 @@ if (isset($_POST['edit_project'])) {
         $reqNo = strip_tags(mysqli_real_escape_string($conn, $_POST['reqNo']));
         $date = strip_tags(mysqli_real_escape_string($conn, $_POST['date']));
         $remarks = strip_tags(mysqli_real_escape_string($conn, $_POST['remarks']));
-        $quantity = strip_tags($_POST['quantity']);
-        $unit = strip_tags($_POST['unit']);
-        $particulars = strip_tags($_POST['particulars']);
-        $location = strip_tags($_POST['location']);
         $requestedBy = strip_tags(mysqli_real_escape_string($conn, $_POST['requestedBy']));
         $approvedBy = strip_tags(mysqli_real_escape_string($conn, $_POST['approvedBy']));
-        
+        $quantity = $_POST['quantity'];
+        $stripQuantity = array_map('strip_tags', $quantity);
+        $particulars = $_POST['particulars'];
+        $stripParticulars = array_map('strip_tags', $particulars);
+        $location = $_POST['location'];
+        $stripLocation = array_map('strip_tags', $location);
         
         $stmt = $conn->prepare("INSERT INTO requisition (requisition_no, requisition_date, requisition_remarks, requisition_reqBy, requisition_approvedBy, requisition_project) VALUES (?, ?, ?, ?, ?, ?);");
         $stmt->bind_param("issssi", $reqNo, $date, $remarks, $requestedBy, $approvedBy, $projName);
@@ -1033,21 +1034,21 @@ if (isset($_POST['edit_project'])) {
         
         for($x = 0; $x < sizeof($particulars); $x++){
         $stmt = $conn->prepare("INSERT INTO reqmaterial (reqmaterial_requisition, reqmaterial_material, reqmaterial_qty, reqmaterial_areaOfUsage) VALUES (?, ?, ?, ?);");
-        $stmt->bind_param("iiis", $requisition_id, $particulars[$x], $quantity[$x], $location[$x]);
+        $stmt->bind_param("iiis", $requisition_id, $stripParticulars[$x], $stripQuantity[$x], $stripLocation[$x]);
         $stmt->execute();
         $stmt->close();
 
         $stmt = $conn->prepare("SELECT currentQuantity FROM matinfo WHERE matinfo_project = ? AND matinfo_matname = ?;");
-        $stmt->bind_param("ii", $projName, $particulars[$x]);
+        $stmt->bind_param("ii", $projName, $stripParticulars[$x]);
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($currentQuantity);
         $stmt->fetch();
         
-        $newQuantity = $currentQuantity - $quantity[$x];
+        $newQuantity = $currentQuantity - $stripQuantity[$x];
 
         $stmt = $conn->prepare("UPDATE matinfo SET currentQuantity= ? WHERE matinfo_project = ? AND matinfo_matname = ?;");
-        $stmt->bind_param("iii", $newQuantity, $projName, $particulars[$x]);
+        $stmt->bind_param("iii", $newQuantity, $projName, $stripParticulars[$x]);
         $stmt->execute();
         $stmt->close();
         }
@@ -1441,10 +1442,12 @@ if (isset($_POST['edit_project'])) {
         $date = strip_tags(mysqli_real_escape_string($conn, $_POST['deliveredDate']));
         $remarks = strip_tags(mysqli_real_escape_string($conn, $_POST['remarks']));
         $receiptNo = strip_tags(mysqli_real_escape_string($conn, $_POST['resibo']));
-        $quantity = strip_tags($_POST['quantity']);
-        $unit = strip_tags($_POST['unit']);
-        $articles = strip_tags($_POST['articles']);
-        $suppliedBy = strip_tags($_POST['suppliedBy']);
+        $quantity = $_POST['quantity'];
+        $stripQuantity = array_map('strip_tags', $quantity);
+        $articles = $_POST['articles'];
+        $stripArticles = array_map('strip_tags', $articles);
+        $suppliedBy = $_POST['suppliedBy'];
+        $stripSuppliedBy = array_map('strip_tags', $suppliedBy);
 
         $stmt = $conn->prepare("INSERT INTO deliveredin (deliveredin_date, deliveredin_remarks, deliveredin_receiptno, deliveredin_project) VALUES (?, ?, ?, ?);");
         $stmt->bind_param("sssi", $date, $remarks, $receiptNo, $projectName);
@@ -1458,24 +1461,29 @@ if (isset($_POST['edit_project'])) {
         $stmt->bind_result($deliveredin_id);
         $stmt->fetch();
         
+        var_dump($deliveredin_id);
+        var_dump($articles);
+        var_dump($stripQuantity);
+        var_dump($stripSuppliedBy);
+        
         for($x = 0; $x < sizeof($articles); $x++){
                 
         $stmt = $conn->prepare("INSERT INTO deliveredmat (deliveredmat_deliveredin, deliveredmat_materials, deliveredmat_qty, suppliedBy) VALUES (?, ?, ?, ?);");
-        $stmt->bind_param("iiis", $deliveredin_id, $articles[$x], $quantity[$x], $suppliedBy[$x]);
+        $stmt->bind_param("iiis", $deliveredin_id, $stripArticles[$x], $stripQuantity[$x], $stripSuppliedBy[$x]);
         $stmt->execute();
         $stmt->close();
             
         $stmt = $conn->prepare("SELECT currentQuantity FROM matinfo WHERE matinfo_project = ? AND  matinfo_matname = ?;");
-        $stmt->bind_param("ii", $projectName, $articles[$x]);
+        $stmt->bind_param("ii", $projectName, $stripArticles[$x]);
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($currentQuantity);
         $stmt->fetch();
             
-        $newQuantity = $currentQuantity + $quantity[$x];
+        $newQuantity = $currentQuantity + $stripQuantity[$x];
             
         $stmt = $conn->prepare("UPDATE matinfo SET currentQuantity = ? WHERE matinfo_project = ? AND  matinfo_matname = ?;");
-        $stmt->bind_param("iii", $newQuantity, $projectName, $articles[$x]);
+        $stmt->bind_param("iii", $newQuantity, $projectName, $stripArticles[$x]);
         $stmt->execute();
         $stmt->close();
             
@@ -1494,7 +1502,7 @@ if (isset($_POST['edit_project'])) {
         $stmt->bind_param("ssi", $create_deliveredin_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewTransactions.php");   
+        //header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewTransactions.php");   
     }
 
     if (isset($_POST['create_todo'])) {
@@ -1934,6 +1942,7 @@ if (isset($_POST['edit_project'])) {
         $row = mysqli_fetch_all($result);
         echo json_encode($row);
     }
+
 
 // <--View Only-->
     if (isset($_POST['view_viewInventory'])) {

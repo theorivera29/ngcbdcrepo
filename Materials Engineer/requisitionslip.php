@@ -407,6 +407,7 @@
                         if($("#"+ id).val()==null){
                         $("#"+unitsId).val(d[0][1]);
                         $("#"+unitId).val(d[0][0]);
+                            
                         var projects_id = $("#projects").val();
                         $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?matinfo_id=' + $("#"+id).children(
                             'option:selected').val() + '&matinfo_project=' + projects_id, function(data1) {
