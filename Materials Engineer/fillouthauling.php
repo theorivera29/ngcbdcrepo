@@ -386,7 +386,7 @@
 
         $('#articles').on('change', function () {
             console.log($(this).children('option:selected').val())
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this)
+            $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?mat_name=' + $(this)
                 .children(
                     'option:selected').val(),
                 function (data) {
@@ -398,7 +398,7 @@
         })
 
         $('#projects').on('change', function () {
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $(this)
+            $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?project_id=' + $(this)
                 .children(
                     'option:selected').val(),
                 function (data) {
@@ -419,7 +419,7 @@
 
         $('#articles').on('change', function () {
             var projects_id = $("#projects").val();
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?matinfo_id=' + $(this)
+            $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?matinfo_id=' + $(this)
                 .children(
                     'option:selected').val() + '&matinfo_project=' + projects_id,
                 function (data) {
@@ -433,7 +433,7 @@
         });
         var i=0;
         $(document).on('click', '.add-row-btn', function () {
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $('#projects')
+            $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?project_id=' + $('#projects')
                 .children(
                     'option:selected').val(),
                 function (data) {
@@ -471,14 +471,14 @@
                 
                  $("#"+id).on('change', function() {
                 console.log($(this).children('option:selected').val());
-                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $("#"+id).children(
+                    $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?mat_name=' + $("#"+id).children(
                         'option:selected').val(), function(data) {
                         var d = JSON.parse(data);
                         if($("#"+ id).val()==null){
                             $("#"+unitsId).val(d[0][1]);
                             $("#"+unitId).val(d[0][0]);
                             var projects_id = $("#projects").val();
-                            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?matinfo_id=' +$("#"+id)
+                            $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?matinfo_id=' +$("#"+id)
                                 .children(
                                     'option:selected').val() + '&matinfo_project=' + projects_id,
                                 function (data1) {

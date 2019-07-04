@@ -295,7 +295,7 @@
         });
         $('#articles').on('change', function() {
             var articles = $("#articles option:selected").val();
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $(this)
+            $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?mat_name=' + $(this)
                 .children(
                     'option:selected').val(),
                 function(data) {
@@ -308,7 +308,7 @@
         })
         $('#projects').on('change', function() {
             console.log($(this).children('option:selected').val())
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?projects_id=' + $(
+            $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?projects_id=' + $(
                 this).children(
                 'option:selected').val(), function(data) {
                 var d = JSON.parse(data);
@@ -317,7 +317,7 @@
             })
         })
         $('#projects').on('change', function() {
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $(this)
+            $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?project_id=' + $(this)
                 .children(
                     'option:selected').val(),
                 function(data) {
@@ -338,7 +338,7 @@
         })
         var i = 0;
         $(document).on('click', '.add-row-btn', function() {
-            $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?project_id=' + $('#projects')
+            $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?project_id=' + $('#projects')
                 .children(
                     'option:selected').val(),
                 function(data) {
@@ -379,7 +379,7 @@
 
                 $("#" + id).on('change', function() {
                     console.log($(this).children('option:selected').val());
-                    $.get('http://localhost/ngcbdcrepo/Materials%20Engineer/../server.php?mat_name=' + $("#" + id).children(
+                    $.get('https://inventory-system-ngbdc.hostingerapp.com/Materials%20Engineer/../server.php?mat_name=' + $("#" + id).children(
                         'option:selected').val(), function(data) {
                         var d = JSON.parse(data);
                         if ($("#" + id).val() == null) {

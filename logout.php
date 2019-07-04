@@ -2,5 +2,5 @@
     session_start();
     session_unset();
     session_destroy();
-    header('location: http://localhost/ngcbdcrepo/index.php');
+    header('location: https://inventory-system-ngbdc.hostingerapp.com/index.php');
 ?>
