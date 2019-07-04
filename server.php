@@ -1370,10 +1370,11 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['edit_material'])) {
-            $newCategory = mysqli_real_escape_string($conn, $_POST['newCategory']);
-            $newMatName = mysqli_real_escape_string($conn, $_POST['newMatName']);
-            $newUnit = mysqli_real_escape_string($conn, $_POST['newUnit']);
-            $mat_id = mysqli_real_escape_string($conn, $_POST['mat_id']);  
+            $newCategory =  strip_tags(mysqli_real_escape_string($conn, $_POST['newCategory']));
+            $newMatName =  strip_tags(mysqli_real_escape_string($conn, $_POST['newMatName']));
+            $newUnit =  strip_tags(mysqli_real_escape_string($conn, $_POST['newUnit']));
+            $mat_id =  strip_tags(mysqli_real_escape_string($conn, $_POST['mat_id']));
+            $newBrand =  strip_tags(mysqli_real_escape_string($conn, $_POST['newBrand']));    
             $date_today = date("Y-m-d G:i:s");
             $account_id = "";
             session_start();
@@ -1389,6 +1390,19 @@ if (isset($_POST['edit_project'])) {
             $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
             $stmt->bind_param("ssi", $date_today, $logs_message, $logs_of);
             $logs_message = 'Changed category of '.$mat_id;
+            $logs_of = $account_id;
+            $stmt->execute();
+            $stmt->close();
+            }
+            
+            if(isset($_POST['newBrand'])) {
+            $stmt = $conn->prepare("UPDATE materials SET mat_brand = ? WHERE mat_id = ?;");
+            $stmt->bind_param("si", $newBrand, $mat_id);
+            $stmt->execute();
+            $stmt->close();
+            $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
+            $stmt->bind_param("ssi", $date_today, $logs_message, $logs_of);
+            $logs_message = 'Changed brand of '.$mat_id;
             $logs_of = $account_id;
             $stmt->execute();
             $stmt->close();
