@@ -34,8 +34,8 @@
 <body>
     <div id="content">
         <span class="slide">
-            <a href="#" class="open" onclick="window.location.href='projects.php'">
-                <i class="fas fa-arrow-circle-left"></i>
+            <a href="#" class="open" id="sideNav-a" onclick="openSlideMenu()">
+                <i class="fas fa-bars"></i>
             </a>
             <h4 class="title">NEW GOLDEN CITY BUILDERS AND DEVELOPMENT CORPORATION</h4>
             <div class="account-container">
@@ -52,13 +52,52 @@
                         aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="account.php">Account Settings</a>
                         <a class="dropdown-item" href="../logout.php">Logout</a>
                     </div>
                 </div>
             </div>
         </span>
+
+        <div id="menu" class="navigation sidenav">
+            <a href="#" class="close" id="sideNav-a" onclick="closeSlideMenu()">
+                <i class="fas fa-times"></i>
+            </a>
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <img src="../Images/login2.png" id="ngcbdc-logo">
+                </div>
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="dashboard.php" id="sideNav-a">Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <a href="#accountSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"
+                            id="sideNav-a">Account</a>
+                        <ul class="collapse list-unstyled" id="accountSubmenu">
+                            <li>
+                                <a href="accountcreation.php" id="sideNav-a">Create Account</a>
+                            </li>
+                            <li>
+                                <a href="listofaccounts.php" id="sideNav-a">List of Accounts</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="passwordrequest.php" id="sideNav-a">Password Request</a>
+                    </li>
+                    <li>
+                        <a href="projects.php" id="sideNav-a">Projects</a>
+                    </li>
+                    <li>
+                        <a href="logs.php" id="sideNav-a">Logs</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
+    <a href="#" class="open" onclick="window.location.href='projects.php'">
+        <i class="fas fa-arrow-circle-left arrow-left"></i>
+    </a>
     <div class="add-project-container">
         <form action="../server.php" method="POST" class="needs-validation" novalidate>
             <div class="form-group">
@@ -108,7 +147,7 @@
                 }
             ?>
             <div class="add-project-btn">
-                <button type="submit" class="btn btn-success add-proj">Save Project</button>
+                <button type="submit" class="btn btn-success add-proj">Save</button>
                 <input type="reset" class="btn btn-danger" value="Clear">
             </div>
 
