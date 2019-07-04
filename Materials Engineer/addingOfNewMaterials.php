@@ -580,7 +580,7 @@
                                     </thead>
                                     <tbody id="add-material-table">
                                         <tr>
-                                            <td><select name="categ[]" class="custom-select matName" id="category1" onchange="selectionVal(this)" required>
+                                            <td><select name="categ[]" class="custom-select catName" id="category1" onchange="selectionVal(this)" required>
                                                     <option value="disabled" selected disabled>Choose Category</option>
                                                     <?php 
                                                             $sql = "SELECT
@@ -602,7 +602,7 @@
                                             </td>
                                             <td><input class="form-control matName" name="material[]" onkeyup="brandVal(this)" type="text" id="material"
                                                     placeholder="Material Name" required></td>
-                                            <td><select name="unit[]" class="custom-select matName" id="unit" onchange="selectionVal(this)" required>
+                                            <td><select name="unit[]" class="custom-select unitName" id="unit" onchange="selectionVal(this)" required>
                                                     <option value="disabled" selected disabled>Choose unit</option>
                                                     <?php 
                                                             $sql = "SELECT
@@ -622,7 +622,7 @@
                                                 </select>
                                                 <div class="invalid-feedback">Please select one.</div>
                                             </td>
-                                            <td><select name="brands[]" class="custom-select matName" id="brands" onchange="selectionVal(this)" required>
+                                            <td><select name="brands[]" class="custom-select brandName" id="brands" onchange="selectionVal(this)" required>
                                                     <option value="disabled" selected disabled>Choose brand</option>
                                                     <?php 
                                                             $sql = "SELECT
@@ -915,7 +915,7 @@
             var html = '';
             html += '<tr>';
             html +=
-                '<td><select name="categ[]" class="custom-select matCateg" id="category1" onchange="selectionVal(this)" required> <option value="disabled" selected disabled>Choose Category</option>'; 
+                '<td><select name="categ[]" class="custom-select matCateg catName" id="category1" onchange="selectionVal(this)" required invalid> <option value="disabled" selected disabled>Choose Category</option>'; 
             <?php
             $sql = "SELECT
             categories_name
@@ -936,7 +936,7 @@
             html +=
                 '<td><input class="form-control matName" name="material[]" onkeyup="brandVal(this)" type="text" id="material" placeholder="Material Name" required><div class="invalid-feedback">Please fill out this field.</div></td>';
             html +=
-                '<td><select name="unit[]" class="custom-select unitMat" id="unit" onchange="selectionVal(this)" required> <option value="disabled" selected disabled>Choose unit</option>'; 
+                '<td><select name="unit[]" class="custom-select unitMat unitName" id="unit" onchange="selectionVal(this)" required> <option value="disabled" selected disabled>Choose unit</option>'; 
             <?php
             $sql = "SELECT
             unit_name
@@ -957,7 +957,7 @@
 
 
             html += '</select><div class="invalid-feedback">Please select one.</div></td>';
-            html += '<td><select name="brands[]" class="custom-select brandMat" id="brands" onchange="selectionVal(this)" required><option value="disabled" selected disabled>Choose brand</option>';
+            html += '<td><select name="brands[]" class="custom-select brandMat brandName" id="brands" onchange="selectionVal(this)" required><option value="disabled" selected disabled>Choose brand</option>';
             <?php 
                     $sql = "SELECT
                         brands_name
@@ -979,6 +979,30 @@
                 '<td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove"/></td>'
             html += '</tr>';
             $('#table4 tbody').append(html);
+            $(".catName").each(function() {
+            if (this.value == "disabled" || this.value == "") {
+                
+                this.setCustomValidity("Please fill out this field.");
+            } else {
+                this.setCustomValidity("");
+            }
+            });
+
+            $(".unitName").each(function() {
+            if (this.value == "disabled" || this.value == "") {
+                this.setCustomValidity("Please fill out this field.");
+            } else {
+                this.setCustomValidity("");
+            }
+            });
+
+            $(".brandName").each(function() {
+            if (this.value == "disabled" || this.value == "") {
+                this.setCustomValidity("Please fill out this field.");
+            } else {
+                this.setCustomValidity("");
+            }
+            });
         });
 
         $("#add-material-table").on('click', '.delete-row', function () {
@@ -1042,21 +1066,41 @@
         });
 
         $('#matButton').click(function (e) {
-            var isValid3;
-            $(".matName").each(function() {
-            var element2 = $(this);
-            if (element2.children('option:selected').val() == "disabled") {
-                isValid3 = false;
+            var catValid3;
+            var unitValid3;
+            var brandValid3;
+            $(".catName").each(function() {
+            if (this.value == "disabled" || this.value == "") {
+                catValid3 = false;
                 this.setCustomValidity("Please fill out this field.");
             } else {
-                isValid3 = true;
+                catValid3 = true;
                 this.setCustomValidity("");
             }
             });
-            if (isValid3==true) {
+
+            $(".unitName").each(function() {
+            if (this.value == "disabled" || this.value == "") {
+                unitValid3 = false;
+                this.setCustomValidity("Please fill out this field.");
+            } else {
+                unitValid3 = true;
+                this.setCustomValidity("");
+            }
+            });
+
+            $(".brandName").each(function() {
+            if (this.value == "disabled" || this.value == "") {
+                brandValid3 = false;
+                this.setCustomValidity("Please fill out this field.");
+            } else {
+                brandValid3 = true;
+                this.setCustomValidity("");
+            }
+            });
+            if ((catValid3==true) && (unitValid3==true) && (brandValid3=true)) {
                 e.preventDefault();
-           
-                $("#add-brand-modal").modal('show');   
+                $("#add-mat-modal").modal('show');   
             } 
         });
     });
@@ -1086,7 +1130,8 @@
         }
     
         function selectionVal(brand){
-            if (brand.children('option:selected').val() == "disabled") {
+            console.log(brand.value);
+            if (brand.value == "disabled") {
                   brand.setCustomValidity("Please fill out this field.");
                 } else {
                   brand.setCustomValidity("");
