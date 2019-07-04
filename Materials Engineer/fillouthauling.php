@@ -420,7 +420,7 @@
                     var d = JSON.parse(data)
                     var print_options = '';
                     print_options = print_options +
-                        `<option disabled selected>Choose your option</option>`
+                        `<option value="" disabled selected>Choose your option</option>`
                     d.forEach(function(da) {
                         if (!selectedList.includes(da[0])) {
                             print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
