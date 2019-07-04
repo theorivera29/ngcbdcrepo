@@ -182,8 +182,9 @@
                                 <label><input type="checkbox" name="matName[]" class="checkbox1" value="<?php echo $row[3]?>"></label>
                             </div>
                         </td>
-                        <td><input name="category" type="text" class="form-control" value="<?php echo $row[0]?>"
-                                readonly></td>
+                        <td>
+                            <?php echo $row[0]?>
+                        </td>
                         <td><input type="hidden" class="form-control" value="<?php echo $row[3]?>" readonly>
                             <?php echo $row[1]; ?>
                         </td>
