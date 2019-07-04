@@ -344,9 +344,11 @@
                                         $result1 = mysqli_query($conn, $sql1);
                                         while ($row1 = mysqli_fetch_row($result1)) {
                                     ?>
-                                        <p>
-                                            <?php echo $row1[0]; ?>
-                                        </p>
+                                        <ul>
+                                            <li>
+                                                <?php echo $row1[0]; ?>
+                                            </li>
+                                        </ul>
                                         <?php
                                         }
                                 ?>
