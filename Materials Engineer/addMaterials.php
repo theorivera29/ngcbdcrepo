@@ -122,7 +122,7 @@
                 ?>
                         <td>
                             <input type="hidden" name="matinfo_id[]" value="<?php echo $row2[0];?>">
-                            <input type="text" class="form-control" name="threshold[]"
+                            <input type="number" class="form-control" name="threshold[]"
                                 placeholder="Enter threshold" value="<?php echo $row1[0]?>">
                         </td>
                         <td>

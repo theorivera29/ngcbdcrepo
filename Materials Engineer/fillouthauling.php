@@ -162,7 +162,7 @@
                                             <div class="col-lg-12">
                                                 <label class="col-lg-12 col-form-label">Date:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="date" name="date" required>
+                                                    <input class="form-control" type="date" name="date" id="date" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                             </div>
@@ -170,7 +170,7 @@
                                         <div class="form-group row col-lg-12">
                                             <label class="col-lg-2 col-form-label">Hauling type:</label>
                                             <div class="col-lg-9">
-                                                <select class="form-control" name="status" required>
+                                                <select class="form-control" id="status" name="status" required>
                                                     <option value="" selected disabled>Choose hauling type:</option>
                                                     <option value="Permanently hauled">Permanently hauled</option>
                                                     <option value="To be returned">To be returned</option>
@@ -182,7 +182,7 @@
                                         <div class="form-group row col-lg-12">
                                             <label class="col-lg-2 col-form-label">Deliver to:</label>
                                             <div class="col-lg-9">
-                                                <input class="form-control" type="text" name="deliverTo"
+                                                <input class="form-control" id="deliverTo" type="text" name="deliverTo"
                                                     pattern="[A-Za-z0-9\s-.#_]*" title="Input letters" required>
                                                 <div class="invalid-feedback">Please fill out this field.</div>
                                             </div>
@@ -254,7 +254,7 @@
                                             <div class="form-group col-lg-6">
                                                 <label class="col-lg-12 col-form-label">Requested by:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="requestedBy"
+                                                    <input class="form-control" type="text" name="requestedBy" id="#requestedBy"
                                                         pattern="[A-Za-z\s]*" title="Input letters" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
@@ -262,7 +262,7 @@
                                             <div class="form-group col-lg-6">
                                                 <label class="col-lg-12 col-form-label">Hauled by:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="hauledBy"
+                                                    <input class="form-control" type="text" name="hauledBy" id="hauledBy"
                                                         pattern="[A-Za-z\s]*" title="Input letters" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
@@ -272,13 +272,13 @@
                                             <div class="form-group col-lg-6">
                                                 <label class="col-lg-12 col-form-label">Warehouseman:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="warehouseman"
+                                                    <input class="form-control" type="text" name="warehouseman" id="warehouseman"
                                                         pattern="[A-Za-z\s]*" title="Input letters" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                                 <label class="col-lg-12 col-form-label">Approved by:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="approvedBy"
+                                                    <input class="form-control" type="text" name="approvedBy" id="approvedBy"
                                                         pattern="[A-Za-z\s]*" title="Input letters" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
@@ -292,7 +292,7 @@
                                                     <div class="card-body form-group row col-lg-12">
                                                         <label class="col-lg-4 col-form-label">Type:</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="text" name="type"
+                                                            <input class="form-control" type="text" name="type" id="type"
                                                                 pattern="[A-Za-z0-9\s]*" title="Input letters" required>
                                                             <div class="invalid-feedback">Please fill out this field.
                                                             </div>
@@ -300,7 +300,7 @@
                                                         </div>
                                                         <label class="col-lg-4 col-form-label">Plate #:</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="text" name="plateNo"
+                                                            <input class="form-control" type="text" name="plateNo" id="plateNo"
                                                                 pattern="[A-Za-z0-9\s]*"
                                                                 title="Input letters and numbers" required>
                                                             <div class="invalid-feedback">Please fill out this field.
@@ -308,7 +308,7 @@
                                                         </div>
                                                         <label class="col-lg-4 col-form-label">P.O./R.S. #:</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="text" name="PORS"
+                                                            <input class="form-control" type="text" name="PORS" id="PORS"
                                                                 pattern="[A-Za-z0-9\s.-]*"
                                                                 title="Input letters and numbers" required>
                                                             <div class="invalid-feedback">Please fill out this field.
@@ -316,7 +316,7 @@
                                                         </div>
                                                         <label class="col-lg-4 col-form-label">Hauler ID:</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="text" name="haulerID"
+                                                            <input class="form-control" type="text" name="haulerID" id="haulerID"
                                                                 pattern="[0-9]*" title="Input numbers" required>
                                                             <div class="invalid-feedback">Please fill out this field.
                                                             </div>
@@ -327,8 +327,7 @@
                                         </div>
                                         <div class="row form-group save-btn-container">
                                             <div class="col-lg-12">
-                                                <input type="button" data-toggle="modal" data-target="#save-modal"
-                                                    class="btn btn-success" value="Save">
+                                                <input type="submit" class="btn btn-success save-hauled" value="Save">
                                                 <input type="reset" class="btn btn-danger" value="Cancel">
                                             </div>
                                         </div>
@@ -379,6 +378,8 @@
     ?>""];
     let selectedList=[];
     $(document).ready(function () {
+
+
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         });
@@ -498,6 +499,25 @@
             $(this).closest('tr').remove();
         });
 
+        $(".save-hauled").click(function (e) {
+            var formNo = $("#formNo").val();
+            var date = $("#date").val();
+            var status = $("#status").val();
+            var deliverTo = $("#deliverTo").val();
+            var projects = $("#projects option");
+            var requestedBy = $("#requestedBy").val();
+            var hauledBy = $("#hauledBy").val();
+            var warehouseman = $("#warehouseman").val();
+            var approvedBy = $("#approvedBy").val();
+            var type = $("#type").val();
+            var PORS = $("#PORS").val();
+            var haulerID = $("#haulerID").val();
+            if ((formNo != '') && (date != '') && (status != '') && (deliverTo != '') && (projects.is(":selected")) && (requestedBy != '') && (hauledBy != '') && (warehouseman != '') && (approvedBy != '') && (type != '') && (PORS != '') && (haulerID != '')) {
+                e.preventDefault();
+                $("#create-proj-modal").modal('show');
+            }
+        });
+
     })
 
     function remSel(inp1, classId){
@@ -544,22 +564,6 @@
         document.getElementById('content').style.marginLeft = '0';
     }
 
-    (function () {
-        'use strict';
-        window.addEventListener('load', function () {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-
     function formNovalidation() {
 
 var startList = document.getElementById("formNo").value;
@@ -574,6 +578,22 @@ var startList = document.getElementById("formNo").value;
 
    }
 }
+
+(function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
 </script>
 
 
