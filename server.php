@@ -1020,6 +1020,10 @@ if (isset($_POST['edit_project'])) {
         $location = $_POST['location'];
         $stripLocation = array_map('strip_tags', $location);
         
+        var_dump($stripQuantity);
+        var_dump($stripParticulars);
+        var_dump($stripLocation);
+
         $stmt = $conn->prepare("INSERT INTO requisition (requisition_no, requisition_date, requisition_remarks, requisition_reqBy, requisition_approvedBy, requisition_project) VALUES (?, ?, ?, ?, ?, ?);");
         $stmt->bind_param("issssi", $reqNo, $date, $remarks, $requestedBy, $approvedBy, $projName);
         $stmt->execute();
@@ -1066,7 +1070,7 @@ if (isset($_POST['edit_project'])) {
         $stmt->bind_param("ssi", $create_requisition_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewTransactions.php");     
+        //header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewTransactions.php");     
     }
 
     if (isset($_POST['create_hauling'])) {
@@ -1461,11 +1465,6 @@ if (isset($_POST['edit_project'])) {
         $stmt->bind_result($deliveredin_id);
         $stmt->fetch();
         
-        var_dump($deliveredin_id);
-        var_dump($articles);
-        var_dump($stripQuantity);
-        var_dump($stripSuppliedBy);
-        
         for($x = 0; $x < sizeof($articles); $x++){
                 
         $stmt = $conn->prepare("INSERT INTO deliveredmat (deliveredmat_deliveredin, deliveredmat_materials, deliveredmat_qty, suppliedBy) VALUES (?, ?, ?, ?);");
@@ -1502,7 +1501,7 @@ if (isset($_POST['edit_project'])) {
         $stmt->bind_param("ssi", $create_deliveredin_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        //header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewTransactions.php");   
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/viewTransactions.php");   
     }
 
     if (isset($_POST['create_todo'])) {
