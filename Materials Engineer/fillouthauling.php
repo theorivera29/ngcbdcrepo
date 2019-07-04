@@ -183,7 +183,7 @@
                                             <label class="col-lg-2 col-form-label">Deliver to:</label>
                                             <div class="col-lg-9">
                                                 <input class="form-control" id="deliverTo" type="text" name="deliverTo"
-                                                    pattern="[A-Za-z0-9\s-.#_]*" title="Input letters" required>
+                                                    pattern="^[A-Za-z0-9\s-.]*" title="Input letters" required>
                                                 <div class="invalid-feedback">Please fill out this field.</div>
                                             </div>
                                         </div>
@@ -191,7 +191,7 @@
                                             <label class="col-lg-2 col-form-label">Hauled from:</label>
                                             <select class="form-control col-lg-9 " name="projectName" id="projects"
                                                 required>
-                                                <option value="Choose a project" selected disabled>Choose a project
+                                                <option value="" selected disabled>Choose a project
                                                 </option>
                                                 <?php
                                                 $sql = "SELECT DISTINCT
@@ -233,7 +233,7 @@
                                                     
                                                     <tr>
                                                         <td><input id="quantity" class="form-control" name="quantity[]" pattern="[0-9]*" title="Input numbers" type="number" id="quantity" placeholder="Quantity" required> <div class="invalid-feedback">Invalid quantity.</div></td>
-                                                        <td><div class="form-group"><select class="form-control" onfocusin="revSel(this);return true;" onchange="remSel(this);return true;"  name="articles[]" id="articles" required></select><div class="invalid-feedback">Please select one.</div></div></td>
+                                                        <td><div class="form-group"><select class="form-control art3" onfocusin="revSel(this);return true;" onchange="remSel(this);return true;"  name="articles[]" id="articles" required></select><div class="invalid-feedback">Please select one.</div></div></td>
                                                         <td><input type="text" class="form-control" type="text" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>
                                                         <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete"/></td>
                                                     </tr>
@@ -404,7 +404,7 @@
                 function (data) {
                     var d = JSON.parse(data)
                     var print_options = '';
-                    print_options = print_options +`<option disabled selected>Choose your option</option>`;
+                    print_options = print_options +`<option value="" disabled selected>Choose your option</option>`;
                     d.forEach(function (da) {
                         if (!selectedList.includes(da[0])){
                         print_options = print_options + `<option value="${da[0]}">${da[1]}</option>`;
@@ -455,7 +455,7 @@
             html +=
                 '<td><input id="quantity'+i+'" class="form-control" name="quantity[]" pattern="[0-9]*" title="Input numbers" type="number"  placeholder="Quantity" required> <div class="invalid-feedback">Invalid quantity.</div></td>';
             html +=
-                '<td><div class="form-group"><select class="form-control art art2" onfocusin="revSel(this, \'#articles'+i+'\');return true;" onchange="remSel(this, \'articles'+i+'\');return true;" name="articles[]" id="articles'+i+'" required></select><div class="invalid-feedback">Please select one.</div></div></td>';
+                '<td><div class="form-group"><select class="form-control art art2 art3" onfocusin="revSel(this, \'#articles'+i+'\');return true;" onchange="remSel(this, \'articles'+i+'\');return true;" name="articles[]" id="articles'+i+'" required></select><div class="invalid-feedback">Please select one.</div></div></td>';
             html +=
                 '<td><input type="text" class="form-control" type="text" id="units'+i+'" disabled><input type="hidden" class="form-control" name="unit[]" id="unit'+i+'"></td>'
             html +=
@@ -504,7 +504,7 @@
             var date = $("#date").val();
             var status = $("#status").val();
             var deliverTo = $("#deliverTo").val();
-            var projects = $("#projects option");
+            var projects = $("#projects").val();
             var requestedBy = $("#requestedBy").val();
             var hauledBy = $("#hauledBy").val();
             var warehouseman = $("#warehouseman").val();
@@ -512,13 +512,23 @@
             var type = $("#type").val();
             var PORS = $("#PORS").val();
             var haulerID = $("#haulerID").val();
-            if ((formNo != '') && (date != '') && (status != '') && (deliverTo != '') && (projects.is(":selected")) && (requestedBy != '') && (hauledBy != '') && (warehouseman != '') && (approvedBy != '') && (type != '') && (PORS != '') && (haulerID != '')) {
+            $(".art3").each(function() {
+                var element = $(this);
+                if (element.val() == "") {
+                    this.setCustomValidity("Please fill out this field.");
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
+            if ((formNo != '') && (date != '') && (status != '') && (deliverTo != '') && (projects!='') && (requestedBy != '') && (hauledBy != '') && (warehouseman != '') && (approvedBy != '') && (type != '') && (PORS != '') && (haulerID != '')) {
                 e.preventDefault();
                 $("#create-proj-modal").modal('show');
             }
         });
 
     })
+
+    
 
     function remSel(inp1, classId){
         inp1.className = "form-control art2";
@@ -529,6 +539,11 @@
         $('#articles option[value="' + inp1.value + '"]').prop("disabled", true);
         selectedList.push(inp1.value);
         // $(".part option[value='" + inp1.value + "']").remove();
+        if (inp1.value == "disabled") {
+            inp1.setCustomValidity("Please fill out this field.");
+                } else {
+                    inp1.setCustomValidity("");
+                }
     }
     function revSel(inp1,id){
         var oldValue = inp1.value;
