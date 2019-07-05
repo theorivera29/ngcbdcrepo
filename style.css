@@ -347,6 +347,12 @@ textarea{
     margin-bottom: -4%;
 }
 
+.arrow-left{
+    margin-top: 1%;
+    color: #800000 !important;
+    font-size: 4vmin !important;
+}
+
 .low-in-quantity-container{
     width: 96% !important;
     margin-left: 2% !important;
