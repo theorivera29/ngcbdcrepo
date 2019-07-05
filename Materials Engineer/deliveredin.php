@@ -155,7 +155,7 @@
                         <div class="col-lg-12">
                             <label class="col-lg-12 col-form-label">Receipt No.:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="text" name="resibo" id="resibo" onkeyup="resibovalidation()" pattern="[A-Za-z0-9]*" required>
+                                <input class="form-control" type="text" name="resibo" id="resibo" autocomplete="off" onkeyup="resibovalidation()" pattern="[A-Za-z0-9]*" required>
                                 <div id="res" class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
@@ -164,7 +164,7 @@
                         <div class="col-lg-12">
                             <label class="col-lg-12 col-form-label">Remarks:</label>
                             <div class="form-group col-lg-12">
-                                <select class="form-control" name="remarks" id="remarks" required>
+                                <select class="form-control" name="remarks" id="remarks" autocomplete="off" required>
                                     <option value="" selected disabled>Select remarks:</option>
                                     <option value="Delivered from Main Office">Delivered from Main Office</option>
                                     <option value="Delivered using Petty Cash">Delivered using Petty Cash</option>
@@ -225,7 +225,7 @@
                             <tbody id="deliveredTable">
 
                                 <tr>
-                                    <td><input class="form-control" name="quantity[]" type="number" min="0" id="quantity" placeholder="Quantity" required>
+                                    <td><input class="form-control" name="quantity[]" type="number" min="0" id="quantity" autocomplete="off" placeholder="Quantity" required>
                                         <div class="invalid-feedback">Invalid qunatity.</div>
                                     </td>
                                     <td>
@@ -234,7 +234,7 @@
                                         <input type="hidden" name="articles[]" id="hiddenarticles">
                                     </td>
                                     <td><input type="text" class="form-control" type="text" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>
-                                    <td><input class="form-control" name="suppliedBy[]" type="text" id="suppliedBy" placeholder="Supplied By" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
+                                    <td><input class="form-control" name="suppliedBy[]" type="text" id="suppliedBy" autocomplete="off" placeholder="Supplied By" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </td>
                                     <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete" /></td>

@@ -178,7 +178,7 @@
                                             <label class="col-lg-2 col-form-label">Deliver to:</label>
                                             <div class="col-lg-9">
                                                 <input class="form-control" id="deliverTo" type="text" name="deliverTo"
-                                                    title="Input letters" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
+                                                    title="Input letters" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" autocomplete="off" required>
                                                 <div class="invalid-feedback">Please fill out this field.</div>
                                             </div>
                                         </div>
@@ -227,7 +227,7 @@
                                                 <tbody id="returnHaulingTable">
 
                                                     <tr>
-                                                        <td><input id="quantity" class="form-control" name="quantity[]" pattern="[0-9]*" title="Input numbers" type="number" id="quantity" placeholder="Quantity" required>
+                                                        <td><input id="quantity" class="form-control" name="quantity[]" pattern="[0-9]*" autocomplete="off" title="Input numbers" type="number" id="quantity" placeholder="Quantity" required>
                                                             <div class="invalid-feedback">Invalid quantity.</div>
                                                         </td>
                                                         <td>
@@ -255,14 +255,14 @@
                                             <div class="form-group col-lg-6">
                                                 <label class="col-lg-12 col-form-label">Requested by:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="requestedBy" id="#requestedBy"  title="Input letters" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
+                                                    <input class="form-control" type="text" name="requestedBy" id="#requestedBy" autocomplete="off" title="Input letters" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                             </div>
                                             <div class="form-group col-lg-6">
                                                 <label class="col-lg-12 col-form-label">Hauled by:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="hauledBy" id="hauledBy" title="Input letters" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
+                                                    <input class="form-control" type="text" name="hauledBy" id="hauledBy" autocomplete="off" title="Input letters" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                             </div>
@@ -271,12 +271,12 @@
                                             <div class="form-group col-lg-6">
                                                 <label class="col-lg-12 col-form-label">Warehouseman:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="warehouseman" id="warehouseman" title="Input letters" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
+                                                    <input class="form-control" type="text" name="warehouseman" id="warehouseman" autocomplete="off" title="Input letters" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                                 <label class="col-lg-12 col-form-label">Approved by:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="approvedBy" id="approvedBy" title="Input letters"  pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
+                                                    <input class="form-control" type="text" name="approvedBy" id="approvedBy" autocomplete="off" title="Input letters"  pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                             </div>
