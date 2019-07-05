@@ -119,13 +119,17 @@
             $accountsStatus = "active";
             $stmt->execute();
             try {
+                $mail->addAddress($email, $firstname.' '.$lastname);                
+                $mail->isHTML(true);                                  
+                $mail->Subject = 'Welcome to your NGCBDC Inventory System Account!';
+                $mail->Body    = 'Your account has been created. <br /> Please change your password after logging in. <br /> <br /> Username: <b>'.$username.'</b> <br /> Password: <b>'.$generated_password.'</b>';
                 // $mail->send();
-                $from = "ngcbdc.inventory.system@gmail.com";
-                $to = $email;
-                $subject = "Welcome to your NGCBDC Inventory System Account!";
-                $message = "Your account has been created. <br /> Please change your password after logging in. <br /> <br /> Username: <b>".$username."</b> <br /> Password: <b>".$generated_password."</b>";
-                $headers = "Content-Type: text/html; charset=ISO-8859-1\r\nFrom: ".$from;
-                mail($to,$subject,$message, $headers);
+                // $from = "ngcbdc.inventory.system@gmail.com";
+                // $to = $email;
+                // $subject = "Welcome to your NGCBDC Inventory System Account!";
+                // $message = "Your account has been created. <br /> Please change your password after logging in. <br /> <br /> Username: <b>".$username."</b> <br /> Password: <b>".$generated_password."</b>";
+                // $headers = "Content-Type: text/html; charset=ISO-8859-1\r\nFrom: ".$from;
+                // mail($to,$subject,$message, $headers);
             } catch (Exception $e) {}
             $create_date = date("Y-m-d G:i:s");
             $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
@@ -206,12 +210,18 @@
         $stmt->execute();
         $stmt->close();
         try {
-            $from = "ngcbdc.inventory.system@gmail.com";
-            $to = $request_email;
-            $subject = "Welcome to your NGCBDC Inventory System Account!";
-            $message = "Hello ".$request_name." your request to reset your password has been approved. Please use the temporary password below to login. Please change your password after logging in. <br /> <br /> Password: <b>".$generated_password."</b>";
-            $headers = "Content-Type: text/html; charset=ISO-8859-1\r\nFrom: ".$from;
-            mail($to,$subject,$message, $headers);
+            $mail->addAddress($request_email, $request_name);
+            $mail->isHTML(true);                                  
+            $mail->Subject = 'Password Reset';
+            $mail->Body    = 'Hello '.$request_name.' Your request to reset your password has been approved. Please use the temporary password below to login.
+                            Please change your password after logging in. <br /> <br /> Password: <b>'.$generated_password.'</b>';
+            $mail->send();
+            // $from = "ngcbdc.inventory.system@gmail.com";
+            // $to = $request_email;
+            // $subject = "Welcome to your NGCBDC Inventory System Account!";
+            // $message = "Hello ".$request_name." your request to reset your password has been approved. Please use the temporary password below to login. Please change your password after logging in. <br /> <br /> Password: <b>".$generated_password."</b>";
+            // $headers = "Content-Type: text/html; charset=ISO-8859-1\r\nFrom: ".$from;
+            // mail($to,$subject,$message, $headers);
         } catch (Exception $e) {}
         header("location: http://localhost/ngcbdcrepo/Admin/passwordrequest.php");  
     }
