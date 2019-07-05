@@ -363,8 +363,8 @@
         $stmt->bind_param("sssss", $projectName, $address, $startDate, $endDate, $projectStatus);
         $stmt->execute();
         
-       $stmt = $conn->prepare("SELECT projects_id FROM projects WHERE projects_name = ?;");
-        $stmt->bind_param("s", $projectName);
+       $stmt = $conn->prepare("SELECT projects_id FROM projects WHERE projects_name = ? AND projects_address = ?;");
+        $stmt->bind_param("s", $projectName, $address);
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($projects_id);
