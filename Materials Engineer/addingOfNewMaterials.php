@@ -1065,7 +1065,10 @@
             brand.setCustomValidity("");
         }
     
-        function selectionVal(brand){
+    }
+
+    
+    function selectionVal(brand){
             console.log(brand.value);
             if (brand.value == "disabled") {
                   brand.setCustomValidity("Please fill out this field.");
@@ -1073,7 +1076,6 @@
                   brand.setCustomValidity("");
                 }
         }
-    }
 
 </script>
 
