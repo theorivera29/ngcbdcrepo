@@ -116,8 +116,6 @@
                                         projects.projects_id
                                     FROM
                                         projects
-                                    INNER JOIN
-                                        projmateng ON projects.projects_id = projmateng.projmateng_project
                                     WHERE
                                         projects.projects_status = 'open';";
                                         $result = mysqli_query($conn, $sql);
@@ -166,8 +164,6 @@
                                             projects.projects_id
                                         FROM
                                             projects
-                                        INNER JOIN
-                                            projmateng ON projects.projects_id = projmateng.projmateng_project
                                         WHERE
                                             projects.projects_status = 'closed';";
                                             $result = mysqli_query($conn, $sql);
