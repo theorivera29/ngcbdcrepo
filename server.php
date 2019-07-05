@@ -363,8 +363,8 @@
         $stmt->bind_param("sssss", $projectName, $address, $startDate, $endDate, $projectStatus);
         $stmt->execute();
         
-       $stmt = $conn->prepare("SELECT projects_id FROM projects WHERE projects_name = ?;");
-        $stmt->bind_param("s", $projectName);
+       $stmt = $conn->prepare("SELECT projects_id FROM projects WHERE projects_name = ? AND projects_address = ?;");
+        $stmt->bind_param("s", $projectName, $address);
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($projects_id);
@@ -978,9 +978,15 @@ if (isset($_POST['edit_project'])) {
             $stmt->store_result();
             $stmt->bind_result($brands_id[$x]);
             $stmt->fetch();
+
             $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit, mat_brand)VALUES (?, ?, ?, ?);");
             $stmt->bind_param("siii", $stripMat[$x], $categ_id[$x], $unit_id[$x], $brands_id[$x]);
-            $stmt->execute();
+            $s = $stmt->execute();
+            if ($s === true) {
+                echo "Okay";
+            } else {
+                echo $stmt->error;
+            }
             $stmt->close();
             
             $stmt = $conn->prepare("SELECT mat_id FROM materials WHERE mat_name = ?;");
