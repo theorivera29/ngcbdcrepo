@@ -226,7 +226,7 @@
                                                     ?>
                                                     <div class="modal-footer">
                                                         <input type="hidden" name="project" value="<?php echo $row[4]; ?>">
-                                                        <input type="submit" name="delete_projmateng" class="btn btn-success" value="Remove">
+                                                        <input type="submit" name="delete_projmateng" class="btn btn-danger" value="Remove">
                                                     </div>
 
                                                     <label class="label-styles">Add Materials Engineer</label>
