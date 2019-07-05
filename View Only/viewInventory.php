@@ -113,9 +113,7 @@
                                                 FROM
                                                     materials
                                                 INNER JOIN
-                                                    categories ON categories.categories_id = materials.mat_categ
-                                                INNER JOIN
-                                                    matinfo ON materials.mat_id = matinfo.matinfo_matname;";
+                                                    categories ON categories.categories_id = materials.mat_categ;";
                                     $result = mysqli_query($conn, $sql_categ);
                                     $categories = array();
                                     while($row_categ = mysqli_fetch_assoc($result)){
