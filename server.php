@@ -140,7 +140,7 @@
             $stmt->close();
             $_SESSION['create_success'] = true;
         }
-        // header("location: http://localhost/ngcbdcrepo/Admin/accountcreation.php");  
+        header("location: http://localhost/ngcbdcrepo/Admin/accountcreation.php");  
     }
 
 // <--Admin-->
@@ -374,7 +374,7 @@
         $stmt->execute();
         
        $stmt = $conn->prepare("SELECT projects_id FROM projects WHERE projects_name = ? AND projects_address = ?;");
-        $stmt->bind_param("s", $projectName, $address);
+        $stmt->bind_param("ss", $projectName, $address);
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($projects_id);
@@ -424,7 +424,6 @@
         $stmt->execute();
         $stmt->close();
         header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");  
-        
     }
 
 if (isset($_POST['edit_project'])) {
@@ -647,7 +646,6 @@ if (isset($_POST['edit_project'])) {
                 $result = mysqli_query($conn, $sql);
                 while($row = mysqli_fetch_row($result)){
                     $matinfo_id = $row[8];
-                    echo "Matinfo_id: ".$matinfo_id."<br />";
                     $sql1 = "SELECT 
                                 SUM(deliveredmat.deliveredmat_qty) 
                             FROM 
