@@ -103,25 +103,25 @@
 
                     <div class="form-group">
                         <label for="firstName" class="label-styles">First Name</label>
-                        <input name="firstName" id="firstName" type="text" class="form-control"
+                        <input name="firstName" id="firstName" type="text" class="form-control" autocomplete="off"
                             placeholder="Enter first name" pattern="^[A-Za-z][A-Za-z0-9\s.,-]*$" required>
                         <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
                     <div class="form-group">
                         <label for="lastName" class="label-styles">Last Name</label>
-                        <input name="lastName" id="lastName" type="text" class="form-control"
+                        <input name="lastName" id="lastName" type="text" class="form-control" autocomplete="off"
                             placeholder="Enter last name" pattern="^[A-Za-z][A-Za-z0-9\s.,-]*$" required>
                         <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
                     <div class="form-group">
                         <label for="username" class="label-styles">Username</label>
-                        <input name="username" id="username" type="text" class="form-control"
+                        <input name="username" id="username" type="text" class="form-control" autocomplete="off"
                             placeholder="Enter username" pattern="^[0-9a-z]*" minlength="5" maxlength="18" required>
                         <div id="username_feedback" class="invalid-feedback">Please fill out this field.</div>
                     </div>
                     <div class="form-group">
                         <label for="email" class="label-styles">Email</label>
-                        <input name="email" id="email" type="text" class="form-control" placeholder="Enter email"
+                        <input name="email" id="email" type="text" class="form-control" autocomplete="off" placeholder="Enter email"
                             pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
                             title="Follow the format. Example: email@email.com" required>
                         <div id="email_feedback" class="invalid-feedback">Please fill out this field.</div>

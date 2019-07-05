@@ -184,20 +184,20 @@
                                                     <div class="form-group">
                                                         <label for="projectName" class="label-styles">Project
                                                             Name</label>
-                                                        <input type="text" class="form-control" value="<?php echo $rowedit[0]?>" name="newProjectName" placeholder="Enter new project name" title="Input letters" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
+                                                        <input type="text" class="form-control" value="<?php echo $rowedit[0]?>" autocomplete="off" name="newProjectName" placeholder="Enter new project name" title="Input letters" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="address" class="label-styles">Address:</label>
-                                                        <input type="text" class="form-control" value="<?php echo $rowedit[1]?>" name="newAddress" placeholder="Enter new project address" title="Input letters and numbers only" pattern="^[#A-Za-z0-9]+[A-Za-z\s.,_&()<>';:-]*$" required>
+                                                        <input type="text" class="form-control" value="<?php echo $rowedit[1]?>" autocomplete="off" name="newAddress" placeholder="Enter new project address" title="Input letters and numbers only" pattern="^[#A-Za-z0-9]+[A-Za-z0-9\s.,_&()<>';:-]*$" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="startDate" class="label-styles">Start
                                                             Date:</label>
-                                                        <input type="date" value="<?php echo $rowedit[2]?>" name="newStartDate"  id="startDate" class="form-control start-date" onkeydown="return false" onchange="startDateEnable()" required>
+                                                        <input type="date" value="<?php echo $rowedit[2]?>" name="newStartDate" id="startDate" class="form-control start-date" onkeydown="return false" onchange="startDateEnable()" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="endDate" class="label-styles">End Date:</label>
-                                                        <input type="date" value="<?php echo $rowedit[3]?>" name="newEndDate" id="endDate" class="form-control end-date" min="$('#startDate').val()" onkeydown="return false" disabled required>
+                                                        <input type="date" value="<?php echo $rowedit[3]?>" name="newEndDate" id="endDate" class="form-control end-date" min="$('#startDate').val()" onkeydown="return false" disable required>
                                                     </div>
                                                     <?php
                                                             }   
@@ -441,14 +441,25 @@
             $('#sidebar').toggleClass('active');
         });
 
+        
+        var date = $("#startDate").val();
+        var dtToday = new Date(date);
+
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+
+        var start = year + '-' + month + '-' + day;
+        $('#endDate').attr('min', start);
+
     });
 
     function startDateEnable() {
-        if (document.getElementById("startDate").value === "") {
-            document.getElementById('endDate').disabled = true;
-        } else {
-            document.getElementById('endDate').disabled = false;
-        }
+       
         var date = $("#startDate").val();
         var dtToday = new Date(date);
 
