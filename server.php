@@ -1004,7 +1004,7 @@ if (isset($_POST['edit_project'])) {
             $stmt->execute();
             $stmt->close();
         }
-        // header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
+        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
 
     if (isset($_POST['create_requisitionSlip'])) {
