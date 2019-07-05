@@ -119,11 +119,11 @@
             $accountsStatus = "active";
             $stmt->execute();
             try {
-                $mail->addAddress($email, $firstname.' '.$lastname);                
+                $mail->addAddress($email, $firstName.' '.$lastName);                
                 $mail->isHTML(true);                                  
                 $mail->Subject = 'Welcome to your NGCBDC Inventory System Account!';
                 $mail->Body    = 'Your account has been created. <br /> Please change your password after logging in. <br /> <br /> Username: <b>'.$username.'</b> <br /> Password: <b>'.$generated_password.'</b>';
-                // $mail->send();
+                $mail->send();
                 // $from = "ngcbdc.inventory.system@gmail.com";
                 // $to = $email;
                 // $subject = "Welcome to your NGCBDC Inventory System Account!";
@@ -140,7 +140,7 @@
             $stmt->close();
             $_SESSION['create_success'] = true;
         }
-        header("location: http://localhost/ngcbdcrepo/Admin/accountcreation.php");  
+        // header("location: http://localhost/ngcbdcrepo/Admin/accountcreation.php");  
     }
 
 // <--Admin-->
@@ -574,9 +574,9 @@ if (isset($_POST['edit_project'])) {
     }
 
     if (isset($_POST['reconciliation_reconcile'])) {
-        $difference = strip_tags($_POST['difference']);
-        $matinfo_id = strip_tags($_POST['matinfo_id']);
-        $systemCount = strip_tags($_POST['system_Count']);
+        $difference = $_POST['difference'];
+        $matinfo_id = $_POST['matinfo_id'];
+        $systemCount = $_POST['system_Count'];
         session_start();
         $projects_id = $_SESSION['projects_id'];
 
