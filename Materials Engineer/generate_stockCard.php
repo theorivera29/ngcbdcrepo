@@ -43,7 +43,17 @@
     $pdf->Ln();
     $pdf->SetFont('Times','',14);
 
-    $sql_item = "SELECT materials.mat_name FROM materials INNER JOIN matinfo on matinfo.matinfo_matname = materials.mat_id WHERE matinfo.matinfo_id = $matinfo_id;";
+    $sql_item = "SELECT 
+                    materials.mat_name, 
+                    brands.brands_name 
+                FROM 
+                    materials 
+                INNER JOIN 
+                    matinfo on matinfo.matinfo_matname = materials.mat_id 
+                INNER JOIN 
+                    brands on brands.brands_id = materials.mat_brand
+                WHERE 
+                    matinfo.matinfo_id = $matinfo_id;";
     $result_item = mysqli_query($conn, $sql_item);
     $row_item = mysqli_fetch_row($result_item);
 
@@ -57,6 +67,8 @@
     $pdf->Ln();
     $pdf->SetXY($pdf->GetX()+8.3,$pdf->GetY()+2);
     $pdf->Cell(15,6,"BRAND:",0,1,'C',true);
+    $pdf->SetXY($pdf->GetX()+45,$pdf->GetY()-6);
+    $pdf->Cell(15,6,strtoupper($row_item[1]),0,1,'C',true);
     $pdf->SetX($pdf->GetX()+32);
     $pdf->Cell(55,0," ",1,0,'C',true);
     $pdf->Ln();
@@ -268,6 +280,6 @@
     $pdf->Cell(61,10,'Checked by: ',0,0,'L',true);
     $pdf->Cell(53,10,'Noted by: ',0,0,'L',true);
 
-    //OUTPUT TO PDF
+    // OUTPUT TO PDF
     $pdf->Output('D', "MATERIAL STOCKCARD OF ".strtoupper($row_item[0]).".pdf");
 ?>
