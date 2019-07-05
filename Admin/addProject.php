@@ -102,15 +102,15 @@
         <form action="../server.php" method="POST" class="needs-validation" novalidate>
             <div class="form-group">
                 <label for="projectName" class="label-styles">PROJECT NAME:</label>
-                <input name="projectName" id="projectName" type="text" class="form-control"
+                <input name="projectName" id="projectName" type="text" class="form-control" autocomplete="off"
                     placeholder="Enter project name" title="Input letters"
                     pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
                 <div class="invalid-feedback">Please fill out this field.</div>
             </div>
             <div class="form-group">
                 <label for="address" class="label-styles">ADDRESS:</label>
-                <input name="address" id="address" type="text" class="form-control" placeholder="Enter project address"
-                    title="Input letters and numbers only" pattern="^[#A-Za-z0-9]+[A-Za-z\s.,_&()<>';:-]*$" required>
+                <input name="address" id="address" type="text" class="form-control" placeholder="Enter project address" autocomplete="off"
+                    title="Input letters and numbers only" pattern="^[#A-Za-z0-9]+[A-Za-z0-9\s.,_&()<>';:-]*$" required>
                 <div class="invalid-feedback">Please fill out this field.</div>
             </div>
             <div class="form-group row">
