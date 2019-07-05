@@ -295,10 +295,10 @@
 
         $projectName = mysqli_real_escape_string($conn, $_POST['projectName']);
         $projects_id = mysqli_real_escape_string($conn, $_POST['projects_id']);
-        // $stmt = $conn->prepare("UPDATE projects set projects_status = 'closed' WHERE projects_id = ?;");
-        // $stmt->bind_param("i", $projects_id);
-        // $stmt->execute();
-        // $stmt->fetch();
+        $stmt = $conn->prepare("UPDATE projects set projects_status = 'closed' WHERE projects_id = ?;");
+        $stmt->bind_param("i", $projects_id);
+        $stmt->execute();
+        $stmt->fetch();
         $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?,?,?);");
         $close_date = date("Y-m-d G:i:s");
         $logs_message = 'Closed Project: '.$projectName;
