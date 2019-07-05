@@ -1093,7 +1093,7 @@ if (isset($_POST['edit_project'])) {
     if (isset($_POST['create_hauling'])) {
         $formNo = strip_tags(mysqli_real_escape_string($conn, $_POST['formNo']));
         $date = strip_tags(mysqli_real_escape_string($conn, $_POST['date']));
-        $deliverTo = strip_tags(mysqli_real_escape_string($conn, $_POST['delverTo']));
+        $deliverTo = strip_tags(mysqli_real_escape_string($conn, $_POST['deliverTo']));
         $hauledFrom = strip_tags(mysqli_real_escape_string($conn, $_POST['projectName']));
         $requestedBy = strip_tags(mysqli_real_escape_string($conn, $_POST['requestedBy']));
         $hauledBy = strip_tags(mysqli_real_escape_string($conn, $_POST['hauledBy']));
