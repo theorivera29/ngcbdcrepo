@@ -248,13 +248,13 @@
                                             if ($row_recon[1] != null) {
                                                 ?>
                                                 <form name="difference_column<?php echo $row[2] ;?>" method="POST">
-                                                    <input type="number" class="form-control" pattern="[0-9]*" min="0" id="nameValidation<?php echo $row[2] ;?>"  onchange="difference<?php echo $row[2] ;?>()" value="<?php echo $row_recon[1] ;?>">
+                                                    <input type="number" class="form-control" autocomplete="off" pattern="[0-9]*" min="0" id="nameValidation<?php echo $row[2] ;?>"  onchange="difference<?php echo $row[2] ;?>()" value="<?php echo $row_recon[1] ;?>">
                                                 </form>
                                                 <?php
                                             } else {
                                                 ?>
                                                 <form name="difference_column<?php echo $row[2] ;?>" method="POST">
-                                                    <input type="number" class="form-control" pattern="[0-9]*" min="0" id="nameValidation<?php echo $row[2] ;?>"  onchange="difference<?php echo $row[2] ;?>()">
+                                                    <input type="number" class="form-control" autocomplete="off" pattern="[0-9]*" min="0" id="nameValidation<?php echo $row[2] ;?>"  onchange="difference<?php echo $row[2] ;?>()">
                                                 </form>
                                                 <?php
                                             }

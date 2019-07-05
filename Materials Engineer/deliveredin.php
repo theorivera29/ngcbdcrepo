@@ -146,7 +146,7 @@
                         <div class="col-lg-12">
                             <label class="col-lg-12 col-form-label">Date:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="date" name="deliveredDate" id="date" required>
+                                <input class="form-control" type="date" name="deliveredDate" min="2015-01-01" id="date" required>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>

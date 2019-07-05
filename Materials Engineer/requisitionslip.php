@@ -135,7 +135,7 @@
                         <div class="col-lg-12">
                             <label class="col-lg-12 col-form-label">Date:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="date" name="date" id="date" required>
+                                <input class="form-control" type="date" name="date" id="date" min="2015-01-01" required>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                         <div class="col-lg-12">
                             <label class="col-lg-12 col-form-label">Material Requisition No.:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="text" name="reqNo" id="reqNo" onkeyup="reqNovalidation()" pattern="^[A-Za-z0-9][A-Za-z0-9\s.,-]*$" required>
+                                <input class="form-control" type="text" name="reqNo" autocomplete="off" id="reqNo" onkeyup="reqNovalidation()" pattern="^[A-Za-z0-9][A-Za-z0-9\s.,-]*$" required>
                                 <div id="res" class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
@@ -189,7 +189,7 @@
 
                         <label class="col-lg-2 col-form-label">Remarks:</label>
                         <div class="col-lg-9">
-                            <input class="form-control" type="text" name="remarks" id="remarks" pattern="^[A-Za-z0-9][A-Za-z0-9\s.,-]*$"  required>
+                            <input class="form-control" type="text" autocomplete="off" name="remarks" id="remarks" pattern="^[A-Za-z0-9][A-Za-z0-9\s.,-]*$"  required>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                     </div>
@@ -207,7 +207,7 @@
                             <tbody id="requisitionTable">
 
                                 <tr>
-                                    <td><input class="form-control" name="quantity[]" min="0" type="number" id="quantity" placeholder="Quantity" required>
+                                    <td><input class="form-control" name="quantity[]" min="0" autocomplete="off" type="number" id="quantity" placeholder="Quantity" required>
                                         <div class="invalid-feedback">Invalid quantity.</div>
                                     </td>
                                     <td>
@@ -217,7 +217,7 @@
                                         <input type="hidden" name="particulars[]" id="hiddenparticulars">
                                     </td>
                                     <td><input type="text" class="form-control" type="text" name="units[]" id="units" disabled><input type="hidden" class="form-control" name="unit[]" id="unit"></td>
-                                    <td><input class="form-control" name="location[]" type="text" id="location1" placeholder="Location" pattern="^[A-Za-z0-9][A-Za-z0-9\s.,-]*$"  required>
+                                    <td><input class="form-control" name="location[]" autocomplete="off" type="text" id="location1" placeholder="Location" pattern="^[A-Za-z0-9][A-Za-z0-9\s.,-]*$"  required>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </td>
                                     <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Delete" /></td>
@@ -237,14 +237,14 @@
                         <div class="form-group col-lg-6">
                             <label class="col-lg-12 col-form-label">Requested by:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="text" name="requestedBy" id="requestedBy" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
+                                <input class="form-control" type="text" name="requestedBy" autocomplete="off" id="requestedBy" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>
                         <div class="form-group col-lg-6">
                             <label class="col-lg-12 col-form-label">Approved by:</label>
                             <div class="col-lg-12">
-                                <input class="form-control" type="text" name="approvedBy" id="approvedBy" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
+                                <input class="form-control" type="text" name="approvedBy" id="approvedBy" autocomplete="off" pattern="^[A-Za-z][A-Za-z\s.,-]*$" required>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
                         </div>

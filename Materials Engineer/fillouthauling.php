@@ -148,7 +148,7 @@
                                             <div class=" col-lg-12">
                                                 <label class="col-lg-12 col-form-label">Form No.:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="text" name="formNo" id="formNo" onkeyup="formNovalidation()" pattern="[0-9]*" title="Input numbers" required>
+                                                    <input class="form-control" type="text" name="formNo" id="formNo" autocomplete="off" onkeyup="formNovalidation()" pattern="[0-9]*" title="Input numbers" required>
                                                     <div id="res" class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                             </div>
@@ -157,7 +157,7 @@
                                             <div class="col-lg-12">
                                                 <label class="col-lg-12 col-form-label">Date:</label>
                                                 <div class="col-lg-12">
-                                                    <input class="form-control" type="date" name="date" id="date" required>
+                                                    <input class="form-control" type="date" name="date" id="date" min="2015-01-01" required>
                                                     <div class="invalid-feedback">Please fill out this field.</div>
                                                 </div>
                                             </div>
@@ -289,26 +289,26 @@
                                                     <div class="card-body form-group row col-lg-12">
                                                         <label class="col-lg-4 col-form-label">Type:</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="text" name="type" id="type" title="Input letters" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
+                                                            <input class="form-control" type="text" name="type" id="type" title="Input letters" autocomplete="off" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
                                                             <div class="invalid-feedback">Please fill out this field.
                                                             </div>
 
                                                         </div>
                                                         <label class="col-lg-4 col-form-label">Plate #:</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="text" name="plateNo" id="plateNo" title="Input letters and numbers" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
+                                                            <input class="form-control" type="text" name="plateNo" id="plateNo" title="Input letters and numbers" autocomplete="off" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
                                                             <div class="invalid-feedback">Please fill out this field.
                                                             </div>
                                                         </div>
                                                         <label class="col-lg-4 col-form-label">P.O./R.S. #:</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="text" name="PORS" id="PORS" title="Input letters and numbers" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
+                                                            <input class="form-control" type="text" name="PORS" id="PORS" title="Input letters and numbers" autocomplete="off" pattern="^[A-Za-z-0-9][A-Za-z0-9\s.,-]*$" required>
                                                             <div class="invalid-feedback">Please fill out this field.
                                                             </div>
                                                         </div>
                                                         <label class="col-lg-4 col-form-label">Hauler ID:</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="text" name="haulerID" id="haulerID" pattern="[0-9]*" title="Input numbers" required>
+                                                            <input class="form-control" type="text" name="haulerID" id="haulerID" pattern="[0-9]*" autocomplete="off" title="Input numbers" required>
                                                             <div class="invalid-feedback">Please fill out this field.
                                                             </div>
                                                         </div>
