@@ -361,7 +361,6 @@
     }
 
     if (isset($_POST['create_project'])) {
-        echo "as";
         $projectName = strip_tags(mysqli_real_escape_string($conn, $_POST['projectName']));
         $address = strip_tags(mysqli_real_escape_string($conn, $_POST['address']));
         $startDate = strip_tags(mysqli_real_escape_string($conn, $_POST['startDate']));
@@ -373,41 +372,53 @@
         $stmt->bind_param("sssss", $projectName, $address, $startDate, $endDate, $projectStatus);
         $stmt->execute();
         
-       $stmt = $conn->prepare("SELECT projects_id FROM projects WHERE projects_name = ? AND projects_address = ?;");
+        $stmt = $conn->prepare("SELECT projects_id FROM projects WHERE projects_name = ? AND projects_address = ?;");
         $stmt->bind_param("ss", $projectName, $address);
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($projects_id);
         $stmt->fetch();
+
+        echo $projects_id;
     
         for($x = 0; $x < sizeof($mateng); $x++){
-            $stmt = $conn->prepare("INSERT INTO projmateng (projmateng_project, projmateng_mateng) VALUES (?, ?);");
-            $stmt->bind_param("ii", $projects_id, $mateng[$x]);
-            $stmt->execute();
-            $stmt->close();
-
-            $stmt = $conn->prepare("SELECT CONCAT(accounts_fname, ' ', accounts_lname) FROM accounts WHERE accounts_id = ?;");
-            $stmt->bind_param("i", $mateng[$x]);
+            $stmt = $conn->prepare("SELECT COUNT(projmateng_mateng) FROM projmateng WHERE projmateng_mateng = ? AND projmateng_project = ?;");
+            $stmt->bind_param("ii", $mateng[$x], $projects_id);
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($accounts_name);
-            $stmt->fetch();
-            $stmt->close();
-            
-            $stmt = $conn->prepare("SELECT projects_name FROM projects WHERE projects_id = ?;");
-            $stmt->bind_param("i", $projects_id);
-            $stmt->execute();
-            $stmt->store_result();
-            $stmt->bind_result($projects_name);
+            $stmt->bind_result($count_proj);
             $stmt->fetch();
             $stmt->close();
 
-            $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
-            $stmt->bind_param("ssi", $edit_project_date, $logs_message, $logs_of);
-            $logs_message = 'Added User ID '.$accounts_name.' to Project '.$projects_name;
-            $logs_of = 2;
-            $stmt->execute();
-            $stmt->close();
+            if ($count_proj == 0) {
+                $stmt = $conn->prepare("INSERT INTO projmateng (projmateng_project, projmateng_mateng) VALUES (?, ?);");
+                $stmt->bind_param("ii", $projects_id, $mateng[$x]);
+                $stmt->execute();
+                $stmt->close();
+
+                $stmt = $conn->prepare("SELECT CONCAT(accounts_fname, ' ', accounts_lname) FROM accounts WHERE accounts_id = ?;");
+                $stmt->bind_param("i", $mateng[$x]);
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->bind_result($accounts_name);
+                $stmt->fetch();
+                $stmt->close();
+                
+                $stmt = $conn->prepare("SELECT projects_name FROM projects WHERE projects_id = ?;");
+                $stmt->bind_param("i", $projects_id);
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->bind_result($projects_name);
+                $stmt->fetch();
+                $stmt->close();
+
+                $stmt = $conn->prepare("INSERT INTO logs (logs_datetime, logs_activity, logs_logsOf) VALUES (?, ?, ?);");
+                $stmt->bind_param("ssi", $edit_project_date, $logs_message, $logs_of);
+                $logs_message = 'Added User ID '.$accounts_name.' to Project '.$projects_name;
+                $logs_of = 2;
+                $stmt->execute();
+                $stmt->close();
+            }
         }
 
         $stmt = $conn->prepare("INSERT INTO projmateng (projmateng_project, projmateng_mateng) VALUES (?, ?);");
@@ -423,7 +434,7 @@
         $stmt->bind_param("ssi", $create_proj_date, $logs_message, $logs_of);
         $stmt->execute();
         $stmt->close();
-        header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");  
+        // header("Location:http://localhost/ngcbdcrepo/Admin/projects.php");  
     }
 
 if (isset($_POST['edit_project'])) {
