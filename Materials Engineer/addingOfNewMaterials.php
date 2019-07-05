@@ -392,7 +392,7 @@
                                     </thead>
                                     <tbody id="add-brand-table">
                                         <tr>
-                                            <td><input class="form-control brand" onkeyup="brandVal(this)" autocomplete="off" name="brand[]" type="text" id="brand" placeholder="Brand" required>
+                                            <td><input class="form-control brand" onkeyup="brandVal(this)" autocomplete="off" name="brand[]" type="text" id="brand" placeholder="Brand" pattern="^[A-Za-z][A-Za-z0-9\s.\'\]*$" required>
                                                 <div class="invalid-feedback">Please fill out this field.</div>
                                             </td>
                                             <td><input type="button" class="btn btn-sm btn-outline-secondary delete-row" value="Remove" /></td>
