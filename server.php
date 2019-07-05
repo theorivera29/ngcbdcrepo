@@ -978,9 +978,15 @@ if (isset($_POST['edit_project'])) {
             $stmt->store_result();
             $stmt->bind_result($brands_id[$x]);
             $stmt->fetch();
+
             $stmt = $conn->prepare("INSERT INTO materials (mat_name, mat_categ, mat_unit, mat_brand)VALUES (?, ?, ?, ?);");
             $stmt->bind_param("siii", $stripMat[$x], $categ_id[$x], $unit_id[$x], $brands_id[$x]);
-            $stmt->execute();
+            $s = $stmt->execute();
+            if ($s === true) {
+                echo "Okay";
+            } else {
+                echo $stmt->error;
+            }
             $stmt->close();
             
             $stmt = $conn->prepare("SELECT mat_id FROM materials WHERE mat_name = ?;");
@@ -998,7 +1004,7 @@ if (isset($_POST['edit_project'])) {
             $stmt->execute();
             $stmt->close();
         }
-        header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
+        // header("Location:http://localhost/ngcbdcrepo/Materials%20Engineer/addingOfNewMaterials.php");     
     }
 
     if (isset($_POST['create_requisitionSlip'])) {
