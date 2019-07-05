@@ -647,7 +647,9 @@
                                                     INNER JOIN
                                                         unit ON materials.mat_unit = unit.unit_id
                                                     INNER JOIN
-                                                        brands ON brands.brands_id = mat_brand";
+														matinfo ON materials.mat_id = matinfo.matinfo_matname
+                                                    INNER JOIN
+                                                        brands ON brands.brands_id = matinfo_brand;";
                                             $result = mysqli_query($conn, $sql);
                                             while($row = mysqli_fetch_row($result)){
                                         ?>
