@@ -150,7 +150,11 @@
                         hauling_status 
                         FROM  hauling  
                         INNER JOIN 
-                            projects ON projects.projects_id = hauling.hauling_hauledFrom;";
+                            projects ON projects.projects_id = hauling.hauling_hauledFrom
+						INNER JOIN 
+							projmateng ON projects.projects_id = projmateng.projmateng_project
+						WHERE 
+							projmateng.projmateng_mateng = $accounts_id;";
                         $result = mysqli_query($conn, $sql);
                         while($row = mysqli_fetch_array($result)) {
                     ?>
